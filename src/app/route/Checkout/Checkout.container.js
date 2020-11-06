@@ -159,7 +159,8 @@ export class CheckoutContainer extends PureComponent {
             shippingMethods: [],
             shippingAddress: {},
             checkoutStep: is_virtual ? BILLING_STEP : SHIPPING_STEP,
-            orderID: '',
+            orderID: 0,
+            order_number: '',
             paymentTotals: BrowserDatabase.getItem(PAYMENT_TOTALS) || {},
             email: '',
             isGuestEmailSaved: false,
@@ -282,7 +283,7 @@ export class CheckoutContainer extends PureComponent {
         history.goBack();
     }
 
-    setDetailsStep(orderID) {
+    setDetailsStep(orderID, order_number) {
         const { resetCart, setNavigationState } = this.props;
 
         // For some reason not logged in user cart preserves qty in it
@@ -297,7 +298,8 @@ export class CheckoutContainer extends PureComponent {
             isLoading: false,
             paymentTotals: {},
             checkoutStep: DETAILS_STEP,
-            orderID
+            orderID,
+            order_number
         });
 
         setNavigationState({
@@ -583,9 +585,9 @@ export class CheckoutContainer extends PureComponent {
             }));
 
             const orderData = await fetchMutation(CheckoutQuery.getPlaceOrderMutation(guest_cart_id));
-            const { placeOrder: { order: { order_id } } } = orderData;
+            const { placeOrder: { order: { order_id, order_number } } } = orderData;
 
-            this.setDetailsStep(order_id);
+            this.setDetailsStep(order_id, order_number);
         } catch (e) {
             this._handleError(e);
         }

@@ -19,7 +19,7 @@ import './CheckoutSuccess.style';
 /** @namespace Component/CheckoutSuccess/Component */
 export class CheckoutSuccess extends PureComponent {
     static propTypes = {
-        orderID: PropTypes.string.isRequired
+        order_number: PropTypes.string.isRequired
     };
 
     renderButtons() {
@@ -37,11 +37,11 @@ export class CheckoutSuccess extends PureComponent {
     }
 
     render() {
-        const { orderID } = this.props;
+        const { order_number } = this.props;
 
         return (
             <div block="CheckoutSuccess">
-                <h3>{ __('Your order # is: %s', orderID) }</h3>
+                <h3>{ __('Your order # is: %s', order_number) }</h3>
                 <p>{ __('We`ll email you an order confirmation with details and tracking info.') }</p>
                 { this.renderButtons() }
             </div>

@@ -53,7 +53,9 @@ export class Checkout extends PureComponent {
         isDeliveryOptionsLoading: PropTypes.bool.isRequired,
         shippingAddress: addressType.isRequired,
         checkoutTotals: TotalsType.isRequired,
-        orderID: PropTypes.string.isRequired,
+        // eslint-disable-next-line react/no-unused-prop-types
+        orderID: PropTypes.number.isRequired,
+        order_number: PropTypes.string.isRequired,
         history: HistoryType.isRequired,
         onEmailChange: PropTypes.func.isRequired,
         paymentTotals: TotalsType,
@@ -216,11 +218,11 @@ export class Checkout extends PureComponent {
     }
 
     renderDetailsStep() {
-        const { orderID } = this.props;
+        const { order_number } = this.props;
 
         return (
             <CheckoutSuccess
-              orderID={ orderID }
+              order_number={ order_number }
             />
         );
     }
