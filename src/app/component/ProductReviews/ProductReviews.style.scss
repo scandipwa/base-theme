@@ -63,6 +63,7 @@
         top: 0;
         bottom: 0;
         height: max-content;
+        max-height: 4.1rem;
         margin: auto;
 
         @include before-desktop {
