@@ -78,10 +78,8 @@ export class SliderWidget extends PureComponent {
 
     updateImageToShow() {
         const { activeSlide } = this.state;
-        const { slider: { slides: { length } } } = this.props;
 
-        const toShow = activeSlide >= length - 1 ? 0 : activeSlide + 1;
-        this.setState({ activeSlide: toShow });
+        this.setState({ activeSlide: activeSlide + 1 });
     }
 
     getSlideImage(slide) {

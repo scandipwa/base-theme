@@ -24,7 +24,6 @@
     --height-transition-speed: 0;
 
     max-width: 100%;
-    max-height: var(--slider-height);
 
     overflow: hidden;
     touch-action: pan-y;
@@ -65,14 +64,7 @@
         &_isVertical {
             flex-direction: column;
             width: 100%;
-            max-height: var(--slide-height);
-
-            @include mobile {
-                margin-top: calc(var(--slider-height) * .1);
-                margin-bottom: calc(var(--slider-height) * .1);
-                height: calc(var(--slider-height) * .8);
-                overflow: visible;
-            }
+            max-height: var(--slider-height);
         }
 
         &_isInfinite {
