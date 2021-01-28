@@ -1,0 +1,43 @@
+
+.ProductAddToCard {
+    &-AddToCart {
+        @include before-desktop {
+            flex-grow: 1;
+        }
+    }
+    &-AddToCartWrapper {
+        order: -2;
+        margin-top: .6rem;
+
+        @include before-desktop {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            z-index: 85;
+            bottom: var(--navigation-tabs-height);
+            left: 0;
+            width: 100%;
+            background: var(--header-background);
+            padding: 1.2rem;
+        }
+
+        @include mobile {
+            margin-top: .7rem;
+            padding: 1.4rem;
+            position: fixed;
+            z-index: 100;
+        }
+
+        @include desktop {
+            order: 22;
+            margin-right: 1.2rem;
+        }
+
+        .ProductQuantityControl {
+            @include mobile {
+                display: none;
+            }
+        }
+    }
+}

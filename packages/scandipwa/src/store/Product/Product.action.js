@@ -11,6 +11,8 @@
 
 export const UPDATE_PRODUCT_DETAILS = 'UPDATE_PRODUCT_DETAILS';
 
+export const UPDATE_PRODUCT_QUANTITY = 'UPDATE_PRODUCT_QUANTITY';
+
 /**
  * Update product list with new list (rewrite if already exists).
  * @param  {Array<Object>} items List of products returned from fetch
@@ -21,4 +23,9 @@ export const UPDATE_PRODUCT_DETAILS = 'UPDATE_PRODUCT_DETAILS';
 export const updateProductDetails = (product) => ({
     type: UPDATE_PRODUCT_DETAILS,
     product
+});
+
+export const updateProductQuantity = (quantity) => ({
+    type: UPDATE_PRODUCT_QUANTITY,
+    quantity
 });

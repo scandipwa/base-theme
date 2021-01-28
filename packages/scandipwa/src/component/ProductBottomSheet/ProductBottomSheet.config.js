@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /**
  * ScandiPWA - Progressive Web App for Magento
  *
@@ -8,8 +9,8 @@
  * @package scandipwa/base-theme
  * @link https://github.com/scandipwa/base-theme
  */
-export const BEFORE_ITEMS_TYPE = 'BEFORE_ITEMS_TYPE';
-export const SWITCH_ITEMS_TYPE = 'SWITCH_ITEMS_TYPE';
-export const AFTER_ITEMS_TYPE = 'AFTER_ITEMS_TYPE';
 
-export const MOBILE_HEIGHT_MODIFIER = 0.01;
+export const BOTTOM_SHEET_HEIGHT = 150;
+export const BOTTOM_SHEET_BOTTOM_MARGIN = 75;
+export const BOTTOM_SHEET_BORDER_RADIUS = 10;
+export const BOTTOM_SHEET_OVERFLOW_HEIGHT = 190;

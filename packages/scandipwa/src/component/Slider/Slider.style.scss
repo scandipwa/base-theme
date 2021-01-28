@@ -64,6 +64,16 @@
         @include mobile {
             bottom: 1.4rem;
         }
+
+        &_isVertical {
+            width: auto;
+            height: auto;
+            top: calc(var(--vh, 1vh) * 50 - 90px);
+            bottom: auto;
+            right: 1rem;
+            align-items: center;
+            grid-template-columns: auto;
+        }
     }
 
     &-Crumb {

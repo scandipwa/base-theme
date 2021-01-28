@@ -376,7 +376,7 @@ export class Slider extends PureComponent {
     }
 
     renderCrumbs() {
-        const { children } = this.props;
+        const { children, isVertical } = this.props;
         if (children.length <= 1) {
             return null;
         }
@@ -385,6 +385,7 @@ export class Slider extends PureComponent {
             <div
               block="Slider"
               elem="Crumbs"
+              mods={ { isVertical } }
             >
                 { Children.map(children, this.renderCrumb) }
             </div>

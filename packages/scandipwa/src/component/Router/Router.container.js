@@ -22,6 +22,7 @@ import {
 } from 'Util/Mobile';
 
 import Router from './Router.component';
+import { MOBILE_HEIGHT_MODIFIER } from './Router.config';
 
 export const CartDispatcher = import(
     /* webpackMode: "lazy", webpackChunkName: "dispatchers" */
@@ -193,6 +194,10 @@ export class RouterContainer extends PureComponent {
                 windows: isMobile.windows()
             });
         }
+
+        // We execute the same script as before
+        const vh = window.innerHeight * MOBILE_HEIGHT_MODIFIER;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
 
     containerProps = () => {

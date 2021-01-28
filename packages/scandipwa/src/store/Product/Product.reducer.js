@@ -10,7 +10,7 @@
  */
 import { getIndexedProduct } from 'Util/Product';
 
-import { UPDATE_PRODUCT_DETAILS } from './Product.action';
+import { UPDATE_PRODUCT_DETAILS, UPDATE_PRODUCT_QUANTITY } from './Product.action';
 
 /** @namespace Store/Product/Reducer/getInitialState */
 export const getInitialState = () => ({
@@ -48,6 +48,13 @@ export const ProductReducer = (
         return {
             ...state,
             product: getIndexedProduct(product)
+        };
+    case UPDATE_PRODUCT_QUANTITY:
+        const { quantity } = action;
+
+        return {
+            ...state,
+            quantity
         };
 
     default:

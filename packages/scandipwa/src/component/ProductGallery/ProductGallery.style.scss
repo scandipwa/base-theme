@@ -50,7 +50,7 @@
         height: var(--slider-height);
 
         @include mobile {
-            min-height: 420px;
+            min-height: 330px;
         }
 
         &::after {

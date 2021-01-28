@@ -9,6 +9,12 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
+.overscrollDisabled {
+    overscroll-behavior: none;
+    position: fixed;
+    overflow: hidden;
+}
+
 .ProductPage {
     @include after-mobile {
         padding-top: 1.2rem;
@@ -20,7 +26,22 @@
     }
 
     @include mobile {
-        padding-bottom: 75px;
+        min-height: 0;
+        margin-top: -50px;
+        margin-bottom: 0;
+    }
+
+    > section {
+        @include mobile {
+            width: 100vw;
+        }
+    }
+
+
+    &-BottomPlaceholder {
+        @include desktop {
+            height: 125px;
+        }
     }
 
     &-Wrapper {
@@ -37,7 +58,7 @@
 
         @include mobile {
             grid-template-columns: 100%;
-            padding: 0;
+            padding-top: 0;
         }
 
         > .RelatedProducts {
@@ -50,8 +71,13 @@
     }
 
     &-ProductCompareButtonWrapper {
-        position: absolute;
+        position: fixed;
         top: 0;
         right: 1.4rem;
+
+        @include mobile {
+            top: calc(50px + 1.4rem);
+            z-index: 99; // same index as mobile header
+        }
     }
 }

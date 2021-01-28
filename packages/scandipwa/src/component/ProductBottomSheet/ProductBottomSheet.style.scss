@@ -1,0 +1,124 @@
+/**
+ * ScandiPWA - Progressive Web App for Magento
+ *
+ * Copyright © Scandiweb, Inc. All rights reserved.
+ * See LICENSE for license details.
+ *
+ * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
+ * @package scandipwa/base-theme
+ * @link https://github.com/scandipwa/base-theme
+ */
+
+.ProductBottomSheet {
+    &-Wrapper {
+        min-height: calc(var(--vh, 1vh) * 100 - 123px);
+        padding-top: 12px;
+    }
+    &-Pill {
+        width: 50px;
+        height: 2px;
+        background: #968f8f;
+        border-radius: 30px;
+    }
+    &-PillWrapper {
+        position: fixed;
+        top: 0;
+        display: flex;
+        width: 100%;
+        height: 12px;
+        justify-content: center;
+        padding: 0.5rem;
+        z-index: 1;
+        .ReactSwipeableBottomSheet--open & {
+            display: none;
+        }
+    }
+
+    &-Title {
+        position: relative;
+        font-size: 25px;
+        line-height: 3rem;
+        font-weight: bold;
+        box-sizing: border-box;
+        color: black;
+        flex: 1;
+        padding: 0 1.5rem;
+        padding-top: 1rem;
+        margin: 0;
+        transition: height,max-height 0.5s ease-in-out;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+
+        .ReactSwipeableBottomSheet--open & {
+            overflow: auto;
+            text-overflow: initial;
+            display: block;
+        }
+    }
+
+    &-HeaderPlaceholder {
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+        background-color: transparent;
+        height: 50px;
+        top: 0;
+        opacity: 0;
+        margin-left: -14px;
+
+        &_isBottomSheetOpen {
+            background-color: white;
+            opacity: 1;
+            animation: bottomSheetFadeIn 0.35s linear;
+        }
+
+        &:not(&_isBottomSheetOpen) {
+            animation: bottomSheetFadeOut 0.35s linear;
+        }
+    }
+}
+
+@keyframes bottomSheetFadeIn {
+    0% {
+        opacity: 1;
+        height: 0px;
+        background-color: white;
+    }
+
+    100% {
+        opacity: 1;
+        height: 50px;
+    }
+}
+
+@keyframes bottomSheetFadeOut {
+    0% {
+        opacity: 1;
+        height: 50px;
+        background-color: white;
+    }
+
+    90% {
+        opacity: 1;
+        background-color: white;
+    }
+
+    100% {
+        opacity: 0;
+        height: 0px;
+    }
+}
+
+.react-swipeable-view-container {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.157) 0px -3px 6px !important;
+
+    // to enable clicks on top of react-swipeable wrapper
+    & > div:nth-child(2) {
+        z-index: -1;
+    }
+}

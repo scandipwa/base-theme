@@ -13,20 +13,24 @@ import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
+import { updateProductQuantity } from 'Store/Product/Product.action';
 import { ProductType } from 'Type/ProductList';
 import {
-    BUNDLE,
-    CONFIGURABLE,
-    GROUPED
+    BUNDLE
 } from 'Util/Product';
 
 import ProductActions from './ProductActions.component';
-import { DEFAULT_MAX_PRODUCTS } from './ProductActions.config';
 
 /** @namespace Component/ProductActions/Container/mapStateToProps */
 export const mapStateToProps = (state) => ({
     groupedProductQuantity: state.ProductReducer.groupedProductQuantity,
-    device: state.ConfigReducer.device
+    device: state.ConfigReducer.device,
+    quantity: state.ProductReducer.quantity
+});
+
+/** @namespace Component/ProductActions/Container/mapDispatchToProps */
+export const mapDispatchToProps = (dispatch) => ({
+    setQuantity: (quantity) => dispatch(updateProductQuantity(quantity))
 });
 
 /** @namespace Component/ProductActions/Container */
@@ -42,81 +46,17 @@ export class ProductActionsContainer extends PureComponent {
         getLink: PropTypes.func.isRequired
     };
 
-    static getMinQuantity(props) {
-        const {
-            product: { stock_item: { min_sale_qty } = {}, variants } = {},
-            configurableVariantIndex
-        } = props;
-
-        if (!min_sale_qty) {
-            return 1;
-        }
-        if (!configurableVariantIndex && !variants) {
-            return min_sale_qty;
-        }
-
-        const { stock_item: { min_sale_qty: minVariantQty } = {} } = variants[configurableVariantIndex] || {};
-
-        return minVariantQty || min_sale_qty;
-    }
-
-    static getMaxQuantity(props) {
-        const {
-            product: {
-                stock_item: {
-                    max_sale_qty
-                } = {},
-                variants
-            } = {},
-            configurableVariantIndex
-        } = props;
-
-        if (!max_sale_qty) {
-            return DEFAULT_MAX_PRODUCTS;
-        }
-
-        if (configurableVariantIndex === -1 || !Object.keys(variants).length) {
-            return max_sale_qty;
-        }
-
-        const {
-            stock_item: {
-                max_sale_qty: maxVariantQty
-            } = {}
-        } = variants[configurableVariantIndex] || {};
-
-        return maxVariantQty || max_sale_qty;
-    }
-
     state = {
-        quantity: 1,
         groupedProductQuantity: {}
     };
 
     containerFunctions = {
         showOnlyIfLoaded: this.showOnlyIfLoaded.bind(this),
-        onProductValidationError: this.onProductValidationError.bind(this),
         getIsOptionInCurrentVariant: this.getIsOptionInCurrentVariant.bind(this),
-        setQuantity: this.setQuantity.bind(this),
         setGroupedProductQuantity: this._setGroupedProductQuantity.bind(this),
         clearGroupedProductQuantity: this._clearGroupedProductQuantity.bind(this),
         getIsConfigurableAttributeAvailable: this.getIsConfigurableAttributeAvailable.bind(this)
     };
-
-    static getDerivedStateFromProps(props, state) {
-        const { quantity } = state;
-        const minQty = ProductActionsContainer.getMinQuantity(props);
-        const maxQty = ProductActionsContainer.getMaxQuantity(props);
-
-        if (quantity < minQty) {
-            return { quantity: minQty };
-        }
-        if (quantity > maxQty) {
-            return { quantity: maxQty };
-        }
-
-        return null;
-    }
 
     onConfigurableProductError = this.onProductError.bind(this, this.configurableOptionsRef);
 
@@ -137,23 +77,6 @@ export class ProductActionsContainer extends PureComponent {
         // eslint-disable-next-line no-unused-expressions
         current.offsetWidth; // trigger a DOM reflow
         current.classList.add('animate');
-    }
-
-    onProductValidationError(type) {
-        switch (type) {
-        case CONFIGURABLE:
-            this.onConfigurableProductError();
-            break;
-        case GROUPED:
-            this.onGroupedProductError();
-            break;
-        default:
-            break;
-        }
-    }
-
-    setQuantity(value) {
-        this.setState({ quantity: +value });
     }
 
     // TODO: make key=>value based
@@ -198,8 +121,6 @@ export class ProductActionsContainer extends PureComponent {
     }
 
     containerProps = () => ({
-        minQuantity: ProductActionsContainer.getMinQuantity(this.props),
-        maxQuantity: ProductActionsContainer.getMaxQuantity(this.props),
         groupedProductQuantity: this._getGroupedProductQuantity(),
         productPrice: this.getProductPrice(),
         productName: this.getProductName(),
@@ -353,9 +274,5 @@ export class ProductActionsContainer extends PureComponent {
         );
     }
 }
-
-/** @namespace Component/ProductActions/Container/mapDispatchToProps */
-// eslint-disable-next-line no-unused-vars
-export const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductActionsContainer);

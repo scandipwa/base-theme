@@ -23,6 +23,7 @@
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
         "react-stripe-elements": "^6.1.2",
+        "react-swipeable-bottom-sheet": "^1.1.2",
         "react-vimeo": "^2.0.0",
         "react-visibility-sensor": "^5.1.1",
         "react-youtube": "^7.11.2",

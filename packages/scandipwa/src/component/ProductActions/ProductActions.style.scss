@@ -109,7 +109,9 @@
 
     &-ShortDescription {
         @include mobile {
-            margin: 0 5px;
+            & div > p {
+                margin: 1rem 0;
+            }
         }
     }
 
@@ -141,11 +143,16 @@
         color: var(--secondary-dark-color);
         font-size: 1rem;
         margin-bottom: 0;
+
+        @include mobile {
+            margin-top: -1.5rem;
+        }
     }
 
     &-PriceWrapper {
         @include mobile {
-            padding: 2.1rem 0 2.1rem 1.4rem;
+            padding: 1.5rem 0 2.5rem 1.5rem;
+            min-height: 7rem;
         }
 
         @include after-mobile {
@@ -159,10 +166,21 @@
     }
 
     &-Price {
-        font-size: 2.5rem;
+        font-size: 25px;
         align-items: center;
         justify-content: center;
         padding: 0;
+    }
+
+    &-QuantityWrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 0 1.4rem;
+
+        @include desktop {
+            display: none;
+        }
     }
 
     &-Sku::after {
@@ -209,41 +227,6 @@
 
         .Field_type_number {
             max-width: 80px;
-        }
-    }
-
-    &-AddToCart {
-        @include before-desktop {
-            flex-grow: 1;
-        }
-    }
-
-    &-AddToCartWrapper {
-        order: -2;
-        margin-top: .6rem;
-
-        @include before-desktop {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            z-index: 85;
-            bottom: var(--navigation-tabs-height);
-            left: 0;
-            width: 100%;
-            background: var(--header-background);
-            border-top: 1px solid var(--primary-divider-color);
-            padding: 1.2rem;
-        }
-
-        @include mobile {
-            margin-top: .7rem;
-            padding: 1.4rem;
-        }
-
-        @include desktop {
-            order: 22;
-            margin-right: 1.2rem;
         }
     }
 
@@ -336,10 +319,11 @@
             &_short {
                 @include mobile {
                     border-top: 0;
-                    padding-top: 0;
-                    // padding-top: 0.7rem;
                     bottom: 0;
                     border-bottom: 1px solid var(--expandable-content-divider-color);
+                    background-color: var(--secondary-base-color, lightgrey);
+                    padding-bottom: 0;
+                    padding: 0 1.4rem;
                 }
 
                 @include after-mobile {
@@ -450,23 +434,6 @@
         }
     }
 
-    &-Qty {
-        order: 23;
-        margin-top: 0;
-        display: inline-block;
-        vertical-align: middle;
-
-        + .ProductActions-AddToCart {
-            @include desktop {
-                margin-left: 10px;
-            }
-        }
-
-        @include before-desktop {
-            display: none;
-        }
-    }
-
     &-TierPrices {
         order: 11;
         width: 100%;
@@ -474,7 +441,7 @@
         @include mobile {
             order: -1;
             padding: 0 1.4rem;
-            top: -1rem;
+            margin-bottom: 2rem;
         }
     }
 }

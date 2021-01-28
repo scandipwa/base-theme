@@ -1,0 +1,87 @@
+/**
+ * ScandiPWA - Progressive Web App for Magento
+ *
+ * Copyright © Scandiweb, Inc. All rights reserved.
+ * See LICENSE for license details.
+ *
+ * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
+ * @package scandipwa/base-theme
+ * @link https://github.com/scandipwa/base-theme
+ */
+
+.ProductQuantityControl {
+    order: 23;
+    margin-top: 0;
+    display: inline-block;
+    vertical-align: middle;
+
+    @include mobile {
+        order: inherit;
+    }
+
+    > .Field {
+        margin-top: 0;
+        display: flex;
+
+        @include mobile {
+            align-items: center;
+        }
+
+        input {
+            @include mobile {
+                top: 1px;
+                background: transparent;
+                border: 0;
+                color: var(--cart-item-actions-color);
+                height: 28px;
+                font-weight: 400;
+                text-align: center;
+                padding: 0;
+                order: 2;
+                width: 44px;
+                min-width: 44px;
+                font-size: 1.6rem;
+                width: 32px;
+                min-width: 28px;
+                min-height: 28px;
+                height: 28px;
+            }
+        }
+
+        button {
+            @include mobile {
+                position: relative;
+                border: 1px solid var(--secondary-dark-color);
+                width: 28px;
+                height: 28px;
+                top: 0;
+                color: var(--secondary-dark-color);
+                background: transparent;
+                width: 28px;
+                height: 28px;
+
+                &:first-of-type {
+                    left: 0;
+                    order: 3;
+                }
+
+                &:last-of-type {
+                    right: 0;
+                    order: 1;
+                }
+            }
+
+            span {
+                @include mobile {
+                    top: -2.2px;
+                }
+            }
+        }
+    }
+
+    + .ProductAddToCard-AddToCart {
+        @include desktop {
+            margin-left: 10px;
+        }
+    }
+}

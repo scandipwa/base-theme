@@ -307,13 +307,24 @@ export class ProductGallery extends PureComponent {
             isZoomEnabled,
             onActiveImageChange,
             isImageZoomPopupActive,
-            sliderRef
+            sliderRef,
+            isMobile
         } = this.props;
 
         const mods = {
             isImageZoomPopupActive,
             isZoomInCursor: !isImageZoomPopupActive
         };
+
+        // eslint-disable-next-line fp/no-let
+        let sliderHeight;
+        if (isImageZoomPopupActive) {
+            sliderHeight = '100%';
+        } else if (isMobile) {
+            sliderHeight = 'calc(100vh - 190px)';
+        } else {
+            sliderHeight = 0;
+        }
 
         return (
             <div
@@ -325,11 +336,12 @@ export class ProductGallery extends PureComponent {
                   sliderRef={ sliderRef }
                   mix={ { block: 'ProductGallery', elem: 'Slider', mods } }
                   showCrumbs
+                  isVertical={ isMobile }
                   activeImage={ activeImage }
                   onActiveImageChange={ onActiveImageChange }
                   isInteractionDisabled={ isZoomEnabled }
                   onClick={ this.handleSliderClick }
-                  sliderHeight={ isImageZoomPopupActive ? '100%' : 0 }
+                  sliderHeight={ sliderHeight }
                   isHeightTransitionDisabledOnMount
                 >
                     { gallery.map(this.renderSlide) }

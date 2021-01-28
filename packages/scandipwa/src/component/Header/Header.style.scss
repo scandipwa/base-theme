@@ -152,6 +152,12 @@
                 }
             }
         }
+        &_pdp {
+            @include mobile {
+                z-index: 101;
+                background-color: transparent;
+            }
+        }
     }
 
     &_isCheckout {
