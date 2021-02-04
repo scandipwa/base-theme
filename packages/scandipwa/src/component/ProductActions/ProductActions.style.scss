@@ -61,7 +61,7 @@
     &-Colors {
         grid-column-gap: 1.8rem;
         grid-template-columns: repeat(auto-fit, minmax(min-content, 0));
-        flex-basis: 100%;
+        flex-basis: auto;
         margin-bottom: 2.4rem;
 
         @include mobile {
@@ -250,7 +250,7 @@
     &-AdditionalButtons {
         order: 25;
         margin: 2.4rem 0 1.2rem;
-        flex-basis: 100%;
+        flex-basis: auto;
 
         @include mobile {
 
@@ -312,7 +312,7 @@
         padding: 1.8rem calc(1rem - 5px);
         display: flex;
         flex-wrap: wrap;
-        flex-basis: 100%;
+        flex-basis: auto;
 
         @include mobile {
             padding: 2.1rem calc(1rem - 5px);
@@ -344,13 +344,13 @@
 
                 @include after-mobile {
                     order: 3;
-                    flex-basis: 100%;
+                    flex-basis: auto;
                 }
             }
 
             &_sku {
                 order: 2;
-                flex-basis: 100%;
+                flex-basis: auto;
                 font-size: 1.2rem;
                 font-weight: bold;
                 color: var(--product-actions-option-border-color);
@@ -366,7 +366,7 @@
 
             &_name {
                 order: 1;
-                flex-basis: 100%;
+                flex-basis: auto;
                 flex-direction: column;
                 text-align: left;
                 padding-bottom: 0;
