@@ -30,6 +30,7 @@ export function configureStore(store) {
     return store;
 }
 
+/** @namespace /Util/Store/Index/noopReducer */
 export const noopReducer = (state) => state;
 
 export const getStore = (() => {
