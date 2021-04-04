@@ -30,6 +30,7 @@ import { isSignedIn } from 'Util/Auth';
 import BrowserDatabase from 'Util/BrowserDatabase';
 import { deleteGuestQuoteId, getGuestQuoteId } from 'Util/Cart';
 import history from 'Util/History';
+import { DOWNLOADABLE } from 'Util/Product';
 import { debounce, fetchMutation, fetchQuery } from 'Util/Request';
 import { ONE_MONTH_IN_SECONDS } from 'Util/Request/QueryDispatcher';
 import { appendWithStoreCode } from 'Util/Url';
@@ -59,7 +60,8 @@ export const mapStateToProps = (state) => ({
     guest_checkout: state.ConfigReducer.guest_checkout,
     countries: state.ConfigReducer.countries,
     isEmailAvailable: state.CheckoutReducer.isEmailAvailable,
-    isMobile: state.ConfigReducer.device.isMobile
+    isMobile: state.ConfigReducer.device.isMobile,
+    isGuestNotAllowDownloadable: state.ConfigReducer.downloadable_disable_guest_checkout
 });
 
 /** @namespace Route/Checkout/Container/mapDispatchToProps */
@@ -126,6 +128,7 @@ export class CheckoutContainer extends PureComponent {
         updateEmail: PropTypes.func.isRequired,
         checkEmailAvailability: PropTypes.func.isRequired,
         isEmailAvailable: PropTypes.bool.isRequired,
+        isGuestNotAllowDownloadable: PropTypes.bool.isRequired,
         updateShippingPrice: PropTypes.func.isRequired
     };
 
@@ -186,6 +189,7 @@ export class CheckoutContainer extends PureComponent {
             showInfoNotification,
             guest_checkout,
             updateMeta,
+            isGuestNotAllowDownloadable,
             totals: {
                 items = []
             }
@@ -199,6 +203,11 @@ export class CheckoutContainer extends PureComponent {
         // if guest checkout is disabled and user is not logged in => throw him to homepage
         if (!guest_checkout && !isSignedIn()) {
             history.push(appendWithStoreCode('/'));
+        }
+
+        // if guest is not allowed to checkout with downloadable => redirect to login page
+        if (!isSignedIn() && isGuestNotAllowDownloadable) {
+            this.handleRedirectIfDownloadableInCart();
         }
 
         updateMeta({ title: __('Checkout') });
@@ -299,6 +308,17 @@ export class CheckoutContainer extends PureComponent {
         }
 
         history.goBack();
+    }
+
+    handleRedirectIfDownloadableInCart() {
+        const { totals: { items }, showInfoNotification } = this.props;
+
+        const isDownloadable = items.find(({ product }) => product.type_id === DOWNLOADABLE);
+
+        if (isDownloadable) {
+            showInfoNotification(__('Please sign in or remove downloadable products from cart!'));
+            history.push(appendWithStoreCode('/account/login'));
+        }
     }
 
     setDetailsStep(orderID) {
