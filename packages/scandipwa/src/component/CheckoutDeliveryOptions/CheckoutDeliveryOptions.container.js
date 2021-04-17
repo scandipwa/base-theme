@@ -20,7 +20,7 @@ import CheckoutDeliveryOptions from './CheckoutDeliveryOptions.component';
 
 /** @namespace Component/CheckoutDeliveryOptions/Container/mapStateToProps */
 export const mapStateToProps = (state) => ({
-    shippingMethod: state.CartReducer.cartTotals.shipping_method
+    shippingMethod: state.CheckoutReducer.shippingFields.shippingMethod
 });
 
 /** @namespace Component/CheckoutDeliveryOptions/Container/mapDispatchToProps */

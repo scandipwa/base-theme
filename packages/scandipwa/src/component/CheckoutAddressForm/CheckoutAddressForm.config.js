@@ -11,4 +11,4 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-export const UPDATE_STATE_FREQUENCY = 1000; // (ms)
+export const REQUEST_SHIPPING_METHODS_FREQUENCY = 1000; // (ms)

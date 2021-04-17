@@ -16,7 +16,7 @@ import MyAccountAddressForm from 'Component/MyAccountAddressForm/MyAccountAddres
 import { getCityAndRegionFromZipcode } from 'Util/Address';
 import { debounce } from 'Util/Request';
 
-import { UPDATE_STATE_FREQUENCY } from './CheckoutAddressForm.config';
+import { REQUEST_SHIPPING_METHODS_FREQUENCY } from './CheckoutAddressForm.config';
 
 /** @namespace Component/CheckoutAddressForm/Component */
 export class CheckoutAddressForm extends MyAccountAddressForm {
@@ -31,27 +31,39 @@ export class CheckoutAddressForm extends MyAccountAddressForm {
         onShippingEstimationFieldsChange: () => {}
     };
 
-    onChange = debounce((key, value) => {
-        this.setState(() => ({ [key]: value }));
-    }, UPDATE_STATE_FREQUENCY);
+    onChange = (key, value) => this.setState(() => ({ [key]: value }));
 
     __construct(props) {
         super.__construct(props);
 
         const {
-            address: { region: { region = '' } = {} }
+            shippingFields: {
+                city = '',
+                region_id: regionId = null,
+                region_string: region = '',
+                country_id: countryId = '',
+                postcode = ''
+            }
         } = this.props;
 
-        // TODO: get from region data
         this.state = {
             ...this.state,
             region,
-            city: '',
-            postcode: ''
+            regionId,
+            city,
+            countryId,
+            postcode
         };
+    }
 
+    componentDidMount() {
         this.estimateShipping();
     }
+
+    estimateShippingDebounced = debounce(
+        this.estimateShipping.bind(this),
+        REQUEST_SHIPPING_METHODS_FREQUENCY
+    );
 
     componentDidUpdate(_, prevState) {
         const {
@@ -77,7 +89,7 @@ export class CheckoutAddressForm extends MyAccountAddressForm {
             || region !== prevRegion
             || postcode !== prevpostcode
         ) {
-            this.estimateShipping();
+            this.estimateShippingDebounced();
         }
     }
 

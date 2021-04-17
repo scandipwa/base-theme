@@ -104,7 +104,8 @@ export class CheckoutShippingContainer extends PureComponent {
         };
 
         saveAddressInformation(data);
-        updateShippingFields(fields);
+        const shippingMethod = `${shipping_carrier_code}_${shipping_method_code}`;
+        updateShippingFields({ ...fields, shippingMethod });
     }
 
     _getAddressById(addressId) {
