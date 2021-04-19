@@ -31,7 +31,7 @@ export const mapDispatchToProps = (dispatch) => ({
     hideActiveOverlay: () => dispatch(hideActiveOverlay())
 });
 
-/** @namespace Component/MyAccountAddressBook/Container */
+/** @namespace Component/ImageZoomPopup/Container/ImageZoomPopupContainer */
 export class ImageZoomPopupContainer extends PureComponent {
     static propTypes = {
         children: ChildrenType.isRequired,

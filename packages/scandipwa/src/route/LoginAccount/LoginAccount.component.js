@@ -19,7 +19,7 @@ import {
 
 import './LoginAccount.style';
 
-/** @namespace Scandipwa/Route/LoginAccount/Component/LoginAccountComponent */
+/** @namespace Route/LoginAccount/Component/LoginAccountComponent */
 export class LoginAccountComponent extends MyAccountOverlay {
     renderSignInWrapper() {
         const { device } = this.props;

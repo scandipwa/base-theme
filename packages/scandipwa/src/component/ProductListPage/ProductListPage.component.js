@@ -23,7 +23,7 @@ import './ProductListPage.style';
 
 /**
  * Placeholder for List of category product
- * @namespace Component/ProductListPage/Component
+ * @namespace Component/ProductListPage/Component/ProductListPage
  * @class ProductListPage
  */
 export class ProductListPage extends PureComponent {

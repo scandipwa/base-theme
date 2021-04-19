@@ -13,13 +13,13 @@ import BrowserDatabase from 'Util/BrowserDatabase';
 
 export const GUEST_QUOTE_ID = 'guest_quote_id';
 
-/** @namespace Util/Token/setGuestQuoteId */
+/** @namespace Util/Cart/Token/setGuestQuoteId */
 export const setGuestQuoteId = (token) => {
     BrowserDatabase.setItem(token, GUEST_QUOTE_ID);
 };
 
-/** @namespace Util/Token/getGuestQuoteId */
+/** @namespace Util/Cart/Token/getGuestQuoteId */
 export const getGuestQuoteId = () => BrowserDatabase.getItem(GUEST_QUOTE_ID);
 
-/** @namespace Util/Token/deleteGuestQuoteId */
+/** @namespace Util/Cart/Token/deleteGuestQuoteId */
 export const deleteGuestQuoteId = () => BrowserDatabase.deleteItem(GUEST_QUOTE_ID);

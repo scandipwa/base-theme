@@ -17,7 +17,7 @@
  * @static
  * @param  {Promise} promise promise which has to be cancelable
  * @return {Promise} Cancelable promise
- * @namespace Util/Promise/makeCancelable
+ * @namespace Util/Promise/MakeCancelable/makeCancelable
  */
 export const makeCancelable = (promise) => {
     // eslint-disable-next-line fp/no-let

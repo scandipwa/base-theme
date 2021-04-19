@@ -104,10 +104,10 @@ export class MyAccountDownloadableContainer extends PureComponent {
             OrderQuery.getDownloadableQuery()
         ).then(
             /** @namespace Component/MyAccountDownloadable/Container/requestDownloadable/success */
-            ((data) => {
+            (data) => {
                 const { customerDownloadableProducts: { items = [] } = {} } = data;
                 this.setState({ items, isLoading: false });
-            }),
+            },
             /** @namespace Component/MyAccountDownloadable/Container/requestDownloadable/error */
             (err) => {
                 const { message = __('Something went wrong!') } = err;

@@ -182,11 +182,11 @@ export class SearchField extends PureComponent {
                   autoComplete="off"
                   aria-label={ __('Search') }
                 />
+                { /* eslint-disable-next-line jsx-a11y/interactive-supports-focus */ }
                 <div
                   block="SearchField"
                   elem="SearchIcon"
                   role="button"
-                  tabIndex="0"
                   onClick={ this.onIconClick }
                   aria-label={ __('Search') }
                 />

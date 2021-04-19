@@ -23,7 +23,7 @@ import { appendWithStoreCode } from 'Util/Url';
 
 import ForgotPassword from './ForgotPassword.component';
 
-/** @namespace Scandipwa/Route/ForgotPassword/Container/ForgotPasswordContainer */
+/** @namespace Route/ForgotPassword/Container/ForgotPasswordContainer */
 export class ForgotPasswordContainer extends MyAccountOverlayContainer {
     containerFunctions = {
         ...this.containerFunctions,

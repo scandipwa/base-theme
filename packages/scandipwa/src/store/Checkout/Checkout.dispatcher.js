@@ -18,8 +18,8 @@ import { updateEmailAvailable } from './Checkout.action';
  * Checkout Dispatcher
  * @class CheckoutDispatcher
  * @extends QueryDispatcher
- * @namespace Store/Checkout/Dispatcher
- *  */
+ * @namespace Store/Checkout/Dispatcher/CheckoutDispatcher
+ */
 export class CheckoutDispatcher extends QueryDispatcher {
     __construct() {
         super.__construct('Checkout');

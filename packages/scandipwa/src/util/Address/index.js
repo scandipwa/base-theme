@@ -42,7 +42,7 @@ export const trimCustomerAddress = (customerAddress) => {
     };
 };
 
-/** @namespace Util/Address/trimAddressFields */
+/** @namespace Util/Address/Index/trimAddressFields */
 export const trimAddressFields = (fields) => {
     const {
         region_string: region,
@@ -54,7 +54,7 @@ export const trimAddressFields = (fields) => {
 
 /** transforming "street[index]" entries into a single "street" object
     for checkout/billing/myAccoutAddress form fields object */
-/** @namespace Util/Address/setAddressesInFormObject */
+/** @namespace Util/Address/Index/setAddressesInFormObject */
 export const setAddressesInFormObject = (fields, numberOfLines) => {
     const addressKeys = new Array(numberOfLines)
         .fill('')
@@ -79,7 +79,7 @@ export const setAddressesInFormObject = (fields, numberOfLines) => {
 };
 
 // get Form Fields object depending on addressLinesQty
-/** @namespace Util/Address/getFormFields */
+/** @namespace Util/Address/Index/getFormFields */
 export const getFormFields = (fields, addressLinesQty) => {
     if (addressLinesQty === 1) {
         return fields;
@@ -88,7 +88,7 @@ export const getFormFields = (fields, addressLinesQty) => {
     return setAddressesInFormObject(fields, addressLinesQty);
 };
 
-/** @namespace Util/Address/getCityAndRegionFromZipcode */
+/** @namespace Util/Address/Index/getCityAndRegionFromZipcode */
 export const getCityAndRegionFromZipcode = async (countryId, value) => {
     const response = await fetch(`https://api.zippopotam.us/${countryId}/${value.split(' ')[0]}`);
     const data = await response.json();

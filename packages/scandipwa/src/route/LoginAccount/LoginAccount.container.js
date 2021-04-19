@@ -23,7 +23,7 @@ import { appendWithStoreCode } from 'Util/Url';
 
 import LoginAccount from './LoginAccount.component';
 
-/** @namespace Scandipwa/Route/LoginAccount/Container/LoginAccountContainer */
+/** @namespace Route/LoginAccount/Container/LoginAccountContainer */
 export class LoginAccountContainer extends MyAccountOverlayContainer {
     containerFunctions = {
         ...this.containerFunctions,

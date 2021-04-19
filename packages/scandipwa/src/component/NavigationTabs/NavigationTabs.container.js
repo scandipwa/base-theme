@@ -48,7 +48,7 @@ export const mapDispatchToProps = (dispatch) => ({
 
 export const DEFAULT_NAVIGATION_TABS_STATE = { name: MENU_TAB };
 
-/** @namespace Component/NavigationTabsContainer/Container */
+/** @namespace Component/NavigationTabs/Container/NavigationTabsContainer */
 export class NavigationTabsContainer extends NavigationAbstractContainer {
     default_state = DEFAULT_NAVIGATION_TABS_STATE;
 
