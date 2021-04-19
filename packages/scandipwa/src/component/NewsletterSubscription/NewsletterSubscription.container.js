@@ -20,7 +20,7 @@ export const NewsletterSubscriptionDispatcher = import(
     'Store/NewsletterSubscription/NewsletterSubscription.dispatcher'
 );
 
-/** @namespace Component/NewsletterSubscribtion/Container/mapStateToProps */
+/** @namespace Component/NewsletterSubscription/Container/mapStateToProps */
 export const mapStateToProps = () => ({});
 
 /** @namespace Component/NewsletterSubscription/Container/mapDispatchToProps */

@@ -181,29 +181,88 @@
         button {
             color: transparent;
             margin-right: 10px;
+            box-sizing: border-box;
+            position: relative;
+            display: block;
+            width: 24px;
+            height: 24px;
+            --back-color: white;
+            --border-color: var(--secondary-dark-color);
 
             &.list {
-                &:after {
-                    background-image: url(icons/list.svg);
-                }
+                &:before {
+                    content: "";
+                    display: block;
+                    box-sizing: border-box;
+                    position: absolute;
+                    background-color: var(--back-color);
+                    box-shadow:
+                        /* top box borders */
+                        -1px -1px 0px var(--border-color),
+                        1px 1px 0px var(--border-color),
+                        1px -1px 0px var(--border-color),
+                        -1px 1px 0px var(--border-color),
+                            /* middle box */
+                        0 8px 0 var(--back-color),
+                        -1px 7px 0px var(--border-color),
+                        1px 9px 0px var(--border-color),
+                        -1px 9px 0px var(--border-color),
+                        1px 7px 0px var(--border-color),
 
-                &_isActive {
-                    &:after {
-                        background-image: url(icons/listFilled.svg);
-                    }
+                            /* bottom box */
+                        0 16px 0 var(--back-color),
+                        -1px 15px 0px var(--border-color),
+                        1px 17px 0px var(--border-color),
+                        -1px 17px 0px var(--border-color),
+                        1px 15px 0px var(--border-color);
+                    width: 14px;
+                    height: 4px;
+                    left: 9px;
+                    top: 1px;
                 }
             }
 
             &.grid {
-                &:after {
-                    background-image: url(icons/grid.svg);
-                }
+                &:before {
+                    content: "";
+                    display: block;
+                    box-sizing: border-box;
+                    position: absolute;
+                    background-color: var(--back-color);
+                    box-shadow:
+                        /* top box borders */
+                        -1px -1px 0px var(--border-color),
+                        1px 1px 0px var(--border-color),
+                        1px -1px 0px var(--border-color),
+                        -1px 1px 0px var(--border-color),
 
-                &_isActive {
-                    &:after {
-                        background-image: url(icons/gridFilled.svg);
-                    }
+                        13px 0 0px var(--back-color),
+                        12px -1px 0px var(--border-color),
+                        12px 1px 0px var(--border-color),
+                        14px 1px 0px var(--border-color),
+                        14px -1px 0px var(--border-color),
+
+                        0 13px 0px var(--back-color),
+                        -1px 12px 0px var(--border-color),
+                        1px 12px 0px var(--border-color),
+                        -1px 14px 0px var(--border-color),
+                        1px 14px 0px var(--border-color),
+
+                        13px 13px 0px var(--back-color),
+                        12px 12px 0px var(--border-color),
+                        14px 14px 0px var(--border-color),
+                        12px 14px 0px var(--border-color),
+                        14px 12px 0px var(--border-color);
+                    width: 9px;
+                    height: 9px;
+                    left: 1px;
+                    top: 1px;
                 }
+            }
+
+            &_isActive {
+                --border-color: var(--primary-base-color);
+                --back-color: var(--primary-base-color);
             }
 
             &:after {

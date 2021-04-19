@@ -14,8 +14,7 @@ import { appendWithStoreCode } from 'Util/Url';
 /**
  * Meta Dispatcher
  * @class MetaDispatcher
- * @namespace Util/Meta/Dispatcher
- */
+ * @namespace Store/Meta/Dispatcher/MetaDispatcher */
 export class MetaDispatcher {
     /**
      * Set meta for category

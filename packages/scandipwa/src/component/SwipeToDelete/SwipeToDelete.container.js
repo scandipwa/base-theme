@@ -19,12 +19,12 @@ import { ChildrenType } from 'Type/Common';
 
 import SwipeToDelete from './SwipeToDelete.component';
 
-/** @namespace Component/Link/Container/mapStateToProps */
+/** @namespace Component/SwipeToDelete/Container/mapStateToProps */
 export const mapStateToProps = (state) => ({
     isMobile: state.ConfigReducer.device.isMobile
 });
 
-/** @namespace Component/Link/Container */
+/** @namespace Component/SwipeToDelete/Container/SwipeToDeleteContainer */
 export class SwipeToDeleteContainer extends PureComponent {
     static propTypes = {
         isMobile: PropTypes.bool.isRequired,
@@ -46,7 +46,7 @@ export class SwipeToDeleteContainer extends PureComponent {
     }
 }
 
-/** @namespace Component/Link/Container/mapDispatchToProps */
+/** @namespace Component/SwipeToDelete/Container/mapDispatchToProps */
 // eslint-disable-next-line no-unused-vars
 export const mapDispatchToProps = (dispatch) => ({});
 

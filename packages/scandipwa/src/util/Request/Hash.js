@@ -25,7 +25,7 @@
  * @param {string} key ASCII only
  * @param {number} seed Positive integer only
  * @return {number} 32-bit positive integer hash
- * @namespace Util/Request/hash
+ * @namespace Util/Request/Hash/hash
  */
 export const hash = (key, seed) => {
     // eslint-disable-next-line one-var, fp/no-let

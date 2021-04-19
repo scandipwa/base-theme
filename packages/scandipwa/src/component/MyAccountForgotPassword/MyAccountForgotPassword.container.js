@@ -79,7 +79,7 @@ export class MyAccountForgotPasswordContainer extends PureComponent {
         const { forgotPassword, setSignInState, setLoadingState } = this.props;
 
         forgotPassword(fields).then(
-            /** @namespace Component/MyAccountOverlay/Container/forgotPasswordThen */
+            /** @namespace Component/MyAccountForgotPassword/Container/forgotPassword/then */
             () => {
                 setSignInState(STATE_FORGOT_PASSWORD_SUCCESS);
                 setLoadingState(false);

@@ -16,7 +16,7 @@ export const AUTH_TOKEN = 'auth_token';
 
 export const ONE_HOUR = 3600;
 
-/** @namespace Util/Auth/setAuthorizationToken */
+/** @namespace Util/Auth/Token/setAuthorizationToken */
 export const setAuthorizationToken = (token) => {
     const state = getStore().getState();
     const {
@@ -26,19 +26,19 @@ export const setAuthorizationToken = (token) => {
     BrowserDatabase.setItem(token, AUTH_TOKEN, cookie_lifetime);
 };
 
-/** @namespace Util/Auth/deleteAuthorizationToken */
+/** @namespace Util/Auth/Token/deleteAuthorizationToken */
 export const deleteAuthorizationToken = () => BrowserDatabase.deleteItem(AUTH_TOKEN);
 
-/** @namespace Util/Auth/getAuthorizationToken */
+/** @namespace Util/Auth/Token/getAuthorizationToken */
 export const getAuthorizationToken = () => BrowserDatabase.getItem(AUTH_TOKEN);
 
-/** @namespace Util/Auth/refreshAuthorizationToken */
+/** @namespace Util/Auth/Token/refreshAuthorizationToken */
 export const refreshAuthorizationToken = () => setAuthorizationToken(getAuthorizationToken());
 
-/** @namespace Util/Auth/isInitiallySignedIn */
+/** @namespace Util/Auth/Token/isInitiallySignedIn */
 export const isInitiallySignedIn = () => !!getAuthorizationToken();
 
-/** @namespace Util/Auth/isSignedIn */
+/** @namespace Util/Auth/Token/isSignedIn */
 export const isSignedIn = () => {
     const _isSignedIn = !!getAuthorizationToken();
     const state = getStore().getState();

@@ -19,7 +19,7 @@ import {
 
 import './CreateAccount.style';
 
-/** @namespace Scandipwa/Route/CreateAccount/Component/CreateAccountComponent */
+/** @namespace Route/CreateAccount/Component/CreateAccountComponent */
 export class CreateAccountComponent extends MyAccountOverlay {
     renderSignInWrapper() {
         const { onLoginClick } = this.props;

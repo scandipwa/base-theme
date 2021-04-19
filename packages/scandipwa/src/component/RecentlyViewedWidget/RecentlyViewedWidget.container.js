@@ -19,7 +19,7 @@ export const mapStateToProps = (state) => ({
     products: state.RecentlyViewedProductsReducer.recentlyViewedProducts
 });
 
-/** @namespace Component/Slider/Container/mapDispatchToProps */
+/** @namespace Component/RecentlyViewedWidget/Container/mapDispatchToProps */
 // eslint-disable-next-line no-unused-vars
 export const mapDispatchToProps = (dispatch) => ({});
 

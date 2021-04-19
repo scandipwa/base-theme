@@ -15,13 +15,13 @@ import { connect } from 'react-redux';
 
 import MenuItem from './MenuItem.component';
 
-/** @namespace Component/Menu/Container/mapStateToProps */
+/** @namespace Component/MenuItem/Container/mapStateToProps */
 // eslint-disable-next-line no-unused-vars
 export const mapStateToProps = (state) => ({
     device: state.ConfigReducer.device
 });
 
-/** @namespace Component/Menu/Container/mapDispatchToProps */
+/** @namespace Component/MenuItem/Container/mapDispatchToProps */
 // eslint-disable-next-line no-unused-vars
 export const mapDispatchToProps = (dispatch) => ({});
 
