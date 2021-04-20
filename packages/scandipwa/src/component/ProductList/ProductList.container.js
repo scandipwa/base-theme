@@ -99,11 +99,14 @@ export class ProductListContainer extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        const { sort, search, filter } = this.props;
+        const {
+            sort, search, filter, pageSize
+        } = this.props;
+
         const { sort: prevSort, search: prevSearch, filter: prevFilter } = prevProps;
 
         const { pages } = this.props;
-        const { pagesCount } = this.state;
+        const { pagesCount, prevPageSize } = this.state;
         const pagesLength = Object.keys(pages).length;
 
         if (pagesCount !== pagesLength) {
@@ -114,6 +117,7 @@ export class ProductListContainer extends PureComponent {
         if (search !== prevSearch
             || JSON.stringify(sort) !== JSON.stringify(prevSort)
             || JSON.stringify(filter) !== JSON.stringify(prevFilter)
+            || pageSize !== prevPageSize
         ) {
             this.requestPage(this._getPageFromUrl());
         }
@@ -197,6 +201,8 @@ export class ProductListContainer extends PureComponent {
         if (!isWidget) {
             requestProductListInfo(infoOptions);
         }
+
+        this.setState({ prevPageSize: pageSize });
     };
 
     containerProps = () => ({

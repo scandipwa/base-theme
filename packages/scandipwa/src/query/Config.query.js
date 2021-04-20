@@ -128,6 +128,10 @@ export class ConfigQuery {
             'layered_navigation_product_count_enabled',
             'region_display_all',
             'redirect_dashboard',
+            'grid_per_page_values',
+            'grid_per_page',
+            'list_per_page_values',
+            'list_per_page',
             this.getPriceDisplayTypeField()
         ];
     }
