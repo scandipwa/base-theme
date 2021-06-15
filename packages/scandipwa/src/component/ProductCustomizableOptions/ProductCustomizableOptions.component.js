@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
 import ProductCustomizableOption from 'Component/ProductCustomizableOption';
+import { sortBySortOrder } from 'Util/Product';
 
 import './ProductCustomizableOptions.style';
 
@@ -45,7 +46,7 @@ export class ProductCustomizableOptions extends PureComponent {
             type_id
         } = this.props;
 
-        return options.map((option, key) => (
+        return sortBySortOrder(options).map((option, key) => (
             <ProductCustomizableOption
               option={ option }
               /* eslint-disable-next-line react/no-array-index-key */

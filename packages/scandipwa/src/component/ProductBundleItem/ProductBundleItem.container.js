@@ -194,7 +194,8 @@ export class ProductBundleItemContainer extends ProductCustomizableOptionContain
             quantity,
             can_change_quantity,
             finalOptionPrice,
-            price
+            price,
+            position
         }) => {
             const finalPrice = price_type === PRICE_TYPE_PERCENT ? price : finalOptionPrice;
 
@@ -206,7 +207,8 @@ export class ProductBundleItemContainer extends ProductCustomizableOptionContain
                 id,
                 name: label,
                 value: id,
-                label: dropdownLabel
+                label: dropdownLabel,
+                sort_order: position
             });
 
             return acc;
