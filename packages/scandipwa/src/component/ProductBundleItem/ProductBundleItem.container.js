@@ -12,6 +12,10 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import {
+    RADIO_TYPE,
+    SELECT_TYPE
+} from 'Component/Field/Field.config';
 import { PRICE_TYPE_PERCENT } from 'Component/ProductBundleItem/ProductBundleItem.config';
 import {
     mapDispatchToProps,
@@ -26,7 +30,8 @@ export class ProductBundleItemContainer extends ProductCustomizableOptionContain
     static propTypes = {
         ...ProductCustomizableOptionContainer.propTypes,
         setCustomizableOptionTextFieldValue: PropTypes.func,
-        updateQuantity: PropTypes.func.isRequired
+        updateQuantity: PropTypes.func.isRequired,
+        sku: PropTypes.string.isRequired
     };
 
     static defaultProps = {
@@ -40,52 +45,33 @@ export class ProductBundleItemContainer extends ProductCustomizableOptionContain
     };
 
     componentDidMount() {
-        this.getDefaultValues();
+        const { option: { type } } = this.props;
+
+        if (type === SELECT_TYPE || type === RADIO_TYPE) {
+            this.setDefaultDropdownValue();
+        }
     }
 
-    getDefaultValues() {
-        const { optionType } = this.containerProps();
+    componentDidUpdate(prevProps) {
+        const { sku, option: { type } } = this.props;
+        const { sku: prevSku } = prevProps;
 
-        switch (optionType) {
-        case 'select':
-        case 'radio': // handle radio as select
+        if (sku !== prevSku && (type === SELECT_TYPE || type === RADIO_TYPE)) {
             this.setDefaultDropdownValue();
-            break;
-        case 'checkbox':
-        case 'multi': // handle multi-select as checkbox
-            this.setDefaultCheckboxValue();
-            break;
-        default:
-            return null;
         }
-
-        return null;
     }
 
     setDefaultDropdownValue() {
-        const {
-            setSelectedDropdownValue,
-            option: { option_id, options }
-        } = this.props;
+        const { option: { options } } = this.props;
+        const { selectedDropdownValue } = this.state;
 
-        return options.reduce((acc, { is_default, id, quantity }) => {
+        if (selectedDropdownValue) {
+            this.setState({ selectedDropdownValue: 0 });
+        }
+
+        return options.reduce((acc, { is_default, id }) => {
             if (is_default) {
-                const value = id.toString();
-                setSelectedDropdownValue(option_id, { value, quantity });
                 this.setState({ selectedDropdownValue: id });
-            }
-
-            return acc;
-        }, []);
-    }
-
-    setDefaultCheckboxValue() {
-        const { option: { option_id, options }, setSelectedCheckboxValues } = this.props;
-
-        return options.reduce((acc, { is_default, id, quantity }) => {
-            if (is_default) {
-                const value = id.toString();
-                setSelectedCheckboxValues(option_id, { value, quantity });
             }
 
             return acc;

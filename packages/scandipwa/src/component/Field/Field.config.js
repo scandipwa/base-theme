@@ -19,6 +19,7 @@ export const CHECKBOX_TYPE = 'checkbox';
 export const TEXTAREA_TYPE = 'textarea';
 export const PASSWORD_TYPE = 'password';
 export const SELECT_TYPE = 'select';
+export const MULTI_TYPE = 'multi';
 export const FILE_TYPE = 'file';
 
 export const ENTER_KEY_CODE = 13;
