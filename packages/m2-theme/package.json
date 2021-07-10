@@ -4,8 +4,10 @@
     "version": "0.1.4",
     "license": "OSL-3.0",
     "dependencies": {
-        "@scandipwa/craco": "0.0.4",
-        "@scandipwa/webpack-fallback-plugin": "^1.2.0"
+        "@tilework/mosaic-webpack-fallback-plugin": "0.0.5"
+    },
+    "peerDependencies": {
+        "@tilework/mosaic-craco": "0.0.3"
     },
     "scandipwa": {
         "type": "extension",
