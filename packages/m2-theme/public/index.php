@@ -31,7 +31,7 @@
 
             // Multistore
             window.storeList = JSON.parse(`<?= $this->getStoreListJson() ?>`);
-            window.storeRegexText = `/(${window.storeList.join('|')})?`;
+            window.storeRegexText = `/(${window.storeList.join('|')})/?`;
         </script>
 
         <!-- Preload i18n chunk for the store -->
