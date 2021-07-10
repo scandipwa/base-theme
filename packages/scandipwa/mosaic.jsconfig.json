@@ -25,6 +25,5 @@
                 "src/type/*"
             ]
         }
-    },
-    "extends": "./mosaic.jsconfig.json"
+    }
 }

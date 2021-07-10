@@ -9,9 +9,9 @@
     },
     "dependencies": {
         "@scandipwa/m2-theme": "^0.1.4",
-        "@scandipwa/scandipwa-scripts": "^2.3.6",
-        "@scandipwa/service-worker": "^0.0.4",
-        "@scandipwa/webpack-i18n-runtime": "0.0.9",
+        "@scandipwa/scandipwa-scripts": "^2.4.9",
+        "@scandipwa/service-worker": "^0.0.10",
+        "@scandipwa/webpack-i18n-runtime": "0.0.21",
         "history": "^4.9.0",
         "html-react-parser": "^0.13.0",
         "intersection-observer": "^0.12.0",
