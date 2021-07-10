@@ -36,3 +36,15 @@ export const shippingMethodType = PropTypes.shape({
 export const shippingMethodsType = PropTypes.arrayOf(
     shippingMethodType
 );
+
+export const storeType = PropTypes.shape({
+    city: PropTypes.string,
+    country: PropTypes.string,
+    description: PropTypes.string,
+    name: PropTypes.string,
+    phone: PropTypes.string,
+    pickup_location_code: PropTypes.string,
+    postcode: PropTypes.string,
+    region: PropTypes.string,
+    street: PropTypes.string
+});

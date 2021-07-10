@@ -16,7 +16,7 @@ import CheckoutAddressBook from 'Component/CheckoutAddressBook';
 import CheckoutDeliveryOptions from 'Component/CheckoutDeliveryOptions';
 import Form from 'Component/Form';
 import Loader from 'Component/Loader';
-import { STORE_IN_PICK_UP_METHOD_CODE } from 'Component/StoreInPickUp/StoreInPickUp.config';
+import StoreInPickUpComponent from 'Component/StoreInPickUp';
 import { SHIPPING_STEP } from 'Route/Checkout/Checkout.config';
 import { addressType } from 'Type/Account';
 import { shippingMethodsType, shippingMethodType } from 'Type/Checkout';
@@ -41,14 +41,16 @@ export class CheckoutShipping extends PureComponent {
         isSubmitted: PropTypes.bool,
         onStoreSelect: PropTypes.func.isRequired,
         estimateAddress: addressType.isRequired,
-        selectedStoreAddress: addressType
+        handleSelectDeliveryMethod: PropTypes.func.isRequired,
+        isPickInStoreMethodSelected: PropTypes.bool.isRequired,
+        setSelectedShippingMethodCode: PropTypes.func
     };
 
     static defaultProps = {
         selectedShippingMethod: null,
+        setSelectedShippingMethodCode: null,
         isSubmitted: false,
-        cartTotalSubPrice: null,
-        selectedStoreAddress: {}
+        cartTotalSubPrice: null
     };
 
     renderOrderTotalExlTax() {
@@ -94,8 +96,7 @@ export class CheckoutShipping extends PureComponent {
     }
 
     renderActions() {
-        const { selectedShippingMethod, selectedStoreAddress } = this.props;
-        const { method_code } = selectedShippingMethod;
+        const { selectedShippingMethod } = this.props;
 
         return (
             <div block="Checkout" elem="StickyButtonWrapper">
@@ -103,8 +104,7 @@ export class CheckoutShipping extends PureComponent {
                 <button
                   type="submit"
                   block="Button"
-                  disabled={ !selectedShippingMethod
-                      || (method_code === STORE_IN_PICK_UP_METHOD_CODE && !Object.keys(selectedStoreAddress).length) }
+                  disabled={ !selectedShippingMethod }
                   mix={ { block: 'CheckoutShipping', elem: 'Button' } }
                 >
                     { __('Proceed to billing') }
@@ -113,12 +113,35 @@ export class CheckoutShipping extends PureComponent {
         );
     }
 
+    renderPickInStoreMethod() {
+        const {
+            estimateAddress: { country_id },
+            shippingMethods,
+            onStoreSelect,
+            onShippingMethodSelect,
+            estimateAddress,
+            setSelectedShippingMethodCode
+        } = this.props;
+
+        return (
+            <StoreInPickUpComponent
+              countryId={ country_id }
+              shippingMethods={ shippingMethods }
+              onStoreSelect={ onStoreSelect }
+              onShippingMethodSelect={ onShippingMethodSelect }
+              estimateAddress={ estimateAddress }
+              setSelectedShippingMethodCode={ setSelectedShippingMethodCode }
+            />
+        );
+    }
+
     renderDelivery() {
         const {
             shippingMethods,
             onShippingMethodSelect,
             estimateAddress,
-            onStoreSelect
+            onStoreSelect,
+            handleSelectDeliveryMethod
         } = this.props;
 
         return (
@@ -127,6 +150,7 @@ export class CheckoutShipping extends PureComponent {
               onShippingMethodSelect={ onShippingMethodSelect }
               estimateAddress={ estimateAddress }
               onStoreSelect={ onStoreSelect }
+              handleSelectDeliveryMethod={ handleSelectDeliveryMethod }
             />
         );
     }
@@ -147,11 +171,29 @@ export class CheckoutShipping extends PureComponent {
         );
     }
 
+    renderContent() {
+        const { isLoading, isPickInStoreMethodSelected } = this.props;
+
+        if (isPickInStoreMethodSelected) {
+            return this.renderPickInStoreMethod();
+        }
+
+        return (
+            <>
+                { this.renderAddressBook() }
+                <div>
+                    <Loader isLoading={ isLoading } />
+                    { this.renderDelivery() }
+                    { this.renderActions() }
+                </div>
+            </>
+        );
+    }
+
     render() {
         const {
             onShippingSuccess,
-            onShippingError,
-            isLoading
+            onShippingError
         } = this.props;
 
         return (
@@ -161,12 +203,7 @@ export class CheckoutShipping extends PureComponent {
               onSubmitError={ onShippingError }
               onSubmitSuccess={ onShippingSuccess }
             >
-                { this.renderAddressBook() }
-                <div>
-                    <Loader isLoading={ isLoading } />
-                    { this.renderDelivery() }
-                    { this.renderActions() }
-                </div>
+                { this.renderContent() }
             </Form>
         );
     }

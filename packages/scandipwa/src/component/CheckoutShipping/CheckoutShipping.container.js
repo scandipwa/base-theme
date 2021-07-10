@@ -72,7 +72,7 @@ export class CheckoutShippingContainer extends PureComponent {
         };
     }
 
-    getStoreAddress(shippingAddress) {
+    getStoreAddress(shippingAddress, isBillingAddress = false) {
         const {
             selectedStoreAddress: {
                 region,
@@ -81,12 +81,28 @@ export class CheckoutShippingContainer extends PureComponent {
                 phone,
                 street,
                 name,
-                pickup_location_code
+                pickup_location_code,
+                country_id
             }
         } = this.state;
 
+        if (isBillingAddress) {
+            return {
+                ...shippingAddress,
+                country_id,
+                region,
+                city,
+                postcode,
+                telephone: phone,
+                street: [street],
+                firstname: name,
+                lastname: 'Store'
+            };
+        }
+
         return {
             ...shippingAddress,
+            country_id,
             region,
             city,
             postcode,
@@ -146,7 +162,7 @@ export class CheckoutShippingContainer extends PureComponent {
         } = selectedShippingMethod;
 
         const data = {
-            billing_address: shippingAddress,
+            billing_address: selectedStoreAddress ? this.getStoreAddress(shippingAddress, true) : shippingAddress,
             shipping_address: selectedStoreAddress ? this.getStoreAddress(shippingAddress) : shippingAddress,
             shipping_carrier_code,
             shipping_method_code

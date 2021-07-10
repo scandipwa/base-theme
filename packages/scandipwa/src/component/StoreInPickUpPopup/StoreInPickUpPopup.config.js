@@ -9,5 +9,5 @@
  * @link https://github.com/scandipwa/scandipwa
  */
 
-export { default } from './StoreInPickUp.container';
-export * from './StoreInPickUp.component';
+export const STORE_IN_PICK_UP_POPUP_ID = 'StoreInPickUpPopup';
+export const STORES_SEARCH_TIMEOUT = 500;

@@ -13,9 +13,7 @@ import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
 import CheckoutDeliveryOption from 'Component/CheckoutDeliveryOption';
-import StoreInPickUp from 'Component/StoreInPickUp';
 import { STORE_IN_PICK_UP_METHOD_CODE } from 'Component/StoreInPickUp/StoreInPickUp.config';
-import { addressType } from 'Type/Account';
 import { shippingMethodsType } from 'Type/Checkout';
 
 import './CheckoutDeliveryOptions.style';
@@ -25,11 +23,8 @@ export class CheckoutDeliveryOptions extends PureComponent {
     static propTypes = {
         shippingMethods: shippingMethodsType.isRequired,
         selectShippingMethod: PropTypes.func.isRequired,
-        onStoreSelect: PropTypes.func.isRequired,
-        onShippingMethodSelect: PropTypes.func.isRequired,
-        setSelectedShippingMethodCode: PropTypes.func.isRequired,
         selectedShippingMethodCode: PropTypes.string,
-        estimateAddress: addressType.isRequired
+        handleSelectDeliveryMethod: PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -37,7 +32,7 @@ export class CheckoutDeliveryOptions extends PureComponent {
     };
 
     shippingRenderMap = {
-        [STORE_IN_PICK_UP_METHOD_CODE]: this.renderStoreInPickUp.bind(this)
+        [STORE_IN_PICK_UP_METHOD_CODE]: this.handleSelectStoreInPickUp.bind(this)
     };
 
     renderHeading() {
@@ -48,24 +43,12 @@ export class CheckoutDeliveryOptions extends PureComponent {
         );
     }
 
-    renderStoreInPickUp() {
+    handleSelectStoreInPickUp() {
         const {
-            estimateAddress,
-            shippingMethods,
-            onStoreSelect,
-            onShippingMethodSelect,
-            setSelectedShippingMethodCode
+            handleSelectDeliveryMethod
         } = this.props;
 
-        return (
-            <StoreInPickUp
-              estimateAddress={ estimateAddress }
-              shippingMethods={ shippingMethods }
-              onStoreSelect={ onStoreSelect }
-              onShippingMethodSelect={ onShippingMethodSelect }
-              setSelectedShippingMethodCode={ setSelectedShippingMethodCode }
-            />
-        );
+        handleSelectDeliveryMethod();
     }
 
     renderDeliveryOption = (option) => {
@@ -107,6 +90,7 @@ export class CheckoutDeliveryOptions extends PureComponent {
     renderSelectedShippingMethod() {
         const { selectedShippingMethodCode } = this.props;
         const render = this.shippingRenderMap[selectedShippingMethodCode];
+
         if (!render) {
             return null;
         }

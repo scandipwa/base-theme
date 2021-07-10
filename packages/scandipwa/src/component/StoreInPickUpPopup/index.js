@@ -5,9 +5,9 @@
  * See LICENSE for license details.
  *
  * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
- * @package scandipwa/scandipwa
- * @link https://github.com/scandipwa/scandipwa
+ * @package scandipwa/base-theme
+ * @link https://github.com/scandipwa/base-theme
  */
 
-export { default } from './StoreInPickUp.container';
-export * from './StoreInPickUp.component';
+export { default } from './StoreInPickUpPopup.container';
+export * from './StoreInPickUpPopup.component';

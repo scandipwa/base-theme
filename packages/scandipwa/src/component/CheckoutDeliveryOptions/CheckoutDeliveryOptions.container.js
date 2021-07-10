@@ -13,9 +13,7 @@ import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { STORE_IN_PICK_UP_METHOD_CODE, STORE_IN_PICK_UP_POPUP_ID } from 'Component/StoreInPickUp/StoreInPickUp.config';
 import { SHIPPING_STEP } from 'Route/Checkout/Checkout.config';
-import { showPopup } from 'Store/Popup/Popup.action';
 import { shippingMethodsType } from 'Type/Checkout';
 
 import CheckoutDeliveryOptions from './CheckoutDeliveryOptions.component';
@@ -26,16 +24,12 @@ export const mapStateToProps = (state) => ({
 });
 
 /** @namespace Component/CheckoutDeliveryOptions/Container/mapDispatchToProps */
-export const mapDispatchToProps = (dispatch) => ({
-    showPopup: (popupId) => dispatch(showPopup(popupId))
-});
+export const mapDispatchToProps = () => ({});
 
 /** @namespace Component/CheckoutDeliveryOptions/Container */
 export class CheckoutDeliveryOptionsContainer extends PureComponent {
     static propTypes = {
         onShippingMethodSelect: PropTypes.func.isRequired,
-        showPopup: PropTypes.func.isRequired,
-        onStoreSelect: PropTypes.func.isRequired,
         shippingMethods: shippingMethodsType.isRequired
     };
 
@@ -47,27 +41,15 @@ export class CheckoutDeliveryOptionsContainer extends PureComponent {
 
         const items = shippingMethods.filter(({ available }) => available);
 
-        /**
-         * Code bellow checking the first selected shipping method.
-         *
-         * In the case of PICK UP IN STORE, code will not select it, as we need customer to select it manually,
-         * to open popup and select actual store where order will be shipped.
-         */
         const result = items.find(
-            ({ method_code, carrier_code }) => (`${carrier_code}_${method_code}` === shippingMethod
-            ) && method_code !== STORE_IN_PICK_UP_METHOD_CODE
-        ) || (
-            items[0] && items[0].method_code !== STORE_IN_PICK_UP_METHOD_CODE
-                ? items[0]
-                : {}
-        );
+            ({ method_code, carrier_code }) => `${carrier_code}_${method_code}` === shippingMethod
+        ) || items[0] || {};
 
         return result.method_code;
     }
 
     containerFunctions = {
-        selectShippingMethod: this.selectShippingMethod.bind(this),
-        setSelectedShippingMethodCode: this.setSelectedShippingMethodCode.bind(this)
+        selectShippingMethod: this.selectShippingMethod.bind(this)
     };
 
     dataMap = {};
@@ -140,21 +122,12 @@ export class CheckoutDeliveryOptionsContainer extends PureComponent {
         return additionalDataGetter();
     };
 
-    setSelectedShippingMethodCode(code) {
-        this.setState({ selectedShippingMethodCode: code });
-    }
-
     selectShippingMethod(shippingMethod) {
-        const { onShippingMethodSelect, showPopup, onStoreSelect } = this.props;
+        const { onShippingMethodSelect } = this.props;
         const { method_code } = shippingMethod;
 
-        if (method_code === STORE_IN_PICK_UP_METHOD_CODE) {
-            showPopup(STORE_IN_PICK_UP_POPUP_ID);
-        }
-
-        this.setSelectedShippingMethodCode(method_code);
+        this.setState({ selectedShippingMethodCode: method_code });
         onShippingMethodSelect(shippingMethod);
-        onStoreSelect();
     }
 
     render() {

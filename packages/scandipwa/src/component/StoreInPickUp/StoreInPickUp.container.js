@@ -5,91 +5,87 @@
  * See LICENSE for license details.
  *
  * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
- * @package scandipwa/base-theme
- * @link https://github.com/scandipwa/base-theme
+ * @package scandipwa/scandipwa
+ * @link https://github.com/scandipwa/scandipwa
  */
 
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
+import { STORE_IN_PICK_UP_POPUP_ID } from 'Component/StoreInPickUpPopup/StoreInPickUpPopup.config';
 import { hideActiveOverlay } from 'Store/Overlay/Overlay.action';
+import { showPopup } from 'Store/Popup/Popup.action';
 import { addressType } from 'Type/Account';
 import { shippingMethodsType } from 'Type/Checkout';
-import { fetchQuery } from 'Util/Request';
 
-import StoreInPickUpQuery from '../../query/StoreInPickUp.query';
 import StoreInPickUp from './StoreInPickUp.component';
-import { STORE_IN_PICK_UP_METHOD_CODE } from './StoreInPickUp.config';
 
 /** @namespace Component/StoreInPickUp/Container/mapDispatchToProps */
 export const mapDispatchToProps = (dispatch) => ({
+    showPopup: (popupId) => dispatch(showPopup(popupId)),
     hideActiveOverlay: () => dispatch(hideActiveOverlay())
 });
 
 /** @namespace Component/StoreInPickUp/Container/mapStateToProps */
 export const mapStateToProps = () => ({});
 
-/** @namespace Component/StoreInPickUp/Container/StoreInPickUpContainer */
+/** @namespace Component/StoreInPickUp/Container */
 export class StoreInPickUpContainer extends PureComponent {
     static propTypes = {
+        showPopup: PropTypes.func.isRequired,
         estimateAddress: addressType.isRequired,
         shippingMethods: shippingMethodsType.isRequired,
         onStoreSelect: PropTypes.func.isRequired,
-        setSelectedShippingMethodCode: PropTypes.func.isRequired,
         onShippingMethodSelect: PropTypes.func.isRequired,
-        hideActiveOverlay: PropTypes.func.isRequired
+        countryId: PropTypes.string.isRequired,
+        hideActiveOverlay: PropTypes.func.isRequired,
+        setSelectedShippingMethodCode: PropTypes.func
     };
 
-    state = {
-        stores: []
+    static defaultProps = {
+        setSelectedShippingMethodCode: null
     };
 
     containerFunctions = {
-        handleStoreInput: this.handleStoreInput.bind(this),
-        selectStore: this.selectStore.bind(this)
+        handleOpenPopup: this.handleOpenPopup.bind(this),
+        setSelectedStore: this.setSelectedStore.bind(this)
+    };
+
+    state = {
+        selectedStore: null
     };
 
     containerProps = () => {
-        const { stores } = this.state;
+        const {
+            countryId,
+            estimateAddress,
+            onShippingMethodSelect,
+            onStoreSelect,
+            shippingMethods,
+            setSelectedShippingMethodCode
+        } = this.props;
+        const { selectedStore } = this.state;
 
         return {
-            stores
+            countryId,
+            estimateAddress,
+            onShippingMethodSelect,
+            onStoreSelect,
+            selectedStore,
+            shippingMethods,
+            setSelectedShippingMethodCode
         };
     };
 
-    selectStore(store) {
-        const {
-            onStoreSelect,
-            onShippingMethodSelect,
-            setSelectedShippingMethodCode,
-            hideActiveOverlay
-        } = this.props;
-        const method = this.getShippingMethod();
-        const { method_code } = method;
+    handleOpenPopup() {
+        const { showPopup } = this.props;
 
-        onStoreSelect(store);
-        setSelectedShippingMethodCode(method_code);
-        onShippingMethodSelect(method);
-        hideActiveOverlay();
+        showPopup(STORE_IN_PICK_UP_POPUP_ID);
     }
 
-    getShippingMethod() {
-        const { shippingMethods } = this.props;
-
-        return shippingMethods.find(({ method_code }) => method_code === STORE_IN_PICK_UP_METHOD_CODE);
-    }
-
-    handleStoreInput(fields) {
-        const { estimateAddress: { country_id } } = this.props;
-
-        fetchQuery(StoreInPickUpQuery.getStores(fields, country_id)).then(
-            ({ getStores: { stores } = {} }) => {
-                if (stores) {
-                    this.setState({ stores });
-                }
-            }
-        );
+    setSelectedStore(store) {
+        this.setState({ selectedStore: store });
     }
 
     render() {

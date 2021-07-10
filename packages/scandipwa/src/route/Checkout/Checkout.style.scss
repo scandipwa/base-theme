@@ -108,6 +108,17 @@
         }
     }
 
+    &-ShippingButton {
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    &-DeliverySelect {
+        @include mobile {
+            margin-top: 1rem;
+        }
+    }
+
     .Checkout-ExpandableContentContent {
         margin-top: 0;
     }

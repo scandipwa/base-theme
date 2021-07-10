@@ -136,6 +136,7 @@ export class ConfigQuery {
             'newsletter_general_active',
             'newsletter_subscription_allow_guest_subscribe',
             'newsletter_subscription_confirm',
+            'delivery_instore_active',
             this.getPriceDisplayTypeField()
         ];
     }

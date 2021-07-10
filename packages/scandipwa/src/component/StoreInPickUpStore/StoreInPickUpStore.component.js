@@ -5,9 +5,10 @@
  * See LICENSE for license details.
  *
  * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
- * @package scandipwa/base-theme
- * @link https://github.com/scandipwa/base-theme
+ * @package scandipwa/scandipwa
+ * @link https://github.com/scandipwa/scandipwa
  */
+
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
@@ -15,7 +16,8 @@ import Html from 'Component/Html';
 
 import './StoreInPickUpStore.style';
 
-export class StoreInPickUpStore extends PureComponent {
+/** @namespace Component/StoreInPickUpStore/Component */
+export class StoreInPickUpStoreComponent extends PureComponent {
     static propTypes = {
         store: PropTypes.shape({
             city: PropTypes.string,
@@ -28,8 +30,29 @@ export class StoreInPickUpStore extends PureComponent {
             region: PropTypes.string,
             street: PropTypes.string
         }).isRequired,
-        handleSelectStore: PropTypes.func.isRequired
+        handleSelectStore: PropTypes.func.isRequired,
+        isSelectedStore: PropTypes.bool.isRequired
     };
+
+    renderActions() {
+        const { isSelectedStore, handleSelectStore } = this.props;
+
+        if (isSelectedStore) {
+            return null;
+        }
+
+        return (
+            <div block="StoreInPickUpStore" elem="StoreActions">
+                <button
+                  block="Button"
+                  onClick={ handleSelectStore }
+                  type="button"
+                >
+                    { __('Ship here') }
+                </button>
+            </div>
+        );
+    }
 
     render() {
         const {
@@ -42,8 +65,7 @@ export class StoreInPickUpStore extends PureComponent {
                 postcode,
                 region,
                 street
-            },
-            handleSelectStore
+            }
         } = this.props;
 
         return (
@@ -54,20 +76,16 @@ export class StoreInPickUpStore extends PureComponent {
                     <p>{ `${city}, ${region} ${postcode}` }</p>
                     <p>{ country }</p>
                     <a href={ `tel:${phone}` }>{ phone }</a>
-                    <Html content={ description || '' } />
+                    <p>
+                        <Html content={ description || '' } />
+                    </p>
                 </div>
                 <div block="StoreInPickUpStore" elem="StoreActions">
-                    <button
-                      block="Button"
-                      onClick={ handleSelectStore }
-                      type="button"
-                    >
-                        { __('Ship here') }
-                    </button>
+                    { this.renderActions() }
                 </div>
             </div>
         );
     }
 }
 
-export default StoreInPickUpStore;
+export default StoreInPickUpStoreComponent;

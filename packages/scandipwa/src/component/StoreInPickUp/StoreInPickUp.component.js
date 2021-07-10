@@ -5,108 +5,152 @@
  * See LICENSE for license details.
  *
  * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
- * @package scandipwa/base-theme
- * @link https://github.com/scandipwa/base-theme
+ * @package scandipwa/scandipwa
+ * @link https://github.com/scandipwa/scandipwa
  */
 
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-import Field from 'Component/Field';
-import Popup from 'Component/Popup';
-import StoreInPickUpStore from 'Component/StoreInPickUpStore';
-
-import { STORE_IN_PICK_UP_POPUP_ID } from './StoreInPickUp.config';
+import StoreInPickUpPopupComponent from 'Component/StoreInPickUpPopup';
+import StoreInPickUpStoreComponent from 'Component/StoreInPickUpStore';
+import { addressType } from 'Type/Account';
+import { shippingMethodsType, storeType } from 'Type/Checkout';
 
 import './StoreInPickUp.style';
 
-/** @namespace StoreinPickup/Component/StoreInPickUp/Component/StoreInPickUpComponent */
+/** @namespace Component/StoreInPickUp/Component */
 export class StoreInPickUpComponent extends PureComponent {
     static propTypes = {
-        handleStoreInput: PropTypes.func.isRequired,
-        selectStore: PropTypes.func.isRequired,
-        stores: PropTypes.arrayOf(
-            PropTypes.shape({
-                city: PropTypes.string,
-                country: PropTypes.string,
-                description: PropTypes.string,
-                name: PropTypes.string,
-                phone: PropTypes.string,
-                pickup_location_code: PropTypes.string,
-                postcode: PropTypes.string,
-                region: PropTypes.string,
-                street: PropTypes.string
-            })
-        )
+        selectStore: PropTypes.func,
+        handleOpenPopup: PropTypes.func.isRequired,
+        countryId: PropTypes.string.isRequired,
+        estimateAddress: addressType.isRequired,
+        shippingMethods: shippingMethodsType.isRequired,
+        onStoreSelect: PropTypes.func.isRequired,
+        onShippingMethodSelect: PropTypes.func.isRequired,
+        setSelectedStore: PropTypes.func.isRequired,
+        setSelectedShippingMethodCode: PropTypes.func,
+        selectedStore: storeType
     };
 
     static defaultProps = {
-        stores: []
+        selectedStore: null,
+        selectStore: null,
+        setSelectedShippingMethodCode: null
     };
 
-    renderHeading() {
+    renderEmptyResult() {
         return (
-            <h3>{ __('Please provide postcode or city name to find nearest pickup locations.') }</h3>
+            <span block="StoreInPickUp" elem="Empty">
+                { __('We could not preselect pickup location based on available information, '
+                + 'please select it manually.') }
+            </span>
         );
     }
 
-    renderInput() {
-        const { handleStoreInput } = this.props;
+    renderHeading() {
+        return (
+            <h3
+              block="StoreInPickUp"
+              elem="Heading"
+            >
+                { __('Store') }
+            </h3>
+        );
+    }
+
+    renderStore() {
+        const { selectStore, selectedStore, setSelectedShippingMethodCode } = this.props;
+        const { pickup_location_code } = selectedStore;
 
         return (
-            <Field
-              type="text"
-              id="store-finder"
-              name="store-finder"
-              placeholder={ __('City or Postcode') }
-              onChange={ handleStoreInput }
-              mix={ { block: 'StoreInPickUp', elem: 'Input' } }
+            <StoreInPickUpStoreComponent
+              store={ selectedStore }
+              selectStore={ selectStore }
+              key={ pickup_location_code }
+              setSelectedShippingMethodCode={ setSelectedShippingMethodCode }
+              isSelectedStore
             />
         );
     }
 
-    renderStore = (store) => {
-        const { selectStore } = this.props;
-        const { pickup_location_code } = store;
-
-        return (
-            <StoreInPickUpStore store={ store } selectStore={ selectStore } key={ pickup_location_code } />
-        );
-    };
-
     renderResult() {
-        const { stores } = this.props;
+        const { selectedStore } = this.props;
 
-        if (!stores.length) {
-            return null;
+        if (!selectedStore) {
+            return this.renderEmptyResult();
         }
 
         return (
             <div block="StoreInPickUp" elem="Results">
-                { stores.map(this.renderStore) }
+                { this.renderStore() }
             </div>
         );
     }
 
-    renderContent() {
+    renderPopup() {
+        const {
+            countryId,
+            estimateAddress,
+            shippingMethods,
+            onStoreSelect,
+            onShippingMethodSelect,
+            setSelectedStore
+        } = this.props;
+
         return (
-            <>
-                { this.renderInput() }
-                { this.renderResult() }
-            </>
+            <StoreInPickUpPopupComponent
+              countryId={ countryId }
+              estimateAddress={ estimateAddress }
+              shippingMethods={ shippingMethods }
+              onStoreSelect={ onStoreSelect }
+              onShippingMethodSelect={ onShippingMethodSelect }
+              setSelectedStore={ setSelectedStore }
+            />
+        );
+    }
+
+    renderActions() {
+        const { handleOpenPopup, selectedStore } = this.props;
+
+        return (
+            <div
+              block="StoreInPickUp"
+              elem="Actions"
+            >
+                <button
+                  block="StoreInPickUp"
+                  elem="SelectButton"
+                  mix={ { block: 'Button' } }
+                  type="button"
+                  onClick={ handleOpenPopup }
+                >
+                   { __('Select store') }
+                </button>
+                <button
+                  type="submit"
+                  block="Button"
+                  mix={ { block: 'CheckoutShipping', elem: 'Button' } }
+                  disabled={ !selectedStore }
+                >
+                    { __('Proceed to billing') }
+                </button>
+            </div>
         );
     }
 
     render() {
         return (
-            <Popup
-              id={ STORE_IN_PICK_UP_POPUP_ID }
-              clickOutside={ false }
-              mix={ { block: 'StoreInPickUpPopup' } }
+            <div
+              block="StoreInPickUp"
+              elem="Wrapper"
             >
                 { this.renderHeading() }
-                { this.renderContent() }
-            </Popup>
+                { this.renderResult() }
+                { this.renderActions() }
+                { this.renderPopup() }
+            </div>
         );
     }
 }

@@ -13,7 +13,7 @@ import { Field } from 'Util/Query';
 
 /** @namespace StoreinPickup/Query/StoreInPickUp/Query/StoreInPickUpQuery */
 export class StoreInPickUpQuery {
-    getStores(search, country) {
+    getStores(country, search = '') {
         return new Field('getStores')
             .addFieldList([this.getStoreFields()])
             .addArgument('search', 'String', search)

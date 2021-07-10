@@ -5,28 +5,28 @@
  * See LICENSE for license details.
  *
  * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
- * @package scandipwa/base-theme
- * @link https://github.com/scandipwa/base-theme
+ * @package scandipwa/scandipwa
+ * @link https://github.com/scandipwa/scandipwa
  */
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-import StoreInPickUpStore from './StoreInPickUpStore.component';
+import { storeType } from 'Type/Checkout';
 
+import StoreInPickUpStoreComponent from './StoreInPickUpStore.component';
+
+/** @namespace Component/StoreInPickUpStore/Container */
 export class StoreInPickUpStoreContainer extends PureComponent {
     static propTypes = {
-        selectStore: PropTypes.func.isRequired,
-        store: PropTypes.shape({
-            city: PropTypes.string,
-            country: PropTypes.string,
-            description: PropTypes.string,
-            name: PropTypes.string,
-            phone: PropTypes.string,
-            pickup_location_code: PropTypes.string,
-            postcode: PropTypes.string,
-            region: PropTypes.string,
-            street: PropTypes.string
-        }).isRequired
+        selectStore: PropTypes.func,
+        isSelectedStore: PropTypes.bool,
+        store: storeType.isRequired
+    };
+
+    static defaultProps = {
+        selectStore: null,
+
+        isSelectedStore: false
     };
 
     containerFunctions = {
@@ -34,9 +34,9 @@ export class StoreInPickUpStoreContainer extends PureComponent {
     };
 
     containerProps() {
-        const { store } = this.props;
+        const { store, isSelectedStore } = this.props;
 
-        return { store };
+        return { store, isSelectedStore };
     }
 
     handleSelectStore() {
@@ -47,7 +47,7 @@ export class StoreInPickUpStoreContainer extends PureComponent {
 
     render() {
         return (
-            <StoreInPickUpStore
+            <StoreInPickUpStoreComponent
               { ...this.containerFunctions }
               { ...this.containerProps() }
             />
