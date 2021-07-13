@@ -82,6 +82,7 @@ export class WidgetFactory extends PureComponent {
     renderFallback() {
         const { type } = this.props;
         const { fallback = this.renderDefaultFallback } = this.renderMap[type] || {};
+
         return fallback();
     }
 

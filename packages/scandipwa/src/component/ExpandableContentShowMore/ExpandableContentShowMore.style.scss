@@ -10,35 +10,18 @@
  */
 
 .ExpandableContentShowMore {
-    text-align: left;
+    text-align: start;
 
-    &-ShowAllButton {
-        text-transform: uppercase;
-        margin-top: .6rem;
+    &-ShowAllButton.Button_likeLink {
+        --button-height: fit-content;
+        --button-hover-height: fit-content;
+        --button-hover-padding: 0;
 
-        &::after {
-            content: '';
-            border-width: 0 0 1px 1px;
-            border-style: solid;
-            height: 6px;
-            width: 6px;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translate(calc(100% + 5px), -75%) rotate(-45deg);
-            transition: .5s;
-        }
+        margin-block-start: 8px;
+        font-weight: 700;
 
         &:focus:not(:hover) {
             text-decoration: unset;
-        }
-
-        &_state {
-            &_isOpen {
-                &::after {
-                    transform: translate(calc(100% + 5px), -25%) rotate(135deg);
-                }
-            }
         }
     }
 

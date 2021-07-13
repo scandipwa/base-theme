@@ -12,24 +12,24 @@
 .ProductReviewList {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 2.4rem;
-    margin-top: 2.4rem;
+    grid-gap: 24px;
+    margin-block-start: 24px;
 
     @include mobile {
-        margin-top: 2.8rem;
+        margin-block-start: 28px;
         grid-template-columns: 1fr;
-        grid-gap: 1.4rem;
+        grid-gap: 14px;
     }
 
     &-Title {
         text-align: center;
         font-weight: 700;
-        font-size: 2.4rem;
-        margin-top: 3.6rem;
+        font-size: 24px;
+        margin-block-start: 36px;
 
         @include mobile {
-            font-size: 2.8rem;
-            margin-top: 4.2rem;
+            font-size: 28px;
+            margin-block-start: 42px;
         }
     }
 }

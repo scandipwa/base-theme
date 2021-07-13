@@ -37,6 +37,7 @@ export class SharedWishlistItemContainer extends WishlistItemContainer {
 
     _getConfigurableVariantIndex() {
         const { product: { wishlist: { sku }, variants } } = this.props;
+
         return +this.getConfigurableVariantIndex(sku, variants);
     }
 

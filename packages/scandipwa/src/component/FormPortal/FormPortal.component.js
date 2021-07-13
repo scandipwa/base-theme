@@ -57,6 +57,7 @@ export class FormPortal extends Form {
 
     render() {
         const { children } = this.state;
+
         return children;
     }
 }

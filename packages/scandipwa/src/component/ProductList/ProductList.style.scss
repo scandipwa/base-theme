@@ -14,25 +14,25 @@
 }
 
 .ProductList {
-    @include after-mobile {
+    @include desktop {
         grid-column: 2;
-        padding-bottom: 2.4rem;
+        padding-block-end: 24px;
     }
 
     &-ProductsMissing {
-        padding: 1.2rem;
+        padding: 12px;
         text-align: center;
 
         @include mobile {
-            padding: 1.4rem;
+            padding: 14px;
         }
     }
 
     &-More {
-        min-height: 3.6rem;
+        min-height: 36px;
 
         @include mobile {
-            min-height: 4.2rem;
+            min-height: 42px;
         }
     }
 
@@ -40,12 +40,12 @@
         background-color: var(--category-product-list-load-button-background);
         cursor: pointer;
         font-size: 13pt;
-        margin-bottom: 1.2rem;
+        margin-block-end: 12px;
         padding: 1em 0;
         text-align: center;
 
         @include mobile {
-            margin-bottom: 1.4rem;
+            margin-block-end: 14px;
         }
     }
 }

@@ -1,24 +1,25 @@
 .CarouselScroll {
     --translateY: 0;
     --animation-speed: 300ms;
-    --carousel-item-height: 0;
 
     height: 100%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    margin-block-start: 28px;
+    width: fit-content;
 
     &-ContentWrapper {
         overflow: hidden;
         flex: 1;
         display: flex;
+        width: var(--carousel-width);
     }
 
     &-Content {
-        width: 100%;
-        transform: translateY(var(--translateY));
+        transform: translateX(var(--translateX));
         transition: transform var(--animation-speed);
-        padding-right: 1px;
+        padding-inline-end: 1px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
     }
 }

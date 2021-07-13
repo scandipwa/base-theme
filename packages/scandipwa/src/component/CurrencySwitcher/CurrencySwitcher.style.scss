@@ -10,60 +10,80 @@
  */
 
 .CurrencySwitcher {
-    .FieldSelect {
-        &-Select {
-            border: none;
-            border-bottom: 1px solid var(--input-border-color);
+    --selector-width: 56px;
+
+    border-block-end: 1px solid var(--primary-divider-color);
+
+    @include mobile {
+        margin: 0 16px;
+    }
+
+    .Field {
+        margin-block-start: 0;
+
+        &Select {
+
+            @include desktop {
+                width: var(--selector-width);
+                padding-inline-start: 12px;
+            }
+
+            &-Select {
+                border: none;
+                font-size: 14px;
+                font-weight: 400;
+                margin: 0;
+                opacity: 1;
+                padding-inline-start: 0;
+                line-height: 23px;
+            }
+
+            &::after {
+                height: 13px;
+                inset-inline-end: 0;
+                width: 13px;
+            }
         }
     }
 
     @include desktop {
-        display: inline-block;
-        margin-right: 28px;
+        border-block-end: none;
 
         .Field {
-            margin: .5rem;
+            margin-inline-end: 24px;
         }
 
         .FieldSelect {
             &::after {
-                content: '';
-                position: absolute;
-                width: 0;
-                height: 0;
-                border-left: 3px solid transparent;
-                border-right: 3px solid transparent;
-                border-bottom: 3px solid black;
-                transition: transform 200ms ease-in-out;
-                transform: rotate(180deg);
-                will-change: transform;
-                right: -17px;
+                @include chevron-icon;
             }
 
             &[aria-expanded='true'] {
                 &::after {
-                    transform: rotate(0);
+                    transform: rotate(-90deg);
                 }
             }
 
             &-Select {
                 border: none;
-                font-size: 1rem;
+                font-size: 12px;
                 padding: 0;
-                min-height: auto;
             }
 
             &-Options {
                 overflow-y: auto;
-                text-align: center;
-                margin-top: 1rem;
                 width: min-content;
+                min-width: var(--selector-width);
+
+                &_isExpanded {
+                    border-block-start: 1px solid var(--primary-divider-color);
+                }
             }
 
             &-Option {
-                line-height: 2.8rem;
+                line-height: 28px;
                 padding: 6px 12px;
-                font-size: 1.2rem;
+                font-size: 12px;
             }
         }
     }

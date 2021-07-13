@@ -84,6 +84,7 @@ export class ProductCompareItemContainer extends PureComponent {
         return items.reduce((result, item) => {
             const { product: { id } = {} } = item;
             Object.assign(result, { [id]: 1 });
+
             return result;
         }, {});
     }
@@ -138,7 +139,7 @@ export class ProductCompareItemContainer extends PureComponent {
 
     overriddenAddToCartBtnHandler() {
         const { showNotification } = this.props;
-        showNotification('info', __('Please select required option!'));
+        showNotification('info', __('Please, select required options!'));
     }
 
     render() {

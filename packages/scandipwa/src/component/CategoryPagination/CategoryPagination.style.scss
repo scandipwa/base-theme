@@ -13,7 +13,8 @@
     display: flex;
     justify-content: center;
     min-height: 56px;
-    margin: auto;
+    margin-inline: auto;
+    margin-block-start: 40px;
     align-items: center;
     z-index: 2;
     width: min-content;
@@ -23,32 +24,30 @@
     }
 
     @include mobile {
-        padding-bottom: 0;
+        padding-block-end: 0;
         display: none;
     }
 
     &-Icon {
-        @include back-button;
-
         cursor: pointer;
-        margin: 0;
-        height: 35px;
         display: block;
-        width: 35px;
+        height: 20px;
+        margin: 0 auto;
+        width: 12px;
 
         &:hover,
         &:focus {
             --header-color: var(--color-pagination-link-active-text);
         }
 
-        &_isNext {
+        &:not(&_isNext) {
             transform: rotate(180deg);
         }
     }
 
     &-ListItem {
-        margin-bottom: 0;
-        padding-left: 0;
+        margin-block-end: 0;
+        padding-inline-start: 0;
         min-width: 35px;
         display: block;
 
@@ -58,12 +57,12 @@
 
         &:first-child {
             @include mobile {
-                padding-left: 0;
+                padding-inline-start: 0;
             }
         }
 
         &:last-child {
-            margin-bottom: 0;
+            margin-block-end: 0;
         }
     }
 }

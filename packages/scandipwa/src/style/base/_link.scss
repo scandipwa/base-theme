@@ -9,18 +9,29 @@
  * @link https://github.com/scandipwa/base-theme
  */
 :root {
-    --link-color: var(--primary-base-color);
-    --link-hover: var(--primary-dark-color);
+    --link-color: var(--imported_link_color, var(--primary-base-color));
+    --link-hover: var(--imported_linkHover_color, var(--primary-dark-color));
+    --default-hover-link-underline: 2px solid var(--link-hover);
+    --link-underline: var(--imported_link_border_bottom, none);
+    --link-hover-underline: var(--imported_linkHover_border_bottom, var(--default-hover-link-underline));
 }
 
 a {
+    border-block-end: var(--link-underline);
     color: var(--link-color);
+    font-size: 14px;
+    font-weight: 700;
 
-    &:hover {
-        text-decoration: underline;
+    &:hover,
+    &:focus {
+        color: var(--link-hover);
     }
 
-    &:focus {
-        text-decoration: underline;
+    &.Link {
+        &:hover,
+        &:focus {
+            border-block-end: var(--link-hover-underline);
+            padding-block-end: 3px;
+        }
     }
 }

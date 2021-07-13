@@ -16,90 +16,34 @@
 }
 
 .SearchOverlay {
-    --placeholder-animation: placeholderAnimation 2s linear infinite;
-
-    @include desktop {
-        transition-property: width, opacity, transform, border-color;
-        transition-duration: 200ms;
-        transform-origin: 0 0;
-        transform: scaleY(0);
-        will-change: width, transform, border;
-        width: var(--search-bar-width);
-        max-width: calc(var(--search-bar-max-width) + 2px);
-        text-align: left;
-        top: calc(100% - 1px);
-        right: -1px;
-        border-width: 0 1px 1px;
-        border-style: solid;
-        border-color: transparent;
-        max-height: 50vh;
-        overflow-y: scroll;
-    }
-
     &_isVisible {
-        z-index: 100;
 
-        @include desktop {
-            transform: scaleY(1);
-            border-color: var(--search-field-border-color);
-            width: calc(var(--search-bar-width) + 2px);
-        }
-    }
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 1px;
-        width: calc(100% - 2px);
-        height: 1px;
-        background-color: var(--search-criteria-background);
-    }
-
-    &-Criteria {
-        margin-bottom: 0;
-        background-color: var(--search-criteria-background);
-        color: var(--search-criteria-label-color);
-        padding: 0;
-        max-height: 0;
-
-        opacity: 0;
-        transition: opacity 200ms;
-        will-change: max-height, padding, opacity;
-        overflow: hidden;
-
-        &_isVisible {
-            opacity: 1;
-            padding: .84rem 1.2rem .6rem;
-            max-height: 100px;
-
-            @include mobile {
-                padding: .98rem 1.4rem .7rem;
+        .SearchOverlay {
+            &-Results {
+                display: block;
+                padding: 16px;
             }
-        }
-
-        strong {
-            color: var(--search-criteria-search-term-color);
-            margin-left: 5px;
         }
     }
 
     &-Results {
-        padding: 1.2rem;
-
-        @include mobile {
-            padding: 1.4rem;
-        }
+        background: var(--color-white);
+        display: none;
+        z-index: 110;
+        width: 100%;
 
         @include desktop {
-            max-height: calc(100vh - var(--header-total-height) - 8.4rem);
-            padding: 1.2rem 3.6rem 2.4rem 3.6rem;
-            overflow-y: auto;
-        }
+            padding-block-start: 20px;
+            padding-block-end: 10px;
+            padding-inline-start: 20px;
+            padding-inline-end: 0;
+            position: absolute;
+            width: 100%;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
 
-        > p {
-            @include desktop {
-                text-align: center;
+            ul {
+                max-height: 400px;
+                overflow-y: scroll;
             }
         }
     }

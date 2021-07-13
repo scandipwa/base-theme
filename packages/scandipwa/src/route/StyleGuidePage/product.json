@@ -1,0 +1,218 @@
+{
+    "id": 6016,
+    "sku": "CBI2015A",
+    "name": "2-Power 10.8v 2300mAh Li-Ion Laptop Battery",
+    "type_id": "simple",
+    "stock_status": "IN_STOCK",
+    "price_range": {
+        "minimum_price": {
+            "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+            },
+            "final_price": {
+                "currency": "USD",
+                "value": 101.027176
+            },
+            "final_price_excl_tax": {
+                "currency": "USD",
+                "value": 93.22
+            },
+            "regular_price": {
+                "currency": "USD",
+                "value": 101.027176
+            },
+            "regular_price_excl_tax": {
+                "currency": "USD",
+                "value": 93.22
+            }
+        },
+        "maximum_price": {
+            "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+            },
+            "final_price": {
+                "currency": "USD",
+                "value": 101.027176
+            },
+            "final_price_excl_tax": {
+                "currency": "USD",
+                "value": 93.22
+            },
+            "regular_price": {
+                "currency": "USD",
+                "value": 101.027176
+            },
+            "regular_price_excl_tax": {
+                "currency": "USD",
+                "value": 93.22
+            }
+        }
+    },
+    "thumbnail": {
+        "path": "/e/a/eae4a2a58b07b873fdacd2bff9d83a38.jpg",
+        "url": "https://40kskudemo.scandipwa.com/media/catalog/product/cache/9c3d0be67d911718238f960158c1a29d/e/a/eae4a2a58b07b873fdacd2bff9d83a38.jpg"
+    },
+    "small_image": {
+        "path": "/e/a/eae4a2a58b07b873fdacd2bff9d83a38.jpg",
+        "url": "https://40kskudemo.scandipwa.com/media/catalog/product/cache/4a94d43b39504f0264020fa330d494bf/e/a/eae4a2a58b07b873fdacd2bff9d83a38.jpg"
+    },
+    "short_description": {
+        "html": "Main Battery Pack 10.8v 2300mAh"
+    },
+    "special_from_date": null,
+    "special_to_date": null,
+    "price_tiers": [],
+    "attributes": [
+        {
+            "attribute_id": 144,
+            "attribute_value": "PSA Parts",
+            "attribute_code": "brand",
+            "attribute_type": "text",
+            "attribute_label": "brand",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 192,
+            "attribute_value": "HP Compaq",
+            "attribute_code": "attr_2190",
+            "attribute_type": "text",
+            "attribute_label": "Compatible products",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 195,
+            "attribute_value": "22",
+            "attribute_code": "attr_1464",
+            "attribute_type": "text",
+            "attribute_label": "Height",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 204,
+            "attribute_value": "42",
+            "attribute_code": "attr_1650",
+            "attribute_type": "text",
+            "attribute_label": "Depth",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 194,
+            "attribute_value": "202",
+            "attribute_code": "attr_1649",
+            "attribute_type": "text",
+            "attribute_label": "Width",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 150,
+            "attribute_value": "5448",
+            "attribute_code": "attr_1766",
+            "attribute_type": "select",
+            "attribute_label": "Product colour",
+            "attribute_options": [
+                {
+                    "label": "Black",
+                    "value": "5448",
+                    "swatch_data": null
+                }
+            ]
+        },
+        {
+            "attribute_id": 205,
+            "attribute_value": "159",
+            "attribute_code": "attr_94",
+            "attribute_type": "text",
+            "attribute_label": "Weight",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 169,
+            "attribute_value": "248",
+            "attribute_code": "attr_3808",
+            "attribute_type": "text",
+            "attribute_label": "Package width",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 447,
+            "attribute_value": "3",
+            "attribute_code": "attr_1226",
+            "attribute_type": "text",
+            "attribute_label": "Number of battery cells",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 211,
+            "attribute_value": "10.8",
+            "attribute_code": "attr_4858",
+            "attribute_type": "text",
+            "attribute_label": "Battery voltage",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 209,
+            "attribute_value": "2300",
+            "attribute_code": "attr_909",
+            "attribute_type": "text",
+            "attribute_label": "Battery capacity",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 208,
+            "attribute_value": "5462",
+            "attribute_code": "attr_434",
+            "attribute_type": "select",
+            "attribute_label": "Battery technology",
+            "attribute_options": [
+                {
+                    "label": "Lithium-Ion (Li-Ion)",
+                    "value": "5462",
+                    "swatch_data": null
+                }
+            ]
+        },
+        {
+            "attribute_id": 159,
+            "attribute_value": "5596",
+            "attribute_code": "attr_31",
+            "attribute_type": "select",
+            "attribute_label": "Type",
+            "attribute_options": [
+                {
+                    "label": "Battery",
+                    "value": "5596",
+                    "swatch_data": null
+                }
+            ]
+        },
+        {
+            "attribute_id": 170,
+            "attribute_value": "108",
+            "attribute_code": "attr_3806",
+            "attribute_type": "text",
+            "attribute_label": "Package depth",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 171,
+            "attribute_value": "47",
+            "attribute_code": "attr_3807",
+            "attribute_type": "text",
+            "attribute_label": "Package height",
+            "attribute_options": []
+        },
+        {
+            "attribute_id": 213,
+            "attribute_value": "24",
+            "attribute_code": "attr_8519",
+            "attribute_type": "text",
+            "attribute_label": "Battery capacity (Watt-hours)",
+            "attribute_options": []
+        }
+    ],
+    "url": "/2-power-10-8v-2300mah-li-ion-l-5419863.html",
+    "review_count": 5,
+    "rating_summary": 96
+}

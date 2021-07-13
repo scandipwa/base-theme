@@ -10,12 +10,8 @@
  */
 
 :root {
-    --menu-background-color: #fff;
-    --menu-desktop-background-color: rgba(122, 122, 122, .44);
-    --menu-desktop-height: 60px;
-    --menu-item-figure-background: var(--secondary-base-color);
-    --menu-item-hover-color: var(--primary-base-color);
-    --menu-second-level-color: #adadad;
+    --menu-item-height: 20px;
+    --menu-total-height: 59px;
 }
 
 @mixin subcategory-visible {
@@ -26,485 +22,212 @@
 }
 
 .Menu {
-    &-MenuWrapper {
-        padding: 1.2rem;
+    &-CompareLink {
+        color: var(--color-black);
+        font-size: 14px;
+        font-weight: 400;
+        padding-inline-start: 30px;
+        text-transform: none;
 
-        @include mobile {
-            padding: 1.4rem;
-        }
-
-        @include desktop {
-            min-height: var(--menu-desktop-height);
-            margin: calc(var(--header-nav-height) * -1) auto auto;
-            padding: 0;
-        }
-
-        li {
-            @include mobile {
-                padding-left: 0;
-            }
+        &Wrapper {
+            border-block-end: 1px solid var(--primary-divider-color);
+            padding-block-start: 17px;
+            padding-block-end: 16px;
+            padding-inline: 0;
+            margin: 0 16px;
 
             &::before {
-                content: none;
+                @include compare-icon;
+
+                content: ' ';
+                position: absolute;
             }
 
-            &:last-child {
-                margin-bottom: 0;
+            @include mobile {
+                padding: 13px 0;
             }
         }
     }
 
-    &-Overlay {
-        background-color: var(--menu-desktop-background-color);
-        height: 100vh;
-        width: 100%;
+    &-ExpandedState {
+        --plus-minus-icon-size: 18px;
+        @include plus-icon;
+
+        display: inline-block;
+        float: inline-end;
+
+        &:dir(rtl) {
+            float: inline-start;
+        }
+
+        &_isExpanded {
+            @include minus-icon;
+        }
+
+        filter: brightness(.2) sepia(1) hue-rotate(180deg) saturate(5);
         position: absolute;
-        z-index: -1;
-        top: -3px;
-        left: 0;
-        opacity: 0;
-        transition: opacity 200ms ease-in;
-        will-change: transition;
-
-        &_isVisible {
-            opacity: 1;
-        }
-    }
-
-    &-MainCategories {
-        @include before-desktop {
-            display: flex;
-            flex-direction: column;
-        }
+        inset-inline-end: 0;
 
         @include desktop {
-            display: block;
-            padding-left: 1.2rem;
-            padding-right: 40px;
-            z-index: 100;
-            max-width: var(--content-wrapper-width);
-            width: 100%;
-            margin: auto;
-            pointer-events: none;
-        }
-    }
-
-    &-ItemList {
-        display: grid;
-
-        @include desktop {
-            display: flex;
-        }
-
-        &_type {
-            &_main {
-                @include desktop {
-                    pointer-events: auto;
-                    width: min-content;
-                }
-
-                @include before-desktop {
-                    order: 2;
-                }
-            }
-
-            &_subcategory {
-                background: var(--menu-background-color);
-                grid-auto-rows: max-content;
-                padding: 0 1.2rem;
-
-                @include mobile {
-                    padding: 0 1.4rem;
-                }
-
-                @include desktop {
-                    // display: grid;
-                    // grid-column-gap: 200px;
-                    // grid-row-gap: 40px;
-                    // grid-template-columns: minmax(200px, calc(100% - 40px) minmax(200px, calc(100% - 40px);
-                    padding: 0;
-                    width: 100%;
-                    display: flex;
-                    flex-wrap: wrap;
-                }
-            }
-        }
-    }
-
-    &-ItemCaption {
-        &_type {
-            &_main {
-                font-size: 1.8rem;
-                font-weight: bold;
-                line-height: 1.2;
-                text-align: left;
-
-                @include mobile {
-                    font-size: 2.1rem;
-                }
-
-                @include desktop {
-                    font-size: 1.4rem;
-                    font-weight: normal;
-                }
-            }
-
-            &_subcategory {
-                font-size: 1.2rem;
-                font-weight: normal;
-                padding: 1.2rem 0;
-
-                @include mobile {
-                    font-size: 1.4rem;
-                    padding: 1.4rem 0;
-                }
-
-                @include desktop {
-                    padding-left: 0;
-                }
-            }
-        }
-
-        &_isLogo {
-            font-size: 1.1rem;
-        }
-
-        &_isBanner {
-            --button-background: var(--homepage-button-background);
-            --button-border: transparent;
-            --button-color: var(--homepage-button-color);
-            --button-hover-background: var(--homepage-button-color);
-            --button-hover-border: transparent;
-            --button-hover-color: var(--homepage-button-background);
-            --button-padding: 9px 49px;
-
-            bottom: 20px;
-            left: 50%;
-            position: absolute;
-            transform: translateX(-50%);
-        }
-    }
-
-    &-ItemFigure {
-        align-items: center;
-        display: grid;
-
-        &_type {
-            &_main {
-                padding-left: 30px;
-                text-transform: uppercase;
-
-                @include before-desktop {
-                    background-color: var(--menu-item-figure-background);
-                    grid-auto-flow: column;
-                    grid-template-columns: 50% 50%;
-                    height: 100px;
-                }
-
-                @include desktop {
-                    height: var(--menu-desktop-height);
-                    padding-left: 0;
-                    z-index: 20;
-                }
-            }
-        }
-
-        &_isBanner {
-            @include desktop {
-                overflow: hidden;
-                width: 200px;
-            }
-        }
-
-        &_isLogo {
-            display: flex;
-
-            .Image-Image {
-                object-fit: cover;
-            }
-        }
-
-        &_isHideOnDesktop {
-            @include desktop {
-                display: none;
-            }
+            display: none;
         }
     }
 
     &-Item {
-        @include before-desktop {
-            margin-top: .6rem;
-            padding-left: 0;
-        }
-
-        @include mobile {
-            margin-top: .7rem;
-            padding-left: 0;
-        }
+        padding-inline-start: 0;
 
         @include desktop {
-            margin-bottom: 0;
-            padding: 0 1.7rem;
-        }
-
-        @include tablet-portrait {
-            padding: 0 .5rem;
-        }
-
-        &:first-child {
-            margin-top: 0;
-
-            @include desktop {
-                padding-left: 0;
-            }
-        }
-
-        button {
-            width: 100%;
-        }
-
-        &_isHideOnDesktop {
-            @include desktop {
-                display: none;
-            }
-        }
-    }
-
-    &-SubCategoriesWrapper {
-        position: absolute;
-        top: calc(var(--header-nav-height) + 3px);
-        pointer-events: none;
-        width: 100%;
-
-        @include tablet {
-            top: var(--header-nav-height);
-            left: 0;
+            height: var(--menu-item-height);
+            margin: 0;
         }
 
         &::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            top: calc(var(--header-nav-height) * -1);
+            content: none;
         }
 
-        &_isVisible {
-            pointer-events: all;
-        }
-    }
+        &Caption {
+            color: var(--color-black);
 
-    &-SubCategoriesWrapperInner {
-        background-color: var(--overlay-background);
-        transition: clip-path 200ms ease-in;
-        will-change: clip-path;
-        clip-path: inset(0 0 100% 0);
-        margin: auto;
-        overflow-y: auto;
-        max-height: calc(100vh - var(--header-nav-height));
+            &:hover {
+                color: var(--link-hover);
+            }
 
-        &_isVisible {
-            clip-path: inset(0);
-        }
-    }
-
-    &-SubCategories,
-    &-Promotion {
-        max-width: var(--content-wrapper-width);
-        margin: auto;
-    }
-
-    &-Promotion {
-        order: 3;
-    }
-
-    &-SubCategories {
-        padding: 40px 55px 60px 1.2rem;
-
-        @include mobile {
-            padding: 40px 55px 60px 1.4rem;
-        }
-    }
-
-    &-SubMenu {
-        background-color: var(--overlay-background);
-        opacity: 0;
-        pointer-events: none;
-        touch-action: pan-y;
-        transform: translateX(100%);
-        transition: transform 200ms ease-in-out;
-
-        @include before-desktop {
-            height: 100%;
-            left: 0;
-            padding-top: var(--header-total-height);
-            position: fixed;
-            top: 0;
-            width: 100%;
-        }
-
-        @include desktop {
-            background: transparent;
-            transform: translateX(0);
-            transition-duration: 0ms;
-            width: 100%;
-        }
-
-        &_isVisible {
-            @include subcategory-visible;
             @include mobile {
-                height: 100%;
-                overflow-y: scroll;
+                margin-inline: 16px;
             }
 
-            .Menu-Link {
-                @include desktop {
-                    padding: 0;
+            @include mobile {
+                padding-block: 16px;
+            }
+
+            &_isSecondLevel {
+                font-weight: 700;
+            }
+
+            &_type {
+                &_main {
+                    @include desktop {
+                        margin: 0 0 16px;
+                    }
+
+                    text-transform: uppercase;
+                    font-weight: 700;
+                }
+
+                &_subcategory {
+                    @include mobile {
+                        margin-inline-end: 0;
+                    }
+
+                    @include desktop {
+                        margin-block-start: 12px;
+                        display: inline-block;
+                    }
                 }
             }
         }
 
-        .Menu-Link {
+        &List {
             @include desktop {
-                margin-left: 0;
-                margin-right: 0;
-            }
-        }
-    }
+                display: flex;
 
-    &-SubItemWrapper {
-        flex-basis: 200px;
-
-        @include desktop {
-            margin-right: 4.8rem;
-            margin-bottom: 2.4rem;
-        }
-
-        &_isBanner {
-            flex-grow: 1;
-            flex-basis: 400px;
-        }
-
-        &_isHideOnDesktop {
-            @include desktop {
-                display: none;
-            }
-        }
-
-        > .Menu-Link {
-            display: block;
-
-            @include desktop {
-                color: var(--menu-second-level-color);
-                font-size: 1.4rem;
-                text-transform: uppercase;
-            }
-        }
-    }
-
-    &-SubLevelDesktop {
-        .Menu {
-            &-ItemList {
-                display: block;
-                padding: 0;
-
-                &_isBanner {
-                    display: grid;
-                    grid-column-gap: 10px;
-                    grid-template-columns: repeat(auto-fit, 200px);
+                .Menu-SubMenu & {
+                    display: block;
                 }
             }
 
-            &-Link {
-                margin-top: 20px;
-            }
-        }
-    }
-
-    &-Image {
-        &_isBanner {
-            @include desktop {
-                padding-bottom: 100%;
-            }
-
-            img {
-                object-fit: cover;
-            }
-        }
-
-        &_isLogo {
-            height: 44px;
-            margin-right: 20px;
-            width: 44px;
-        }
-
-        &_type {
-            &_main {
-                grid-column: 2;
-                height: 100%;
-                justify-self: end;
-                padding-bottom: 0;
-            }
-
-            &_subcategory {
-                border-radius: 50%;
-                height: 3.84rem;
-                padding-bottom: 0;
-                width: 3.84rem;
-
+            &_type_subcategory {
                 @include mobile {
-                    height: 4.48rem;
-                    width: 4.48rem;
+                    padding-block: 8px;
                 }
+            }
+        }
+
+        &:not(:first-of-type) {
+            @include desktop {
+                margin-inline-start: 20px;
             }
         }
     }
 
     &-Link {
-        color: inherit;
-        white-space: nowrap;
-        padding-left: 0;
+        display: contents;
+        font-weight: 400;
+        margin-block: 8px;
+        margin-inline: 0 16px;
+    }
 
-        @include before-desktop {
-            padding: 1.2rem 0;
+    &-MainCategories {
+        margin: 0 auto;
+
+        @include desktop{
+            width: fit-content;
+
+            .Menu-Link {
+                font-weight: 700;
+            }
         }
+    }
 
-        @include mobile {
-            padding: 1.4rem 0;
-        }
-
+    &-MenuWrapper {
         @include desktop {
-            display: block;
-            margin-right: 0;
-        }
-
-        &:hover,
-        &_isHovered,
-        &:focus {
-            color: var(--menu-item-hover-color);
-            text-decoration: none;
+            margin-block-start: 18px;
         }
     }
 
-    &-Link + &-Link {
-        margin-left: 0;
+    &-SubCategories {
+        @include desktop {
+            padding-inline: 32px;
+            padding-block-end: 8px;
+        }
     }
 
-    .Image {
-        background: none;
-    }
+    &-Sub {
+        &ItemWrapper {
+            > .Menu-Link {
+                @include desktop {
+                    font-weight: 700;
+                }
+            }
 
-    &-CompareLinkWrapper {
-        text-transform: uppercase;
-        order: 1;
-    }
+            break-inside: avoid;
+            overflow: hidden;
+        }
 
-    &-CompareLink {
-        color: var(--body-content-color);
+        &Menu {
+            display: none;
 
-        &:hover {
-            text-decoration: none;
+            &_isVisible {
+                background: var(--color-gray);
+                display: block;
+                padding-inline: 16px;
+            }
+
+            @include desktop {
+                background: none;
+                display: block;
+                padding: 0;
+            }
+
+            .Menu-SubMenu & {
+                padding-block-end: 0;
+            }
+
+            .Menu-ItemCaption {
+                @include mobile {
+                    padding-block: 8px;
+                }
+
+                @include desktop {
+                    padding-block-end: 8px;
+                }
+            }
+
+            > .Menu-ItemList {
+                @include desktop {
+                    columns: 4;
+                }
+            }
         }
     }
 }

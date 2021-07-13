@@ -12,16 +12,16 @@
 :root {
     --popup-background: #0003;
     @include mobile {
-        --popup-content-padding: 1.4rem;
+        --popup-content-padding: 14px;
     }
 
     --popup-content-background: #{$white};
     --popup-min-width: 100%;
-    --popup-content-padding: 1.2rem;
+    --popup-content-padding: 12px;
 
-    @include after-mobile {
+    @include desktop {
         --popup-min-width: 490px;
-        --popup-content-padding: 2.4rem;
+        --popup-content-padding: 24px;
     }
 }
 
@@ -31,8 +31,8 @@
     z-index: 400;
     position: fixed;
     background-color: var(--popup-background);
-    left: 0;
-    top: var(--header-total-height);
+    inset-inline-start: 0;
+    inset-block-start: var(--header-total-height);
 
     display: flex;
     justify-content: center;
@@ -47,10 +47,10 @@
         opacity: 1;
         width: 100vw;
         height: 100vh;
-        top: 0;
+        inset-block-start: 0;
 
         @include mobile {
-            top: var(--header-total-height);
+            inset-block-start: var(--header-total-height);
             height: calc(100% - var(--header-total-height));
         }
     }
@@ -58,7 +58,7 @@
     &-Heading {
         text-decoration: none;
         font-weight: 400;
-        margin-top: 0;
+        margin-block-start: 0;
     }
 
     &-Header {
@@ -85,15 +85,15 @@
     & &-CloseBtn {
         @include close-button;
 
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
         position: absolute;
-        top: -4px;
-        right: -1rem;
+        inset-block-start: -4px;
+        inset-inline-end: -6px;
         z-index: 5;
 
         @include mobile {
-            top: 25px;
+            inset-block-start: 25px;
         }
     }
 
@@ -106,7 +106,7 @@
 
 .scrollDisabled {
     position: fixed;
-    margin-top: 0;
+    margin-block-start: 0;
     width: 100%;
     overflow-y: scroll;
 }

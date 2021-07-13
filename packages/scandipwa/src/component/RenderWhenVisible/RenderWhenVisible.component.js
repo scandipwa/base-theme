@@ -56,6 +56,7 @@ export class RenderWhenVisible extends PureComponent {
 
     shouldRender() {
         const { wasVisible } = this.state;
+
         return !wasVisible && !isSSR() && !isCrawler();
     }
 

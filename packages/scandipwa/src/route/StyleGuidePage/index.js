@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 /**
  * ScandiPWA - Progressive Web App for Magento
  *
@@ -11,4 +9,4 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-export const IMAGE_ZOOM = 'IMAGE_ZOOM';
+export { default } from './StyleGuidePage.container';

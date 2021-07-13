@@ -29,6 +29,7 @@ export class ShareWishlistPopup extends PureComponent {
 
     renderContent() {
         const { handleFormData } = this.props;
+
         return <ShareWishlistForm onSave={ handleFormData } />;
     }
 

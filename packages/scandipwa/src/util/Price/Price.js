@@ -9,7 +9,6 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-/* eslint-disable import/prefer-default-export */
 import currencyMap from './Price.config';
 
 /** @namespace Util/Price/formatCurrency */
@@ -18,6 +17,7 @@ export const formatCurrency = (currency = 'USD') => currencyMap[currency];
 /** @namespace Util/Price/formatPrice */
 export const formatPrice = (price, currency = 'USD') => {
     const language = navigator.languages ? navigator.languages[0] : navigator.language;
+
     return new Intl.NumberFormat(language, { style: 'currency', currency }).format(price);
 };
 
@@ -38,3 +38,11 @@ export const calculateFinalPrice = (discount, min, reg) => (discount ? min : reg
  * @namespace Util/Price/roundPrice
  */
 export const roundPrice = (price) => parseFloat(price).toFixed(2);
+
+/** @namespace Util/Price/getLowestPriceTiersPrice */
+export const getLowestPriceTiersPrice = (price_tiers, currency) => {
+    const lowestValue = price_tiers
+        .reduce((acc, { final_price: { value } }) => (acc < value ? acc : value), price_tiers[0].final_price.value);
+
+    return formatPrice(lowestValue, currency);
+};

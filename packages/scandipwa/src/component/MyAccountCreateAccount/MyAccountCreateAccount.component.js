@@ -42,6 +42,7 @@ export class MyAccountCreateAccount extends PureComponent {
             <Field
               type="text"
               label={ __('Tax/VAT Number') }
+              placeholder={ __('Your Tax/VAT Number') }
               id="taxvat"
               name="taxvat"
               validation={ vatNumberValidation }
@@ -74,6 +75,7 @@ export class MyAccountCreateAccount extends PureComponent {
                   label={ __('First Name') }
                   id="firstname"
                   name="firstname"
+                  placeholder={ __('Your first name') }
                   value={ firstName }
                   autocomplete="given-name"
                   validation={ ['notEmpty'] }
@@ -83,6 +85,7 @@ export class MyAccountCreateAccount extends PureComponent {
                   label={ __('Last Name') }
                   id="lastname"
                   name="lastname"
+                  placeholder={ __('Your last name') }
                   value={ lastName }
                   autocomplete="family-name"
                   validation={ ['notEmpty'] }
@@ -104,15 +107,18 @@ export class MyAccountCreateAccount extends PureComponent {
                   label={ __('Email') }
                   id="email"
                   name="email"
+                  placeholder={ __('Your email address') }
                   value={ email }
                   autocomplete="email"
                   validation={ ['notEmpty', 'email'] }
                 />
+                <div block="MyAccountOverlay" elem="PasswordBlock">
                 <Field
                   type="password"
                   label={ __('Password') }
                   id="password"
                   name="password"
+                  placeholder={ __('Enter your password') }
                   autocomplete="new-password"
                   validation={ ['notEmpty', 'password'] }
                 />
@@ -121,9 +127,11 @@ export class MyAccountCreateAccount extends PureComponent {
                   label={ __('Confirm password') }
                   id="confirm_password"
                   name="confirm_password"
+                  placeholder={ __('Retype your password') }
                   autocomplete="new-password"
                   validation={ ['notEmpty', 'password', 'password_match'] }
                 />
+                </div>
             </fieldset>
         );
     }
@@ -134,6 +142,7 @@ export class MyAccountCreateAccount extends PureComponent {
                 <button
                   block="Button"
                   type="submit"
+                  mix={ { block: 'MyAccountOverlay', elem: 'SignUpButton' } }
                 >
                     { __('Sign up') }
                 </button>
@@ -143,6 +152,7 @@ export class MyAccountCreateAccount extends PureComponent {
 
     renderCreateAccountForm() {
         const { onCreateAccountAttempt, onCreateAccountSuccess } = this.props;
+
         return (
             <Form
               key="create-account"
@@ -167,9 +177,10 @@ export class MyAccountCreateAccount extends PureComponent {
                     <button
                       block="Button"
                       mods={ { likeLink: true } }
+                      mix={ { block: 'MyAccountOverlay', elem: 'SignInButton' } }
                       onClick={ handleSignIn }
                     >
-                        { __('Sign in here') }
+                        { __('Sign in') }
                     </button>
                 </section>
             </article>

@@ -10,66 +10,64 @@
  */
 
 :root {
-    --store-switcher-list-background: #fff;
-    --store-switcher-title-color: #414141;
+    --store-switcher-list-background: var(--color-white);
 }
 
 .StoreSwitcher {
-    @include desktop {
-        display: inline-block;
-    }
+    border-block-end: 1px solid var(--primary-divider-color);
 
-    @include before-desktop {
-        border-bottom: 1px solid var(--primary-divider-color);
-        order: 1;
-        margin-bottom: 1.2rem;
+    @include desktop {
+        border-block-end: none;
+        margin: 0;
     }
 
     @include mobile {
-        margin-bottom: 1.4rem;
-    }
-
-    select,
-    select:hover,
-    select:focus {
-        @include before-desktop {
-            border: 0;
-        }
+        margin: 0 16px;
     }
 
     .Field {
-        @include before-desktop {
-            margin-top: 0;
+        margin-block-start: 0;
+
+        &Select {
+            &-Select {
+                border: none;
+                font-size: 14px;
+                font-weight: 400;
+                opacity: 1;
+                padding-inline-start: 0;
+                line-height: 23px;
+            }
+
+            &::after {
+                height: 13px;
+                inset-inline-end: 0;
+                width: 13px;
+            }
         }
     }
 
     &-Title {
-        color: var(--store-switcher-title-color);
+        color: var(--input-color);
         cursor: pointer;
-        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
 
-        @include mobile {
-            font-size: 1.4rem;
+        @include desktop {
+            font-size: 12px;
         }
 
-        &::after {
-            content: '';
-            position: absolute;
-            right: -12px;
-            top: 8px;
-            width: 0;
-            height: 0;
-            border-left: 3px solid transparent;
-            border-right: 3px solid transparent;
-            border-bottom: 3px solid black;
-            transition: transform 200ms ease-in-out;
-            transform: rotate(180deg);
-            will-change: transform;
+        span {
+            @include chevron-icon;
+            height: 14px;
+            width: 14px;
+            display: inline-block;
+            margin-inline-start: 10px;
+            transform: rotate(90deg);
         }
 
         &_isOpen {
-            &::after {
-                transform: rotate(0);
+            span {
+                transform: rotate(-90deg);
             }
         }
     }
@@ -78,9 +76,10 @@
         background-color: var(--store-switcher-list-background);
         border: 1px solid var(--input-border-color);
         display: none;
-        right: -20px;
+        inset-inline-end: -20px;
         position: absolute;
-        top: 25px;
+        inset-block-start: 25px;
+        z-index: 2;
 
         &_isOpen {
             display: block;

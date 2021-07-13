@@ -11,41 +11,31 @@
 
 .ProductBundleItem {
     &-Wrapper {
-        margin-bottom: 1.2rem;
-
-        @include mobile {
-            margin-bottom: 1.4rem;
-        }
+        margin-block-start: 24px;
     }
 
     &-Title {
-        font-size: 1.4rem;
+        font-size: 14px;
         font-weight: bold;
-    }
-
-    &-Heading {
-        font-weight: normal;
-        vertical-align: bottom;
-
-        &Bold {
-            font-weight: bold;
-            vertical-align: bottom;
-        }
+        margin-block-end: 12px;
     }
 
     &-DropdownWrapper {
         display: flex;
+        align-items: center;
+    }
 
-        .Field_type_number {
-            margin-left: 1.44rem;
+    &-Qty.Field {
+        margin-block: 0;
+        margin-inline-start: 20px;
 
-            @include mobile {
-                margin-left: 1.68rem;
-            }
+        .ProductBundleItem-Qty {
+            opacity: 1;
         }
     }
 
     &-Select {
         flex-grow: 1;
+        margin: 0;
     }
 }

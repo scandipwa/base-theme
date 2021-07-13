@@ -178,6 +178,7 @@ export class SearchPageContainer extends CategoryPageContainer {
 
     getSearchParam() {
         const { match: { params: { query } } } = this.props;
+
         return query;
     }
 

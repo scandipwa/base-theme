@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
 import { ProductType } from 'Type/ProductList';
-import { formatPrice } from 'Util/Price';
+import { formatPrice, getLowestPriceTiersPrice } from 'Util/Price';
 
 import './TierPrices.style';
 
@@ -87,10 +87,8 @@ export class TierPrices extends PureComponent {
             }
         } = this.props;
 
-        const lowestValue = price_tiers
-            .reduce((acc, { final_price: { value } }) => (acc < value ? acc : value), price_tiers[0].final_price.value);
+        const formattedPrice = getLowestPriceTiersPrice(price_tiers, currency);
 
-        const formattedPrice = formatPrice(lowestValue, currency);
         return (
             <span block="TierPrices" elem="Item" mods={ { isLowest: true } }>
                 { __('As low as ') }

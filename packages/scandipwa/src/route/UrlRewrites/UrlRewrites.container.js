@@ -145,6 +145,7 @@ export class UrlRewritesContainer extends PureComponent {
 
                 if (product) {
                     const { sku: historySKU, id } = product;
+
                     return { productSKU: historySKU, id };
                 }
 
@@ -183,6 +184,7 @@ export class UrlRewritesContainer extends PureComponent {
 
     getIsLoading() {
         const { requestedUrl } = this.props;
+
         return location.pathname !== requestedUrl;
     }
 
@@ -248,6 +250,7 @@ export class UrlRewritesContainer extends PureComponent {
 
     requestUrlRewrite() {
         const { requestUrlRewrite } = this.props;
+
         return requestUrlRewrite(location.pathname);
     }
 

@@ -15,19 +15,10 @@
 
 .ContentWrapper {
     max-width: var(--content-wrapper-width);
-    padding: {
-        left: 1.2rem;
-        right: 1.2rem;
-    };
-    margin: {
-        left: auto;
-        right: auto;
-    };
+    padding-inline: 32px;
+    margin-inline: auto;
 
     @include mobile {
-        padding: {
-            left: 1.4rem;
-            right: 1.4rem;
-        }
+        padding-inline: 14px;
     }
 }

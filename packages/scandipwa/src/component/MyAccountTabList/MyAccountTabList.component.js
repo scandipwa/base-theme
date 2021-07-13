@@ -95,6 +95,7 @@ export class MyAccountTabList extends PureComponent {
               isContentExpanded={ isContentExpanded }
               onClick={ this.toggleExpandableContent }
               mix={ { block: 'MyAccountTabList' } }
+              mods={ { isWithoutBorder: true } }
             >
                 <ul>
                     { tabs }

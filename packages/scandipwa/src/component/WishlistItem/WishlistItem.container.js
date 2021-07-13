@@ -20,6 +20,7 @@ import { showNotification } from 'Store/Notification/Notification.action';
 import { ProductType } from 'Type/ProductList';
 import { isSignedIn } from 'Util/Auth';
 import history from 'Util/History';
+import { CONFIGURABLE } from 'Util/Product';
 import { debounce } from 'Util/Request';
 import { appendWithStoreCode } from 'Util/Url';
 
@@ -69,7 +70,8 @@ export class WishlistItemContainer extends PureComponent {
 
     containerFunctions = {
         addToCart: this.addItemToCart.bind(this),
-        removeItem: this.removeItem.bind(this, false, true)
+        removeItem: this.removeItem.bind(this, false, true),
+        redirectToProductPage: this.redirectToProductPage.bind(this)
     };
 
     state = {
@@ -140,12 +142,13 @@ export class WishlistItemContainer extends PureComponent {
             return null;
         }
 
-        if (type_id === 'configurable') {
+        if (type_id === CONFIGURABLE) {
             const configurableVariantIndex = this.getConfigurableVariantIndex(sku, variants);
 
             if (!configurableVariantIndex) {
                 history.push({ pathname: appendWithStoreCode(item.url) });
-                showNotification('info', __('Please select product options!'));
+                showNotification('info', __('Please, select product options!'));
+
                 return Promise.resolve();
             }
 
@@ -184,6 +187,12 @@ export class WishlistItemContainer extends PureComponent {
         handleSelectIdChange(item_id, isRemoveOnly);
 
         return removeFromWishlist({ item_id, noMessages });
+    }
+
+    redirectToProductPage() {
+        const { product: { url } } = this.props;
+
+        history.push({ pathname: appendWithStoreCode(url) });
     }
 
     renderRightSideContent = () => (

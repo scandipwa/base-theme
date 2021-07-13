@@ -12,18 +12,18 @@
 .SliderWidget {
     &-Figcaption {
         position: absolute;
-        top: 50%;
-        left: 0;
+        inset-block-start: 50%;
+        inset-inline-start: 0;
         width: 100%;
         transform: translateY(-50%);
     }
 
     &-FigureImage {
         display: block;
-        padding-bottom: 40%;
+        padding-block-end: 40%;
 
         @include mobile {
-            padding-bottom: 100%;
+            padding-block-end: 100%;
         }
 
         img {

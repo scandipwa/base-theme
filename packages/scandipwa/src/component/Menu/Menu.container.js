@@ -9,13 +9,9 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { MENU_SUBCATEGORY } from 'Component/Header/Header.config';
 import MenuQuery from 'Query/Menu.query';
-import { changeNavigationState, goToPreviousNavigationState } from 'Store/Navigation/Navigation.action';
-import { TOP_NAVIGATION_TYPE } from 'Store/Navigation/Navigation.reducer';
 import { DeviceType } from 'Type/Device';
 import history from 'Util/History';
 import MenuHelper from 'Util/Menu';
@@ -29,16 +25,12 @@ export const mapStateToProps = (state) => ({
 });
 
 /** @namespace Component/Menu/Container/mapDispatchToProps */
-export const mapDispatchToProps = (dispatch) => ({
-    goToPreviousHeaderState: () => dispatch(goToPreviousNavigationState(TOP_NAVIGATION_TYPE)),
-    changeHeaderState: (state) => dispatch(changeNavigationState(TOP_NAVIGATION_TYPE, state))
-});
+// eslint-disable-next-line no-unused-vars
+export const mapDispatchToProps = (dispatch) => ({});
 
 /** @namespace Component/Menu/Container */
 export class MenuContainer extends DataContainer {
     static propTypes = {
-        goToPreviousHeaderState: PropTypes.func.isRequired,
-        changeHeaderState: PropTypes.func.isRequired,
         device: DeviceType.isRequired
     };
 
@@ -61,31 +53,6 @@ export class MenuContainer extends DataContainer {
         };
     }
 
-    populateHeaderStateFromStack = () => {
-        const { changeHeaderState } = this.props;
-        const { activeMenuItemsStack, menu } = this.state;
-        const [mainMenu] = Object.values(menu);
-
-        activeMenuItemsStack.slice().reduceRight((acc, itemId) => {
-            const {
-                children: {
-                    [itemId]: currentItem
-                }
-            } = acc;
-
-            const { title } = currentItem;
-
-            changeHeaderState({
-                name: MENU_SUBCATEGORY,
-                force: true,
-                title,
-                onBackClick: this.handleHeaderBackClick
-            });
-
-            return currentItem;
-        }, mainMenu);
-    };
-
     componentDidMount() {
         const { device: { isMobile } } = this.props;
 
@@ -101,9 +68,6 @@ export class MenuContainer extends DataContainer {
 
         if (activeMenuItemsStack.length) {
             this.setState({ activeMenuItemsStack: activeMenuItemsStack.slice(1) });
-
-            const { goToPreviousHeaderState } = this.props;
-            goToPreviousHeaderState();
         }
     };
 
@@ -124,39 +88,27 @@ export class MenuContainer extends DataContainer {
             [MenuQuery.getQuery(this._getMenuOptions())],
             ({ menu }) => this.setState({
                 menu: MenuHelper.reduce(menu)
-            }, this.populateHeaderStateFromStack)
+            })
         );
     }
 
+    getNewActiveMenuItemsStack(activeMenuItemsStack, item_id) {
+        if (activeMenuItemsStack.includes(item_id)) {
+            return activeMenuItemsStack.filter((id) => id !== item_id);
+        }
+
+        return [item_id, ...activeMenuItemsStack];
+    }
+
     handleSubcategoryClick(e, activeSubcategory) {
-        const { changeHeaderState } = this.props;
         const { activeMenuItemsStack } = this.state;
-        const { item_id, title } = activeSubcategory;
+        const { item_id } = activeSubcategory;
 
         e.stopPropagation();
 
-        if (activeMenuItemsStack.includes(item_id)) {
-            return;
-        }
-
-        changeHeaderState({
-            name: MENU_SUBCATEGORY,
-            force: true,
-            title,
-            onBackClick: this.handleHeaderBackClick
-        });
-
-        const newActiveMenuItemsStack = [item_id, ...activeMenuItemsStack];
+        const newActiveMenuItemsStack = this.getNewActiveMenuItemsStack(activeMenuItemsStack, item_id);
         this.setState({ activeMenuItemsStack: newActiveMenuItemsStack });
-
-        // keep the stack here, so later we can de-construct menu out of it
-        const { pathanme } = location;
-        history.push(pathanme, { stack: newActiveMenuItemsStack });
     }
-
-    handleHeaderBackClick = () => {
-        history.goBack();
-    };
 
     onCategoryHover(activeSubcategory) {
         const { device } = this.props;

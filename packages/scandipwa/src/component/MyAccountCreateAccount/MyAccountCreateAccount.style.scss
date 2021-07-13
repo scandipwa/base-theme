@@ -9,8 +9,32 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-.MyAccountOverlay-Legend {
-    legend {
-        padding: .8rem 0;
+.MyAccountOverlay {
+    &-Legend {
+        legend {
+            padding: .8rem 0;
+        }
     }
+
+    &-SignUpButton {
+        margin-block-start: 24px;
+
+        @include mobile {
+            margin-block-end: 18px;
+        }
+    }
+
+    &-SignInButton {
+        height: fit-content;
+    }
+
+    &-PasswordBlock {
+
+        @include desktop {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-column-gap: 16px;
+        }
+    }
+
 }

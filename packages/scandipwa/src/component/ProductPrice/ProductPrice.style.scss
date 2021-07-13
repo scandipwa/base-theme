@@ -18,36 +18,34 @@
 .ProductPrice {
     color: var(--price-color);
     font-weight: 700;
+    font-size: 24px;
     line-height: 1;
     vertical-align: middle;
-    margin-bottom: 0;
+    margin-block-end: 0;
 
-    &_hasDiscount {
-        color: var(--price-with-discount-color);
+    @include desktop {
+        min-height: 40px;
     }
 
     @include mobile {
-        font-size: 1.8rem;
+        font-size: 18px;
     }
 
-    ins {
+    &-Price {
         text-decoration: none;
+        display: inline-flex;
+        align-items: baseline;
     }
 
     del {
-        font-size: .7em;
+        font-size: 14px;
         font-weight: 500;
         opacity: .5;
         display: inline-block;
-        margin-left: 12px;
-
-        @include mobile {
-            margin-left: 4px;
-        }
+        margin-inline-end: 12px;
     }
 
     &-HighPrice {
-        padding-left: .1em;
         color: var(--price-discount-color);
     }
 
@@ -59,7 +57,15 @@
 
     &-SubPrice {
         display: block;
-        font-weight: 500;
-        font-size: .5em;
+        font-weight: 400;
+        font-size: 12px;
+        margin-block-start: 4px;
+    }
+
+    &-PriceBadge {
+        font-size: 14px;
+        font-weight: 400;
+        margin-inline-end: 4px;
+        white-space: nowrap;
     }
 }

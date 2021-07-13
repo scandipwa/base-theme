@@ -51,13 +51,14 @@ export class MyAccountCustomerTable extends KeyValueTable {
             <>
                 <button
                   block="Button"
+                  mods={ { isHollow: true } }
                   onClick={ showEditPopup }
                 >
                     { __('Edit details') }
                 </button>
                 <button
                   block="Button"
-                  mods={ { isHollow: true } }
+                  mods={ { isHollow: true, isWithoutBorder: true } }
                   onClick={ showChangePasswordPopup }
                 >
                     { __('Change password') }

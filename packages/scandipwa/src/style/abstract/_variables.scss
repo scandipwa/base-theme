@@ -10,7 +10,7 @@
  */
 
 $white: #fff;
-$black: #0a0a0a;
+$black: #0a0903;
 $default-primary-base-color: #f26323;
 $default-primary-dark-color: #d1490c;
 $default-primary-light-color: #f69e77;
@@ -19,3 +19,5 @@ $default-secondary-dark-color: #929292;
 $default-secondary-light-color: #f8f8f8;
 $font-muli: 'Muli', sans-serif;
 $font-standard-size: 62.5%;
+$svg-filter-primary-base-color: invert(43%) sepia(55%) saturate(2559%) hue-rotate(349deg) brightness(90%) contrast(91%);
+$svg-filter-primary-dark-color: invert(36%) sepia(87%) saturate(4152%) hue-rotate(8deg) brightness(91%) contrast(91%);

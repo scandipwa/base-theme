@@ -16,57 +16,36 @@
 }
 
 .CheckoutPayment {
-    padding: 0;
-    margin-bottom: 0;
-    display: flex;
-    align-items: center;
-    border-top: 1px solid var(--checkout-payment-border-color);
+    padding-block: 19px;
+    padding-inline-start: 0;
+    margin-block-end: 0;
+    border-block-start: 1px solid var(--checkout-payment-border-color);
+
+    @include tablet {
+        width: 100%;
+    }
 
     &::before {
         content: none;
     }
 
+    &:first-child {
+        border-block-start: 0;
+    }
+
     &:last-child {
-        margin-bottom: 0;
-        border-bottom: 1px solid var(--checkout-payment-border-color);
+        margin-block-end: 0;
     }
 
     &-Button {
         --check-mark-opacity: 0;
-
         width: 100%;
-        padding: 1.2rem 3.6rem 1.2rem;
-        text-align: left;
+        display: flex;
+        align-items: flex-start;
+        font-size: 14px;
+    }
 
-        @include mobile {
-            padding: 1.4rem 4.2rem 1.4rem;
-        }
-
-        &::after {
-            content: '';
-            position: absolute;
-            z-index: 1;
-            opacity: var(--check-mark-opacity);
-            transition: opacity 150ms ease-in;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-            left: 8px;
-            width: 12px;
-            height: 6px;
-            transform: rotate(135deg) translateX(-5px);
-            border-right: 2px solid var(--check-mark-color);
-            border-top: 2px solid var(--check-mark-color);
-        }
-
-        &_isSelected {
-            --check-mark-opacity: 1;
-            --check-mark-color: var(--checkout-payment-check-mark-color);
-        }
-
-        &:not(&_isSelected):hover {
-            --check-mark-opacity: 1;
-            --check-mark-color: var(--checkout-payment-check-mark-hover-color);
-        }
+    .Field_type_checkbox {
+        margin-block-start: 0;
     }
 }

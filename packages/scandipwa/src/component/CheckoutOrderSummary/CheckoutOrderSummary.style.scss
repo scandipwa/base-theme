@@ -9,37 +9,55 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
+:root {
+    --footer-totals-height: 0;
+}
+
 .CheckoutOrderSummary {
-    $divider-border-color: #e0e0e0;
-    $divider-border: solid 1px $divider-border-color;
+    $divider-border: 1px solid var(--input-border-color);
+
+    @include desktop {
+        border: 1px solid var(--secondary-base-color);
+        border-radius: 2px;
+        padding-block-start: 24px;
+        padding-block-end: 0;
+        padding-inline: 16px;
+    }
 
     &-Header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0;
+        font-size: 24px;
+        font-weight: 700;
+
+        @include mobile {
+            display: none;
+        }
+
+        h2 {
+            margin-block: 0;
+        }
     }
 
     &-ItemsInCart {
-        font-size: 1.2rem;
-        opacity: .5;
+        font-size: 14px;
         text-transform: none;
-        top: 2px;
-        font-weight: 300;
+        inset-block-start: 2px;
+        font-weight: 400;
+        margin-block: 20px 16px;
     }
 
     &-SummaryItem {
         justify-content: space-between;
         display: flex;
-        padding: 1.2rem 0;
-        margin-bottom: 0;
+        padding: 12px 0;
+        margin-block-end: 0;
+        padding-inline-start: 0;
 
         @include mobile {
-            padding: 1.4rem 0;
+            padding: 14px 0;
         }
 
         &:last-child {
-            margin-bottom: 0;
+            margin-block-end: 0;
         }
 
         &::before {
@@ -49,6 +67,21 @@
         &_withAppendedContent {
             flex-wrap: wrap;
         }
+
+        &_isTotal {
+
+            font-size: 16px;
+            padding-inline-start: 0;
+
+            @include desktop {
+                border-block-start: 1px solid var(--primary-divider-color);
+            }
+
+            & p {
+                font-size: 16px;
+                font-weight: 700;
+            }
+        }
     }
 
     &-OrderItems {
@@ -57,7 +90,7 @@
         }
 
         h3 {
-            text-align: left;
+            text-align: start;
         }
     }
 
@@ -65,37 +98,32 @@
         list-style: none;
         margin: 0;
         padding: 0;
-
-        @include mobile {
-            --cart-item-background: var(--secondary-base-color);
-            --cart-item-divider-color: $divider-border-color;
-        }
     }
 
     &-CartItemDescription {
-        margin-top: 5px;
+        margin-block-start: 5px;
 
         p {
-            font-size: 1.32rem;
+            font-size: 13px;
             line-height: 1.5;
 
             @include mobile {
-                font-size: 1.54rem;
+                font-size: 15px;
             }
         }
     }
 
     &-CartItem {
         display: grid;
-        grid-template-columns: 9.6rem auto auto;
-        grid-column-gap: .6rem;
-        margin: 0 0 .6rem;
+        grid-template-columns: 96px auto auto;
+        grid-column-gap: 6px;
+        margin: 0 0 6px;
         padding: 0;
 
         @include mobile {
-            grid-template-columns: 11.2rem auto auto;
-            grid-column-gap: .7rem;
-            margin: 0 0 .7rem;
+            grid-template-columns: 112px auto auto;
+            grid-column-gap: 7px;
+            margin: 0 0 7px;
         }
 
         &::before {
@@ -110,12 +138,12 @@
     }
 
     &-Thumbnail {
-        width: 9.6rem;
-        height: 9.6rem;
+        width: 96px;
+        height: 96px;
 
         @include mobile {
-            width: 11.2rem;
-            height: 11.2rem;
+            width: 112px;
+            height: 112px;
         }
     }
 
@@ -123,7 +151,7 @@
         p {
             margin: 0;
             padding: 0;
-            text-align: left;
+            text-align: start;
         }
     }
 
@@ -132,56 +160,91 @@
     }
 
     &-ExpandableContent {
-        margin: 0 -1.4rem;
-        background-color: var(--secondary-base-color);
+        border-block-start: none;
+
+        &Button {
+            padding-inline: 0;
+        }
+    }
+
+    &-ExpandableContentHeading {
+        font-size: 18px;
+    }
+
+    .ExpandableContent-ToggleButton {
+        height: 20px;
+        width: 20px;
+        inset-inline-start: 3px;
     }
 
     &-Coupon {
         @include mobile {
-            padding: 10px 1.4rem;
-            border-bottom: $divider-border;
-            margin: 0 -1.4rem;
+            padding: 10px 14px;
+            border-block-end: $divider-border;
+            margin: 0 -14px;
             width: auto;
         }
     }
 
     &-CmsBlock {
         padding: 10px 0;
-        border-bottom: $divider-border;
+        border-block-end: $divider-border;
     }
 
     .ProductPrice {
-        margin-top: 0;
+        margin-block-start: 0;
         font-weight: bold;
         line-height: 1;
-        font-size: 1.4rem;
+        font-size: 18px;
 
         &-SubPrice {
             display: block;
-            font-size: .7em;
-            font-weight: 300;
+            font-size: 12px;
         }
     }
 
     .CartItem-Wrapper {
-        padding: 1.2rem 0;
+        padding: 12px 0;
 
         @include mobile {
-            padding: 1.4rem 0;
+            padding: 14px 0;
         }
     }
 
     &-Text {
-        text-align: right;
+        text-align: end;
+        margin-block-end: 0;
 
         span {
             display: block;
-            font-size: .7em;
-            font-weight: 300;
+            font-size: 12px;
+            font-weight: 400;
         }
     }
 
     &-AppendedContent {
         flex-basis: 100%;
+        font-size: 12px;
+    }
+
+    &-ButtonWrapper {
+        @include mobile {
+            --footer-totals-height: 123px;
+
+            height: var(--footer-totals-height);
+            position: fixed;
+            width: 100%;
+            inset-inline-start: 0;
+            padding-inline: 16px;
+            padding-block-end: 16px;
+            inset-block-end: var(--footer-total-height);
+            background-color: var(--color-white);
+            border-block-start: 1px solid var(--primary-divider-color);
+            z-index: 80;
+        }
+
+        &_isEmpty {
+            display: none;
+        }
     }
 }

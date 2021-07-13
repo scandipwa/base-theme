@@ -9,152 +9,129 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-:root {
-    --expandable-content-color: #000;
-    --expandable-content-divider-color: var(--primary-divider-color);
-}
+ :root {
+     --expandable-content-color: var(--color-karaka);
+     --expandable-content-divider-color: var(--primary-divider-color);
+     --toggle-button-size: 18px;
+ }
 
-@mixin expanded-content {
-    padding: 1.2rem;
-    opacity: 1;
-    max-height: 100%;
+ @mixin expanded-content {
+     opacity: 1;
+     max-height: 100%;
+ }
 
-    @include mobile {
-        padding: 1.4rem;
-    }
-}
+ .ExpandableContent {
+     @include mobile {
+         border-block-start: 1px solid var(--expandable-content-divider-color);
 
-.ExpandableContent {
-    @include before-desktop {
-        border-top: 1px solid var(--expandable-content-divider-color);
-    }
+         &:last-of-type {
+             border-block-end: 1px solid var(--expandable-content-divider-color);
+         }
 
-    &:first-of-type {
-        border-top: 0;
-    }
+         &-ToggleButton {
+             @include plus-icon;
 
-    &:last-of-type {
-        @include before-desktop {
-            border-bottom: 1px solid var(--expandable-content-divider-color);
-        }
-    }
+             width: var(--toggle-button-size);
+             height: var(--toggle-button-size);
 
-    &-Button {
-        text-align: left;
-        width: 100%;
-        will-change: border-color;
+             &_isContentExpanded {
+                 @include minus-icon;
 
-        @include before-desktop {
-            min-height: var(--header-nav-height);
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            padding: .6rem 1.2rem;
-        }
+                 width: var(--toggle-button-size);
+                 height: var(--toggle-button-size);
+             }
+         }
 
-        @include mobile {
-            padding: .7rem 1.4rem;
-        }
+         &-ToggleArrow {
+             @include chevron-icon;
 
-        &::after,
-        &::before {
-            @include mobile {
-                right: 2.1rem;
-            }
+             width: var(--toggle-button-size);
+             height: var(--toggle-button-size);
+             transform: rotate(90deg);
 
-            @include before-desktop {
-                content: '';
-            }
+             &_isContentExpanded {
+                 width: var(--toggle-button-size);
+                 height: var(--toggle-button-size);
+                 transform: rotate(270deg);
+             }
+         }
+     }
 
-            position: absolute;
-            height: 7px;
-            width: 1px;
-            background-color: var(--expandable-content-color);
-            right: 1.8rem;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-        }
+     &-Button {
+         width: 100%;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
 
-        &::before {
-            transform-origin: 50% 50%;
-            transform: scale(1);
-            transition: 200ms transform;
-            will-change: transform;
-        }
+         @include mobile {
+             padding-block: 14px;
+         }
+     }
 
-        &::after {
-            transform-origin: 50% 50%;
-            transform: rotate(90deg);
-        }
+     &-Heading,
+     &-SubHeading {
+         display: block;
+         color: var(--expandable-content-color);
+     }
 
-        &_isContentExpanded {
-            &::before {
-                transform: scale(0);
-            }
-        }
-    }
+     &-Heading {
+         font-size: 14px;
+         font-weight: 700;
+         line-height: 1.4;
+         word-break: break-all;
 
-    &-Heading,
-    &-SubHeading {
-        display: block;
-        color: var(--expandable-content-color);
-    }
+         @include mobile {
+             font-size: 14px;
+         }
 
-    &-Heading {
-        font-size: 1.2rem;
-        font-weight: 600;
-        line-height: 1.4;
-        text-transform: uppercase;
-        word-break: break-all;
+         @include desktop {
+             cursor: auto;
+             font-size: 14px;
+             font-weight: bold;
+             text-transform: none;
+         }
+     }
 
-        @include mobile {
-            font-size: 1.4rem;
-        }
+     &-SubHeading {
+         font-weight: 400;
+         font-size: 10px;
+         line-height: 1.1;
 
-        @include desktop {
-            cursor: auto;
-            font-size: 1.4rem;
-            font-weight: bold;
-            text-transform: none;
-        }
-    }
+         @include mobile {
+             font-size: 12px;
+         }
+     }
 
-    &-SubHeading {
-        font-weight: 300;
-        font-size: .96rem;
-        line-height: 1.1;
+     &-Content {
+         // Disabled as it prevents z-index use inside
+         // will-change: max-height, padding, opacity;
+         transition-property: opacity;
+         transition-duration: 200ms;
 
-        @include mobile {
-            font-size: 1.12rem;
-        }
-    }
+         @include mobile {
+             max-height: 0;
+             overflow: hidden;
+             opacity: 0;
+         }
 
-    &-Content {
-        // Disabled as it prevents z-index use inside
-        // will-change: max-height, padding, opacity;
-        transition-property: opacity;
-        transition-duration: 200ms;
+         @include desktop {
+             margin-block-start: 12px;
+         }
 
-        @include before-desktop {
-            padding: 0 1.2rem;
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-        }
+         &_isContentExpanded {
+             @include mobile {
+                 @include expanded-content;
+             }
+         }
+     }
 
-        @include mobile {
-            padding: 0 1.4rem;
-        }
+     @include mobile {
+        &_isWithoutBorder {
+            border: 0;
 
-        @include desktop {
-            margin-top: 1.2rem;
-        }
-
-        &_isContentExpanded {
-            @include before-desktop {
-                @include expanded-content;
+            &:last-of-type {
+                border: 0;
             }
         }
     }
-}
+ }

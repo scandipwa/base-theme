@@ -10,8 +10,9 @@
  */
 
 .CartCoupon {
-    @include before-desktop {
+    @include mobile {
         width: 100%;
+        padding: 5px 0;
     }
 
     @include tablet-portrait {
@@ -26,10 +27,14 @@
         display: inline-block;
 
         input {
-            width: 200px;
+            width: 296px;
 
-            @include before-desktop {
+            @include mobile {
                 width: 100%;
+            }
+
+            @include tablet {
+                width: 230px;
             }
 
             @include tablet-portrait {
@@ -37,41 +42,40 @@
             }
         }
 
-        @include before-desktop {
+        @include mobile {
             width: 100%;
-            margin-top: 0;
+            margin-block-start: 0;
         }
 
         @include tablet-portrait {
             width: 100%;
-            margin-top: 0;
+            margin-block-start: 0;
         }
     }
 
     &-Button {
-        margin-left: 2.4rem;
+        @include button;
 
-        @include before-desktop {
-            width: 100%;
-            margin-left: 0;
-            margin-top: 1.2rem;
-        }
+        margin-inline-start: 24px;
 
         @include mobile {
-            margin-top: 1.4rem;
+            width: 100%;
+            margin-inline-start: 0;
+            margin-block: 14px 12px;
         }
 
         @include tablet-portrait {
             width: 100%;
-            margin-left: 0;
-            margin-top: 1rem;
+            margin-inline-start: 0;
+            margin-block-start: 10px;
         }
     }
 
     &-Title {
-        font-size: 1.4rem;
+        font-size: 14px;
         font-weight: normal;
         text-transform: uppercase;
-        margin: 0 0 20px;
+        margin: 0;
+        margin-block-end: 20px;
     }
 }

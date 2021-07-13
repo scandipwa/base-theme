@@ -14,13 +14,16 @@ import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { IN_STOCK } from 'Component/ProductCard/ProductCard.config';
+import { GRID_LAYOUT } from 'Route/CategoryPage/CategoryPage.config';
 import { showNotification } from 'Store/Notification/Notification.action';
 import { MixType } from 'Type/Common';
+import { LayoutType } from 'Type/Layout';
 import { ProductType } from 'Type/ProductList';
 import { isSignedIn } from 'Util/Auth';
 import {
     BUNDLE,
     CONFIGURABLE,
+    DOWNLOADABLE,
     GROUPED
 } from 'Util/Product';
 
@@ -69,7 +72,8 @@ export class AddToCartContainer extends PureComponent {
         productOptionsData: PropTypes.object.isRequired,
         disableHandler: PropTypes.bool,
         mix: MixType,
-        disabled: PropTypes.bool
+        disabled: PropTypes.bool,
+        layout: LayoutType
     };
 
     static defaultProps = {
@@ -80,7 +84,8 @@ export class AddToCartContainer extends PureComponent {
         isLoading: false,
         disableHandler: false,
         mix: {},
-        disabled: false
+        disabled: false,
+        layout: GRID_LAYOUT
     };
 
     state = { isLoading: false };
@@ -88,7 +93,8 @@ export class AddToCartContainer extends PureComponent {
     validationMap = {
         [CONFIGURABLE]: this.validateConfigurableProduct.bind(this),
         [GROUPED]: this.validateGroupedProduct.bind(this),
-        [BUNDLE]: this.validateBundleProduct.bind(this)
+        [BUNDLE]: this.validateBundleProduct.bind(this),
+        [DOWNLOADABLE]: this.validateDownloadableProduct.bind(this)
     };
 
     addToCartHandlerMap = {
@@ -101,14 +107,20 @@ export class AddToCartContainer extends PureComponent {
     };
 
     containerProps() {
-        const { product, mix, disabled } = this.props;
+        const {
+            product,
+            mix,
+            disabled,
+            layout
+        } = this.props;
         const { isLoading } = this.state;
 
         return {
             isLoading,
             product,
             mix,
-            disabled
+            disabled,
+            layout
         };
     }
 
@@ -122,7 +134,8 @@ export class AddToCartContainer extends PureComponent {
         } = this.props;
 
         if (configurableVariantIndex < 0 || !variants[configurableVariantIndex]) {
-            showNotification('info', __('Please select product options!'));
+            showNotification('info', __('Please, select product options!'));
+
             return false;
         }
 
@@ -130,6 +143,7 @@ export class AddToCartContainer extends PureComponent {
 
         if (configurableStock !== IN_STOCK) {
             showNotification('info', __('Sorry! The selected product option is out of stock!'));
+
             return false;
         }
 
@@ -149,6 +163,23 @@ export class AddToCartContainer extends PureComponent {
 
         if (!isAllItemsAvailable) {
             showNotification('info', __('Please specify the quantity of product(s)!'));
+
+            return false;
+        }
+
+        return true;
+    }
+
+    validateDownloadableProduct() {
+        const {
+            product: { links_purchased_separately },
+            productOptionsData: { downloadableLinks = [] },
+            showNotification
+        } = this.props;
+
+        if (links_purchased_separately && downloadableLinks.length === 0) {
+            showNotification('info', __('Please, select product links!'));
+
             return false;
         }
 
@@ -164,7 +195,8 @@ export class AddToCartContainer extends PureComponent {
         const validateBundleOptions = this.validateCustomizableOptions(productOptionsData, true);
 
         if (!validateBundleOptions) {
-            showNotification('info', __('Please select required option!'));
+            showNotification('info', __('Please, select required options!'));
+
             return false;
         }
 
@@ -180,7 +212,8 @@ export class AddToCartContainer extends PureComponent {
         const validateCustomizableOptions = this.validateCustomizableOptions(productOptionsData);
 
         if (!validateCustomizableOptions) {
-            showNotification('info', __('Please select required option!'));
+            showNotification('info', __('Please, select required options!'));
+
             return false;
         }
 
@@ -215,6 +248,7 @@ export class AddToCartContainer extends PureComponent {
             items.find((item) => {
                 const { id, option_id } = item;
                 const matchWith = isBundle ? id : option_id;
+
                 return requiredOption === matchWith;
             })
         ));
@@ -321,13 +355,14 @@ export class AddToCartContainer extends PureComponent {
 
         if (addToCartHandler) {
             addToCartHandler();
+
             return;
         }
 
         this.addSimpleProductToCart();
     }
 
-    buttonClick() {
+    buttonClick(e) {
         const {
             product: { type_id } = {},
             onProductValidationError,
@@ -340,8 +375,11 @@ export class AddToCartContainer extends PureComponent {
 
         if (!this.validateAddToCart()) {
             onProductValidationError(type_id);
+
             return;
         }
+
+        e.preventDefault();
 
         this.setState({ isLoading: true }, () => this.addProductToCart());
     }
@@ -358,7 +396,7 @@ export class AddToCartContainer extends PureComponent {
             product: { type_id, variants = {} } = {}
         } = this.props;
 
-        if (type_id !== 'configurable') {
+        if (type_id !== CONFIGURABLE) {
             return;
         }
 
@@ -367,6 +405,7 @@ export class AddToCartContainer extends PureComponent {
         const wishlistItemKey = Object.keys(wishlistItems)
             .find((key) => {
                 const { wishlist: { sku: wSku } } = wishlistItems[key];
+
                 return wSku === sku;
             });
 

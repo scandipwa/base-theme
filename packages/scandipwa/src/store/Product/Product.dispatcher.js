@@ -39,6 +39,7 @@ export class ProductDispatcher extends QueryDispatcher {
          */
         if (!items || items.length <= 0) {
             dispatch(updateNoMatch(true));
+
             return;
         }
 

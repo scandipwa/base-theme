@@ -26,6 +26,7 @@ export const getWindowId = () => {
     if (!result) {
         const id = Date.now();
         sessionStorage.setItem(WINDOW_ID, id);
+
         return id;
     }
 
@@ -143,6 +144,7 @@ export const postFetch = (graphQlURI, query, variables) => fetch(graphQlURI,
  */
 export const checkForErrors = (res) => new Promise((resolve, reject) => {
     const { errors, data } = res;
+
     return errors ? reject(errors) : resolve(data);
 });
 
@@ -221,6 +223,7 @@ export const executeGet = (queryObject, name, cacheTTL) => {
  */
 export const executePost = (queryObject) => {
     const { query, variables } = queryObject;
+
     return parseResponse(postFetch(getGraphqlEndpoint(), query, variables));
 };
 
@@ -247,6 +250,7 @@ export const listenForBroadCast = (name) => new Promise((resolve) => {
 export const debounce = (callback, delay) => {
     // eslint-disable-next-line fp/no-let
     let timeout;
+
     return (...args) => {
         const context = this;
         clearTimeout(timeout);

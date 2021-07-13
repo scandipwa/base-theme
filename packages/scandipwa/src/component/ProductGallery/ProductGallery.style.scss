@@ -9,71 +9,48 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
+// util class, is applied on <html> on fullscreen image
+.overscrollPrevented {
+    overscroll-behavior: contain;
+}
+
 .ProductGallery {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    margin-inline: 45px;
+
     @include desktop {
-        display: flex;
-        height: 100%;
+        min-width: 507px;
+    }
+
+    @include mobile {
+        height: calc(100vh/2);
+        margin-block-end: 16px;
     }
 
     &-Additional {
-        $margin-right: 1.8rem;
-
-        width: 150px;
-        margin-right: $margin-right;
+        flex: 0 0 auto;
 
         @include mobile {
-            margin-right: 2.1rem;
-        }
-
-        @include desktop {
-            height: 48rem;
-            margin: 0 $margin-right auto 0;
-        }
-
-        @include before-desktop {
             display: none;
-        }
-
-        &_isImageZoomPopupActive {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
     }
 
     &-SliderWrapper {
         flex: 1;
+        max-height: 80vh;
     }
 
     &-Slider {
-        min-height: 480px;
-        height: var(--slider-height);
-
-        @include mobile {
-            min-height: 420px;
-        }
-
-        &::after {
-            @include desktop {
-                content: '';
-                box-shadow: inset 0 0 0 3px #fff;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                position: absolute;
-                pointer-events: none;
-            }
-        }
+        height: 100%;
 
         &_isImageZoomPopupActive {
             cursor: pointer;
         }
 
         &_isZoomInCursor {
-            @include after-mobile {
-                cursor: zoom-in;
-            }
+            cursor: zoom-in;
         }
     }
 
@@ -89,8 +66,4 @@
             transform: translateY(var(--translateYOnCursorMove));
         }
     }
-}
-
-.overscrollPrevented {
-    overscroll-behavior: contain;
 }

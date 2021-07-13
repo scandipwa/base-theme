@@ -58,6 +58,7 @@ export const ProductComparePage = lazy(() => import(/* webpackMode: "lazy", webp
 export const CreateAccountPage = lazy(() => import(/* webpackMode: "lazy", webpackChunkName: "compare" */ 'Route/CreateAccount'));
 export const LoginAccountPage = lazy(() => import(/* webpackMode: "lazy", webpackChunkName: "compare" */ 'Route/LoginAccount'));
 export const ForgotPasswordPage = lazy(() => import(/* webpackMode: "lazy", webpackChunkName: "compare" */ 'Route/ForgotPassword'));
+export const StyleGuidePage = lazy(() => import(/* webpackMode: "lazy", webpackChunkName: "compare" */ 'Route/StyleGuidePage'));
 
 /** @namespace Component/Router/Component/withStoreRegex */
 export const withStoreRegex = (path) => window.storeRegexText.concat(path);
@@ -165,6 +166,10 @@ export class Router extends PureComponent {
             position: 83
         },
         {
+            component: <Route path={ withStoreRegex('/styleguide') } render={ (props) => <StyleGuidePage { ...props } /> } />,
+            position: 83
+        },
+        {
             component: <Route render={ (props) => <UrlRewrites { ...props } /> } />,
             position: 1000
         }
@@ -201,6 +206,7 @@ export class Router extends PureComponent {
                 if (!entry.component) {
                     // eslint-disable-next-line no-console
                     console.warn('There is an item without a component property declared in main router.');
+
                     return false;
                 }
 
@@ -254,6 +260,10 @@ export class Router extends PureComponent {
     }
 
     renderDefaultRouterContent() {
+        if (location.pathname.match('/styleguide')) {
+            return this.renderMainItems();
+        }
+
         return (
             <>
                 { this.renderItemsOfType(BEFORE_ITEMS_TYPE) }

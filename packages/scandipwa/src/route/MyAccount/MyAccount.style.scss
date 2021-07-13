@@ -11,11 +11,8 @@
 
 :root {
     --my-account-content-background: #{$white};
-    --my-account-wrapper-padding-mobile: 1.4rem;
-
-    @include after-mobile {
-        --my-account-background: var(--secondary-base-color);
-    }
+    --my-account-wrapper-margin-mobile: 16px;
+    --my-account-content-border: 1px solid rgba(10, 9, 3, 0.16);
 }
 
 .MyAccount {
@@ -25,13 +22,13 @@
         display: grid;
         grid-template-columns: auto 1fr;
         grid-template-rows: auto 1fr;
-        grid-column-gap: 2.4rem;
+        grid-column-gap: 24px;
         grid-row-gap: 0;
-        padding-top: 1.2rem;
-        padding-bottom: 1.2rem;
+        padding-block-start: 12px;
+        padding-block-end: 12px;
 
         @include mobile {
-            grid-column-gap: 2.8rem;
+            grid-column-gap: 28px;
             padding: 0;
             grid-template-columns: 1fr;
         }
@@ -39,32 +36,30 @@
 
     &-TabContent {
         background: var(--my-account-content-background);
-        padding: 1.2rem;
-
         @include mobile {
-            padding: var(--my-account-wrapper-padding-mobile);
+            margin-inline: var(--my-account-wrapper-margin-mobile);
         }
 
-        @include after-mobile {
+        @include desktop {
+            border: var(--my-account-content-border);
             grid-row: span 2;
-            padding: 2.4rem;
+            padding: 24px;
         }
     }
 
     &-Heading {
         text-transform: none;
-        margin: 0 0 2.4rem;
+        margin: 0;
+        margin-block-end: 24px;
 
         @include mobile {
-            margin: 0 0 2.8rem;
+            margin-block-end: 28px;
             display: none;
         }
     }
 
-    &-Button,
-    button {
-        @include mobile {
-            width: 100%;
-        }
+    &-SubHeading {
+        color: var(--secondary-dark-color);
+        font-size: 16px;
     }
 }

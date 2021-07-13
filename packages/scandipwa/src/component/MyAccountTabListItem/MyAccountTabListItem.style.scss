@@ -17,24 +17,27 @@
     --border-width: 1px;
     --text-shadow: none;
 
-    padding-left: 0;
-    margin-bottom: 0;
+    padding-inline-start: 0;
+    margin-block-end: 0;
 
     &::before {
         content: none;
     }
 
     &:last-child {
-        margin-bottom: 0;
+        margin-block-end: 0;
+
+        button {
+            &::after {
+                content: none;
+            }
+        }
     }
 
     &_isActive,
     &:hover {
-        @include after-mobile {
-            --border-width: 2px;
-            --text-shadow:
-                -.02ex 0 var(--my-account-tab-list-item-color),
-                .02ex 0 var(--my-account-tab-list-item-color);
+        .MyAccountTabListItem-Button {
+            font-weight: 700;
         }
     }
 
@@ -48,38 +51,27 @@
         padding: 10px 0;
         min-width: 100%;
         min-height: 38px;
-        text-align: left;
+        text-align: start;
         text-shadow: var(--text-shadow);
         letter-spacing: .03ex;
-        font-size: 1.4rem;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        @include after-mobile {
-            padding: 10px 2.4rem;
+        @include desktop {
+            padding: 10px 24px;
             min-width: 250px;
         }
 
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 1.2rem;
-            bottom: 0;
-            width: 6px;
-            height: 6px;
-            margin: auto;
-            transform: rotate(45deg);
-            @include mobile {
-                right: 1.4rem;
-            }
+        span {
+            @include chevron-icon;
+            @include rtl-icon;
 
-            border: {
-                right: var(--border-width) solid var(--my-account-tab-list-item-color);
-                top: var(--border-width) solid var(--my-account-tab-list-item-color);
-            }
-
-            @include after-mobile {
-                right: 2.4rem;
-            }
+            width: 14px;
+            height: 14px;
+            display: inline-block;
         }
     }
 }

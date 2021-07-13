@@ -17,16 +17,15 @@
 
 .NavigationTabs {
     --header-background: var(--navigation-tabs-background);
-    --header-color: var(--navigation-tabs-color);
     --header-icon-stroke-width: 2px;
 
     position: fixed;
-    bottom: 0;
-    left: 0;
+    inset-block-end: 0;
+    inset-inline-start: 0;
     width: 100%;
     z-index: 100;
     background-color: var(--header-background);
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-block-end: env(safe-area-inset-bottom);
     transform: translateY(0);
     transition: transform 200ms cubic-bezier(.47, 0, .745, .715);
 
@@ -35,7 +34,7 @@
     }
 
     @include mobile {
-        border-top: 1px solid var(--primary-divider-color);
+        border-block-start: 1px solid var(--primary-divider-color);
     }
 
     @include desktop {
@@ -51,17 +50,17 @@
     }
 
     &-Nav {
-        height: var(--header-nav-height);
+        height: var(--footer-nav-height);
         display: flex;
         align-items: center;
         justify-content: space-around;
-        padding: 0 1.2rem;
+        padding: 0 12px;
         z-index: 20;
         max-width: var(--content-wrapper-width);
         margin: auto;
 
         @include mobile {
-            padding: 0 1.4rem;
+            padding: 0 14px;
         }
     }
 
@@ -77,7 +76,7 @@
         font-weight: bold;
 
         &_isActive {
-            --header-color: var(--primary-base-color);
+            filter: var(--primary-base-filter);
         }
     }
 }

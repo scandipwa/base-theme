@@ -30,7 +30,14 @@ export class Notification extends PureComponent {
     static propTypes = {
         notificationId: PropTypes.string.isRequired,
         notification: NotificationType.isRequired,
-        onHideNotification: PropTypes.func.isRequired
+        onHideNotification: PropTypes.func.isRequired,
+        lifeTime: PropTypes.number,
+        id: PropTypes.string
+    };
+
+    static defaultProps = {
+        lifeTime: 0,
+        id: ''
     };
 
     state = { isNotificationVisible: true };
@@ -38,13 +45,13 @@ export class Notification extends PureComponent {
     notification = createRef();
 
     componentDidMount() {
-        const { notification: { msgType } } = this.props;
+        const { notification: { msgType }, lifeTime } = this.props;
 
         // Make sure error notification stays a little longer
         if (msgType.toLowerCase() === ERROR_TYPE) {
-            this.hideTimeout = setTimeout(() => this.hideNotification(), ERROR_NOTIFICATION_LIFETIME);
+            this.hideTimeout = setTimeout(() => this.hideNotification(), lifeTime || ERROR_NOTIFICATION_LIFETIME);
         } else {
-            this.hideTimeout = setTimeout(() => this.hideNotification(), NOTIFICATION_LIFETIME);
+            this.hideTimeout = setTimeout(() => this.hideNotification(), lifeTime || NOTIFICATION_LIFETIME);
         }
 
         CSS.setVariable(this.notification, 'animation-duration', `${ANIMATION_DURATION}ms`);
@@ -92,7 +99,7 @@ export class Notification extends PureComponent {
     }
 
     render() {
-        const { notification } = this.props;
+        const { notification, id } = this.props;
         const { isNotificationVisible } = this.state;
         const { msgText, msgType } = notification;
 
@@ -102,7 +109,7 @@ export class Notification extends PureComponent {
         };
 
         return (
-            <div block="Notification" mods={ mods } ref={ this.notification }>
+            <div block="Notification" mods={ mods } ref={ this.notification } id={ id }>
                 <button block="Notification" elem="Button" onClick={ this.hideNotification }>Close</button>
                 <p block="Notification" elem="Text">{ msgText }</p>
                 { this.renderDebug() }

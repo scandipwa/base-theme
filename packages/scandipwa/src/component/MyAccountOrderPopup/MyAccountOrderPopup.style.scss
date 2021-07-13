@@ -10,26 +10,29 @@
  */
 
 .MyAccountOrderPopup {
+    font-size: 14px;
+
     &-Address,
     &-Products {
-        margin-bottom: 1.2rem;
+        margin-block-end: 14px;
 
-        @include after-mobile {
-            margin-top: 2.4rem;
+        @include desktop {
+            margin-block-start: 24px;
         }
 
         @include mobile {
-            margin-bottom: 2.8rem;
+            margin-block-end: 28px;
+            overflow-x: unset!important;
         }
     }
 
     &-Products {
         width: 100%;
-        margin-top: 1.2rem;
+        margin-block-start: 12px;
         table-layout: initial;
 
         @include mobile {
-            margin-top: 1.4rem;
+            margin-block-start: 14px;
         }
 
         td,
@@ -58,17 +61,17 @@
     &-Content {
         min-height: 200px;
 
-        @include after-mobile {
+        @include desktop {
             display: grid;
-            grid-gap: 2.4rem;
+            grid-gap: 24px;
         }
     }
 
     h4 {
-        font-size: 1.44rem;
+        font-size: 14px;
 
         @include mobile {
-            font-size: 1.68rem;
+            font-size: 17px;
         }
     }
 
@@ -78,19 +81,25 @@
 
     dl {
         display: grid;
-        margin-top: 1.2rem;
+        margin-block-start: 12px;
         grid-template-columns: 1fr 1fr;
-        grid-gap: .6rem;
+        grid-gap: 6px;
 
         @include mobile {
-            margin-top: 1.4rem;
-            grid-gap: .7rem;
-            margin-bottom: 2.8rem;
+            margin-block-start: 14px;
+            grid-gap: 7px;
+            margin-block-end: 28px;
         }
     }
 
     td,
     th {
         min-width: 0;
+    }
+
+    &-Address {
+        .KeyValueTable-Wrapper {
+            overflow-x: unset;
+        }
     }
 }

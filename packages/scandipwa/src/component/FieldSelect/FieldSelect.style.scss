@@ -12,8 +12,8 @@
 $select-width: 160px !default;
 $select-height: 45px !default;
 $select-option-height: 36px !default;
-$select-arrow-height: 6px !default;
-$select-arrow-width: 6px !default;
+$select-arrow-height: 16px !default;
+$select-arrow-width: 16px !default;
 
 :root {
     --select-option-background: #fff;
@@ -24,50 +24,46 @@ $select-arrow-width: 6px !default;
     cursor: pointer;
 
     &::after {
+        background-image: url('./../../style/icons/chevron.svg');
+        background-size: cover;
         content: '';
         display: block;
         width: $select-arrow-width;
         height: $select-arrow-height;
-        transform: translateY(-2px) rotate(45deg);
+        transform: rotate(90deg);
         pointer-events: none;
 
         position: absolute;
-        right: 20px;
-        bottom: 0;
-        top: 0;
+        inset-inline-end: 20px;
+        inset-block-end: 0;
+        inset-block-start: 0;
         margin: auto;
-
-        border-style: solid;
-        border-color: #000;
-        border-width: 0 1px 1px 0;
     }
 
     &_isExpanded::after {
-        @include desktop {
-            bottom: $select-arrow-height * 3/2;
-            transform: translateY(-2px) rotate(-135deg);
-        }
+        transform: rotate(-90deg);
     }
 
     &-Select {
-        width: 100%;
         min-width: 100%;
-        padding-right: 40px;
+        padding-inline-end: 40px;
+        width: 100%;
 
         @include desktop {
             pointer-events: none;
         }
 
         &_isExpanded {
-            border-color: var(--input-color);
+            border-color: var(--input-border-color-focus);
+            opacity: 1;
         }
     }
 
     &-Options {
         position: absolute;
         width: 100%;
-        top: 100%;
-        left: 0;
+        inset-block-start: 100%;
+        inset-inline-start: 0;
         z-index: 40;
         border-width: 0 1px 1px;
         border-style: solid;
@@ -93,9 +89,12 @@ $select-arrow-width: 6px !default;
 
         &_isExpanded {
             @include desktop {
+                z-index: 5;
                 max-height: 200px;
+                border-color: #0a0a0a;
                 border-color: var(--input-border-color);
                 overflow-y: auto;
+                background-color: #{$white};
             }
         }
     }
@@ -107,13 +106,13 @@ $select-arrow-width: 6px !default;
         transition: 100ms max-height ease-in;
         will-change: max-height;
         max-height: $select-option-height;
-        line-height: 3.6rem;
-        padding-left: 1.8rem;
+        line-height: 36px;
+        padding-inline-start: 18px;
         background: var(--select-option-background);
 
         @include mobile {
-            line-height: 4.2rem;
-            padding-left: 2.1rem;
+            line-height: 42px;
+            padding-inline-start: 21px;
         }
 
         &::before {

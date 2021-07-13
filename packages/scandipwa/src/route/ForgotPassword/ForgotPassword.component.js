@@ -28,7 +28,7 @@ export class ForgotPasswordComponent extends MyAccountOverlay {
             <div block="ForgotPassword" elem="SignInWrapper">
                 <h3>{ __('Registered Customers') }</h3>
                 <p>{ __('If you have an account, sign in with your email address.') }</p>
-                <button block="Button" onClick={ onLoginClick }>{ __('Sign In Here') }</button>
+                <button block="Button" onClick={ onLoginClick }>{ __('Sign In') }</button>
             </div>
         );
     }

@@ -75,6 +75,7 @@ export class Meta extends PureComponent {
 
     renderMeta() {
         const { metadata } = this.props;
+
         return (
             <>
                 { this.renderTitle() }

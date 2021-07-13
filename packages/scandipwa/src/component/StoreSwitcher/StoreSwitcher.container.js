@@ -74,6 +74,7 @@ export class StoreSwitcherContainer extends DataContainer {
 
     containerProps = () => {
         const { currentStoreCode, device } = this.props;
+
         return { currentStoreCode, device };
     };
 
@@ -143,6 +144,7 @@ export class StoreSwitcherContainer extends DataContainer {
 
         if (!store) {
             showErrorNotification(__('This store can not be opened!'));
+
             return;
         }
 

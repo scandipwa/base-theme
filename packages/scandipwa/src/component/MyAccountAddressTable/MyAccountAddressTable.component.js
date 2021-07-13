@@ -126,12 +126,13 @@ export class MyAccountAddressTable extends KeyValueTable {
                 <button
                   block="Button"
                   onClick={ onEditClick }
+                  mods={ { isHollow: true } }
                 >
                     { __('Edit address') }
                 </button>
                 <button
                   block="Button"
-                  mods={ { isHollow: true } }
+                  mods={ { isHollow: true, isWithoutBorder: true } }
                   onClick={ onDeleteClick }
                   disabled={ isDeleteAllowed }
                   title={ isDeleteAllowed ? __('Can not delete - address is set as default.') : 'Delete this address' }

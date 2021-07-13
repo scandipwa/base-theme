@@ -31,6 +31,7 @@ export const isNotEmpty = ({ value }) => value.trim().length > 0;
 /** @namespace Component/Form/Config/validatePasswordMatch */
 export const validatePasswordMatch = ({ value }, { password }) => {
     const { current: { value: passwordValue } } = password || { current: {} };
+
     return value === passwordValue;
 };
 

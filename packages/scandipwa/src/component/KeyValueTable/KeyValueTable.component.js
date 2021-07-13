@@ -38,6 +38,7 @@ export class KeyValueTable extends PureComponent {
 
     getValueFromSource({ key, source }) {
         const { [key]: value } = source;
+
         return Array.isArray(value) ? value.join(', ') : value;
     }
 
@@ -71,6 +72,7 @@ export class KeyValueTable extends PureComponent {
                   colSpan={ 2 }
                 >
                     { title }
+                    <span />
                 </th>
             </tr>
         );

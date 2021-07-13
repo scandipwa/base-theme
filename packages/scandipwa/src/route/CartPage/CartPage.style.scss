@@ -10,103 +10,78 @@
  */
 
 :root {
-    --cart-page-totals-background: var(--secondary-base-color);
     --cart-page-divider-background: #d8d8d8;
     --cart-page-promo-background: #fff;
     --cart-page-table-head-background: var(--secondary-base-color);
 }
 
 .CartPage {
-    margin-bottom: var(--header-nav-height);
+    margin-block-end: var(--footer-total-height);
 
-    @include before-desktop {
-        padding-bottom: 113px;
-        margin-bottom: var(--navigation-tabs-height);
+    @include mobile {
+        --footer-totals-height: 123px;
+
+        padding-block-end: var(--footer-totals-height);
+        padding-inline: 16px;
     }
 
     &-Wrapper {
         @include desktop {
             display: grid;
-            grid-template-columns: 1fr 36rem;
-            grid-column-gap: 4.8rem;
+            grid-template-columns: 1fr 360px;
+            grid-column-gap: 48px;
         }
 
-        @include before-desktop {
+        @include mobile {
             padding: 0;
         }
     }
 
     &-Empty {
-        @include before-desktop {
-            padding: 1.2rem;
-            border-bottom: 1px solid var(--expandable-content-divider-color);
-        }
-
         @include mobile {
-            padding: 1.4rem;
+            padding: 14px;
+            border-block-end: 1px solid var(--expandable-content-divider-color);
+            text-align: center;
         }
     }
 
     &-Summary {
-        background: var(--cart-page-totals-background);
-
-        @include before-desktop {
-            position: fixed;
-            bottom: var(--navigation-tabs-height);
-            left: 0;
-            width: 100%;
-            border-top: 1px solid var(--primary-divider-color);
-        }
-
-        @include desktop {
-            padding: 2.4rem;
-        }
-    }
-
-    &-SummaryHeading {
-        text-align: center;
-        text-transform: uppercase;
-        margin-bottom: 1.2rem;
-        margin-top: 0;
+        background: var(--color-white);
 
         @include mobile {
-            font-size: 2.1rem;
-            margin-bottom: 1.4rem;
-        }
-
-        @include before-desktop {
-            display: none;
+            inset-block-end: var(--navigation-tabs-height);
+            inset-inline-start: 0;
+            width: 100%;
+            border-block-start: 1px solid var(--primary-divider-color);
         }
     }
 
     &-CheckoutButtons {
-        padding: 1.2rem 0;
-
-        @include before-desktop {
-            padding: 1.2rem;
-        }
+        padding: 12px 0;
 
         @include mobile {
-            padding: 1.4rem;
+            padding: 14px;
         }
     }
 
     &-OutOfStockProductsWarning {
-        padding: 1rem;
+        padding: 10px;
         display: flex;
         justify-content: center;
         background-color: var(--primary-error-color, red);
         font-size: 14px;
-        font-weight: bold;
+        font-weight: 600;
+        color: var(--color-white);
+        inset-inline-start: -16px;
+        width: calc(100% + 32px);
     }
 
     &-CheckoutButton {
         width: 100%;
-        display: block;
         text-align: center;
 
         @include desktop {
-            margin-top: 2.4rem;
+            margin: 10px 0;
         }
 
         span {
@@ -114,29 +89,11 @@
         }
     }
 
-    &-ContinueShopping {
-        display: block;
-        color: inherit;
-        text-transform: uppercase;
-        text-align: center;
-        margin-left: 0;
-        margin-top: 1.8rem;
-
-        @include mobile {
-            font-size: 1.54rem;
-            margin-top: 2.1rem;
-        }
-
-        @include before-desktop {
-            display: none;
-        }
-    }
-
     &-Promo,
     &-Total {
-        min-height: 4.8rem;
+        min-height: 48px;
 
-        @include before-desktop {
+        @include mobile {
             min-height: 0;
         }
     }
@@ -146,7 +103,7 @@
         background: var(--cart-page-promo-background);
 
         @include desktop {
-            margin-top: 2.4rem;
+            margin-block-start: 24px;
         }
 
         &Block {
@@ -154,29 +111,22 @@
             align-items: center;
             justify-content: center;
             border: 1px solid var(--cart-page-divider-background);
-            padding: 2.4rem 1.2rem;
-
-            @include before-desktop {
-                padding: 1.2rem;
-                border: 0;
-                border-bottom: 1px solid var(--primary-divider-color);
-            }
+            padding: 24px 12px;
 
             @include mobile {
-                padding: 1.4rem;
+                padding: 14px;
+                border: 0;
+                border-block-end: 1px solid var(--primary-divider-color);
             }
         }
 
         &Image {
             width: 46px;
-            margin-right: .6rem;
+            margin-inline-end: 6px;
 
             @include mobile {
-                margin-right: .7rem;
-            }
-
-            @include before-desktop {
                 width: 36px;
+                margin-inline-end: 7px;
             }
         }
 
@@ -185,158 +135,59 @@
         }
     }
 
-    &-PaymentMethods {
-        order: 4;
-        display: block;
-        max-width: 80%;
-        max-height: 50px;
-        margin: 1.2rem auto;
-
-        @include mobile {
-            margin: 1.4rem auto;
-        }
-
-        @include before-desktop {
-            max-width: 60%;
-        }
-
-        @include tablet {
-            max-width: 330px;
-            height: 55px;
-        }
-    }
-
     &-Total {
         display: flex;
         justify-content: space-between;
+        font-size: 16px;
         align-items: center;
-        font-size: 1.8rem;
         font-weight: bold;
-        padding: 1.2rem 0;
-
-        @include before-desktop {
-            padding: 1.2rem 1.2rem 0;
-        }
+        padding: 12px 0;
 
         @include mobile {
-            padding: 1.4rem 1.4rem  0;
+            padding-block-start: 14px;
+            padding-block-end: 0;
+            padding-inline: 14px;
         }
 
         dd {
-            text-align: right;
+            text-align: end;
 
             span {
                 display: block;
-                font-size: .6em;
-                font-weight: 300;
-            }
-        }
-    }
-
-    &-TotalDetails {
-        border-bottom: 1px solid var(--cart-page-divider-background);
-        border-top: 1px solid var(--cart-page-divider-background);
-        padding: 1.8rem 0;
-        grid-template-columns: 50% 50%;
-        grid-row-gap: 1.8rem;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 1.4rem;
-        font-weight: bold;
-        margin-top: 1.8rem;
-        display: none;
-
-        @include before-desktop {
-            padding: 1.2rem;
-            margin-top: 0;
-            border: 0;
-            border-bottom: 1px solid var(--primary-divider-color);
-        }
-
-        @include mobile {
-            padding: 1.4rem;
-            grid-row-gap: 2.1rem;
-        }
-
-        @include desktop {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-        }
-
-        dd {
-            text-align: right;
-
-            span {
-                display: block;
-                font-size: .7em;
-                font-weight: 300;
-            }
-        }
-
-        &_isMobile {
-            display: none;
-
-            @include before-desktop {
-                display: grid;
+                font-size: 12px;
+                font-weight: 400;
             }
         }
     }
 
     &-TableHead {
         display: grid;
-        grid-template-columns: 3fr 1fr 1fr;
-        border-bottom: 1px solid var(--cart-page-divider-background);
+        grid-template-columns: 3fr 2fr 1fr;
         background-color: var(--cart-page-table-head-background);
-        text-transform: uppercase;
-        font-size: 1.2rem;
+        text-transform: capitalize;
+        font-size: 14px;
         font-weight: 600;
-        padding: 1.08rem 1.2rem;
-        margin-bottom: 0;
+        padding: 14px 16px;
+        margin-block-end: 0;
 
         @include mobile {
-            padding: 1.26rem 1.4rem;
-        }
-
-        @include before-desktop {
             display: none;
-        }
-        @include tablet-portrait {
-            grid-template-columns: 4fr 1fr;
         }
 
         span {
-            text-align: center;
+            text-align: start;
 
             &:last-of-type {
-                text-align: right;
-            }
-
-            &:nth-child(2) {
-                @include tablet-portrait {
-                    display: none;
-                }
-            }
-
-            &:first-of-type {
-                text-align: left;
+                text-align: end;
             }
         }
     }
 
     &-Discount {
+        border-block-start: 0;
+
         @include desktop {
-            margin-top: 2.4rem;
-        }
-    }
-
-    &-Static {
-        @include before-desktop {
-            overflow: scroll;
-            max-height: calc(100% - 14.4rem);
-        }
-
-        @include before-desktop {
-            max-height: calc(100% - 16.8rem);
+            margin-block-start: 24px;
         }
     }
 
@@ -344,134 +195,48 @@
         @include desktop {
             display: flex;
             flex-direction: column;
-            margin-top: 7.8rem;
+            margin-block-start: 78px;
         }
 
         @include tablet {
-            margin-top: 2.4rem;
+            margin-block-start: 24px;
         }
     }
 
     &-Heading {
-        height: 3.6rem;
-        margin-top: 2.4rem;
-        margin-bottom: 1.8rem;
-        font-size: 2.4rem;
+        margin-block-start: 24px;
+        margin-block-end: 18px;
 
         @include mobile {
-            height: 4.2rem;
-            margin-top: 2.8rem;
-            margin-bottom: 2.1rem;
-            font-size: 2.8rem;
-        }
-
-        @include before-desktop {
             display: none;
         }
     }
 
-    .CartItem-HeadingWrapper {
-        @include after-mobile {
-            max-width: 45%;
-        }
-
-        @media (min-width: 1145px) {
-            max-width: 50%;
-        }
-
-        @include tablet-portrait {
-            margin-top: -1.5rem;
-            max-width: unset;
-        }
-    }
-
-    .CartItem-Actions {
-        @include tablet {
-            display: grid;
-        }
-
-        @include tablet-portrait {
-            width: 100%;
-            right: 0;
-            margin: initial;
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            margin-top: -2rem;
-        }
-
-        .CartItem-Delete {
-            @include tablet {
-                height: auto;
-                margin-left: -12px;
-                margin-top: 5px;
-                order: 1;
-                padding-top: 8px;
-
-                &::before {
-                    top: 8px;
-                    left: 30px;
-                }
-
-                &::after {
-                    top: 4px;
-                    left: 32px;
-                }
-            }
-
-            @include tablet-portrait {
-                order: 0;
-
-                &::before {
-                    top: 8px;
-                    left: 15px;
-                }
-
-                &::after {
-                    top: 4px;
-                    left: 17px;
-                }
-            }
-
-            @include tablet-portrait {
-                margin-top: -7px;
-            }
-        }
-
-        > .CartItem-Qty {
-            @include tablet-portrait {
-                margin-left: 8rem;
-            }
-        }
-    }
-
-    .CartItem-Options {
-        @include after-mobile {
-            max-width: 45%;
-            flex-wrap: wrap;
-        }
-
-        @media (min-width: 1145px) {
-            max-width: 50%;
-        }
-
-        @include tablet-portrait {
-            max-width: 70%;
-        }
-    }
-
-    &-DiscountCoupon {
-        &::after {
-            content: ':';
-            font-weight: normal;
-        }
-    }
-
     &-ExpandableContentContent {
-        margin-top: 0;
+        margin-block-start: 0;
     }
 
-    &-TaxRate {
-        font-weight: 300;
+    .ProductLinks-Wrapper {
+
+        padding-inline: 0;
+
+        @include desktop {
+            padding-inline: 32px;
+        }
+    }
+
+    .ProductLinks-List {
+        grid-column-gap: 16px;
+        z-index: 10;
+
+        .ProductCard-ProductActions {
+            display: none;
+        }
+
+        .AddToCart {
+            width: 100%;
+            margin-inline-end: 0;
+        }
+
     }
 }

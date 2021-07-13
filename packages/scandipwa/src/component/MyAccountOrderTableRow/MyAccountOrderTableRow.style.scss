@@ -20,13 +20,6 @@
         display: block;
     }
 
-    td,
-    th {
-        @include mobile {
-            min-width: 0;
-        }
-    }
-
     &:hover {
         background-color: var(--my-account-order-table-row-hover-background);
         cursor: pointer;

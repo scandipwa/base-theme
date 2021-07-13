@@ -91,6 +91,7 @@ export class FieldSelectContainer extends PureComponent {
         ).sort((a, b) => {
             const textA = a.label.toUpperCase();
             const textB = b.label.toUpperCase();
+
             // eslint-disable-next-line no-nested-ternary
             return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
         });
@@ -100,6 +101,7 @@ export class FieldSelectContainer extends PureComponent {
 
     isSelectDisabled() {
         const { selectOptions } = this.props;
+
         return selectOptions.length === 0;
     }
 
@@ -177,6 +179,7 @@ export class FieldSelectContainer extends PureComponent {
         // on Enter pressed
         if (keyCode === ENTER_KEY_CODE) {
             this.handleSelectExpand();
+
             return;
         }
 

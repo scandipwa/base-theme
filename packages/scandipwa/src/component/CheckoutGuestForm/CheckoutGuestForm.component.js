@@ -217,6 +217,7 @@ export class CheckoutGuestForm extends FieldForm {
 
     renderGuestForm() {
         const { formId } = this.props;
+
         return (
             <>
                 { this.renderHeading() }

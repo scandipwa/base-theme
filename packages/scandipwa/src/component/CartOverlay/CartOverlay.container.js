@@ -111,6 +111,7 @@ export class CartOverlayContainer extends PureComponent {
 
         if (hasOutOfStockProductsInCart) {
             showNotification('error', __('Cannot proceed to checkout. Remove out of stock products first.'));
+
             return;
         }
 
@@ -118,6 +119,7 @@ export class CartOverlayContainer extends PureComponent {
         if (guest_checkout || isSignedIn()) {
             hideActiveOverlay();
             history.push({ pathname: appendWithStoreCode(CHECKOUT_URL) });
+
             return;
         }
 

@@ -16,7 +16,7 @@
         1px 0 var(--star-outline-color),
         0 -1px var(--star-outline-color);
 
-    font-size: 4rem;
+    font-size: 40px;
     line-height: 1;
     /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
     font-family: Times; // make sure ★ appears correctly
@@ -40,5 +40,9 @@
 
     &:focus {
         border: 0;
+    }
+
+    &:first-of-type {
+        margin-block-start: 12px;
     }
 }

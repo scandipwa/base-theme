@@ -12,7 +12,6 @@
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-import ContentWrapper from 'Component/ContentWrapper';
 import Link from 'Component/Link';
 import BrowserDatabase from 'Util/BrowserDatabase';
 import { ONE_MONTH_IN_SECONDS } from 'Util/Request/QueryDispatcher';
@@ -67,7 +66,7 @@ export class CookiePopup extends PureComponent {
               elem="Link"
               to={ cookieLink }
             >
-                { __('Read more') }
+                { __('here') }
             </Link>
         );
     }
@@ -85,10 +84,15 @@ export class CookiePopup extends PureComponent {
 
     renderCTA() {
         return (
-            <div block="CookiePopup" elem="CTA">
-                <button block="Button" onClick={ this.acceptCookies }>
-                    { __('Accept') }
-                </button>
+            <div
+              block="CookiePopup"
+              elem="CTA"
+              onClick={ this.acceptCookies }
+              onKeyDown={ this.acceptCookies }
+              role="button"
+              tabIndex={ 0 }
+            >
+                    { __('Got it') }
             </div>
         );
     }
@@ -103,14 +107,8 @@ export class CookiePopup extends PureComponent {
 
         return (
             <div block="CookiePopup">
-                <ContentWrapper
-                  label="Cookie popup"
-                  mix={ { block: 'CookiePopup', elem: 'Wrapper' } }
-                  wrapperMix={ { block: 'CookiePopup', elem: 'ContentWrapper' } }
-                >
                     { this.renderCookieText() }
                     { this.renderCTA() }
-                </ContentWrapper>
             </div>
         );
     }

@@ -195,16 +195,15 @@ export class ProductBundleItemContainer extends ProductCustomizableOptionContain
             finalOptionPrice,
             price
         }) => {
-            const optionLabel = this.renderOptionLabel(price_type, finalOptionPrice, price, currencyCode);
-            const dropdownLabel = !can_change_quantity
-                ? `${ quantity } x ${ label } ${ optionLabel }`
-                : `${ label } ${optionLabel}`;
+            const subLabel = this.renderOptionLabel(price_type, finalOptionPrice, price, currencyCode);
+            const dropdownLabel = !can_change_quantity ? `${ quantity } x ${ label } ` : `${ label } `;
 
             acc.push({
                 id,
                 name: label,
                 value: id,
-                label: dropdownLabel
+                label: dropdownLabel,
+                subLabel
             });
 
             return acc;

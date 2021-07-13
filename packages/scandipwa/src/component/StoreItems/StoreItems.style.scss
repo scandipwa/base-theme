@@ -11,13 +11,13 @@
 
 .StoreItems {
     &-Item {
-        font-size: 1.2rem;
+        font-size: 12px;
         padding: 6px 12px;
         white-space: nowrap;
         width: 100%;
 
         @include mobile {
-            font-size: 1.4rem;
+            font-size: 14px;
         }
 
         &:hover {

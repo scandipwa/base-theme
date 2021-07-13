@@ -1,9 +1,11 @@
 .CreateAccount {
     .ContentWrapper {
-        padding: 28px 20px 50px;
+        padding-block-start: 28px;
+        padding-block-end: 50px;
+        padding-inline: 20px;
 
         @include desktop() {
-            padding-top: 25px;
+            padding-block-start: 25px;
         }
     }
 
@@ -23,7 +25,7 @@
         }
 
         button {
-            margin-top: 20px;
+            margin-block-start: 20px;
         }
 
         > div {
@@ -35,18 +37,17 @@
         input {
             min-width: 250px;
 
-            @include before-desktop {
+            @include mobile {
                 width: 100%;
             }
 
             @include desktop {
-                max-width: 300px;
                 width: 100%;
             }
         }
 
         p {
-            margin-bottom: 20px;
+            margin-block-end: 20px;
         }
     }
 

@@ -22,37 +22,74 @@
     --product-card-name-line-height: 1.2em;
     --product-card-name-max-rows: 2;
     --product-card-brand-line-height: 1.2em;
-    --product-card-color-size: 15px;
+    --product-card-color-size: 32px;
+    --product-card-background: var(--color-white);
+    --option-margin-block: 0 12px;
+    --option-margin-inline: 0 12px;
 }
 
 .ProductCard {
-    padding-left: 0;
+    height: fit-content;
+    padding-inline-start: 0;
     min-width: 0;
     display: flex;
     align-items: stretch;
+
+    &:hover {
+        @include desktop {
+            box-shadow: 0 3px 6px -4px rgba(0, 0, 0, .1),
+            0 6px 16px rgba(0, 0, 0, .1),
+            0 9px 28px 8px rgba(0, 0, 0, .1);
+            z-index: 4;
+
+            .ProductCard-VisibleOnHover {
+                background: var(--product-card-background);
+                width: inherit;
+                opacity: 1;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, .1),
+                0 6px 16px rgba(0, 0, 0, .1),
+                0 9px 28px 8px rgba(0, 0, 0, .1);
+                z-index: -1;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                flex-grow: 1;
+                padding-block-start: 0;
+                padding-block-end: 10px;
+                padding-inline: 15px;
+                position: absolute;
+                inset-block-start: 100%;
+            }
+        }
+    }
 
     &::before {
         content: none;
     }
 
     &:last-child {
-        margin-bottom: .72rem;
+        margin-block-end: 7px;
 
         @include mobile {
-            margin-bottom: .84rem;
+            margin-block-end: 8px;
         }
     }
 
     &-Content {
-        padding: 10px 15px;
+        background: var(--product-card-background);
+        padding-block: 10px 16px;
         display: flex;
-        flex-grow: 1;
         flex-direction: column;
+
+        @include desktop {
+            padding-inline: 15px;
+        }
 
         &_layout_list {
             justify-content: space-between;
-            margin-left: 20px;
-            width: 100%;
+            margin-inline-start: 20px;
+            max-width: 325px;
+
 
             .ProductCard {
                 &-ActionWrapper {
@@ -60,7 +97,7 @@
                     display: flex;
 
                     button {
-                        margin-right: 10px;
+                        margin-inline-end: 10px;
                     }
                 }
 
@@ -69,12 +106,12 @@
                     position: static;
 
                     > div {
-                        margin-bottom: 0;
+                        margin-block-end: 0;
                     }
 
                     .ProductCompareButton-Button {
-                        height: 42px;
-                        width: 42px;
+                        height: var(--compare-button-size);
+                        width: var(--compare-button-size);
                     }
                 }
 
@@ -83,8 +120,8 @@
                 }
 
                 &-WishListButton {
-                    height: 42px;
-                    width: 42px;
+                    height: var(--wishlist-heart-size);
+                    width: var(--wishlist-heart-size);
                 }
             }
         }
@@ -97,32 +134,28 @@
     }
 
     &-Name {
-        margin: 5px 0;
         line-height: var(--product-card-name-line-height);
+        margin: 5px 0;
+        padding-block-end: 2px;
         overflow: hidden;
-        white-space: nowrap;
         text-overflow: ellipsis;
-        font-size: 1.26rem;
+        white-space: nowrap;
 
-        @include after-mobile {
-            font-size: 1.4rem;
+        @include desktop {
             line-height: 1.3;
         }
     }
 
     &-Brand {
-        font-weight: 300;
+        font-weight: 400;
+        margin-block-end: 4px;
         opacity: .5;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         min-height: var(--product-card-brand-line-height);
         line-height: var(--product-card-brand-line-height);
-        font-size: 1.1rem;
-
-        @include after-mobile {
-            font-size: 1.2rem;
-        }
+        font-size: 12px;
     }
 
     &-BrandAttributeValue {
@@ -133,7 +166,7 @@
     }
 
     &-Picture {
-        padding-bottom: 120%;
+        padding-block-end: 120%;
     }
 
     &-PictureMissing {
@@ -141,40 +174,41 @@
         text-align: center;
         width: 100%;
         height: 20px;
-        bottom: 0;
+        inset-block-end: 0;
         margin: auto;
-        top: 0;
+        inset-block-start: 0;
     }
 
     &-FigureReview {
+        background: var(--product-card-background);
         display: flex;
-        justify-content: center;
         flex-direction: column;
+        justify-content: center;
+
+        @include desktop {
+            padding-block-start: 10px;
+            padding-block-end: 0;
+            padding-inline: 15px;
+        }
     }
 
     &-Reviews {
-        --product-rating-size: 1.6rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 105px;
-        height: 25px;
-        position: absolute;
-        border-radius: 1rem;
+        --product-rating-size: 16px;
+        --product-rating-background: #ffff;
+        width: 100%;
+        border-radius: 10px;
         letter-spacing: normal;
 
-        &_layout_grid {
-            background-color: var(--product-card-reviews-background);
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 0;
-        }
-
         @include mobile {
-            --product-rating-size: 1.4rem;
+            --product-rating-size: 14px;
 
             width: 100%;
             border-radius: 0;
+            height: 18px;
+        }
+
+        @include desktop {
+            height: 25px;
         }
     }
 
@@ -193,7 +227,8 @@
         height: var(--product-card-color-size);
         border-radius: 50%;
         overflow: hidden;
-        margin: 5px 7px 0 0;
+        margin-block-start: 5px;
+        margin-inline-end: 7px;
         border: 1px solid var(--product-card-color-border-color);
     }
 
@@ -203,7 +238,9 @@
         display: inline-block;
         text-align: center;
         padding: 0 6px;
-        margin: 5px 7px 0 0;
+        margin: 0;
+        margin-block-start: 5px;
+        margin-inline-end: 7px;
         line-height: 15px;
         min-width: 20px;
     }
@@ -212,20 +249,25 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        flex-grow: 1;
     }
 
     &-Price {
         width: 100%;
-        @include after-mobile {
-            font-size: 2rem;
+
+        @include desktop {
+            margin-block-start: 6px;
+            font-size: 24px;
         }
     }
 
     &-PriceBadge {
         color: var(--secondary-dark-color);
-        font-size: 1rem;
-        margin-bottom: 0;
+        font-size: 10px;
+        margin-block-end: 0;
+    }
+
+    .ProductPrice-PriceBadge {
+        font-size: 12px;
     }
 
     &-Figure {
@@ -241,64 +283,16 @@
         &:hover,
         &:focus {
             text-decoration: none;
+            color: initial;
         }
     }
 
     &-ProductActions {
-        position: absolute;
-        top: 3%;
-        right: 3%;
         display: flex;
-        flex-direction: column;
-    }
+        margin-inline-start: 7px;
 
-    &-WishListButton {
-        width: 35px;
-        height: 35px;
-        background-color: var(--product-card-wishlist-button-background);
-        border: none;
-        transition: all .2s;
-        opacity: .7;
-
-        .ProductWishlistButton-Heart {
-            --wishlist-heart-size: 15px;
-
-            transform: scale(.7) rotate(-45deg);
-            background-color: var(--product-card-wishlist-button-color);
-
-            @include before-desktop {
-                transform: scale(.6) rotate(-45deg);
-            }
-        }
-
-        ::before,
-        ::after {
-            background-color: var(--product-card-wishlist-button-color);
-        }
-
-        &:hover {
-            @include after-mobile {
-                opacity: 1;
-                transition: all .2s;
-            }
-
-            .ProductWishlistButton-Heart {
-                @include after-mobile {
-                    background-color: var(--primary-base-color);
-                }
-            }
-
-            ::before,
-            ::after {
-                @include after-mobile {
-                    background-color: var(--primary-base-color);
-                }
-            }
-        }
-
-        &:not([disabled]):hover,
-        &:not([disabled]):focus {
-            background-color: var(--product-card-wishlist-button-background);
+        .ProductWishlistButton {
+            margin-inline-end: 10px;
         }
     }
 
@@ -308,46 +302,29 @@
         animation: appear 100ms 300ms forwards;
     }
 
-    .ProductWishlistButton {
-        margin: 0 0 1.08rem 0;
+    &-Footer {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding-block-start: 5px;
 
-        &-Button_isInWishlist {
-            background-color: var(--product-card-wishlist-button-background);
-            opacity: 1;
-
-            .ProductWishlistButton-Heart {
-                background-color: var(--primary-base-color);
-            }
-
-            ::before,
-            ::after {
-                background-color: var(--primary-base-color);
-            }
+        > * {
+            margin-inline-end: 5px;
         }
     }
 
-    .ProductCompareButton {
-        margin: 0 0 1.08rem 0;
-
-        &-Button {
-            width: 35px;
-            height: 35px;
-            border: none;
-        }
-
-        &-Icon {
-            height: 23px;
-            margin: auto;
-
-            &::before {
-                width: 5px;
-                left: -5px;
-            }
-
-            &::after {
-                width: 5px;
-            }
-        }
+    &-VisibleOnHover {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        flex-grow: 1;
+        padding-block-start: 0;
+        padding-block-end: 10px;
+        padding-inline: 15px;
+        opacity: 0;
+        position: absolute;
+        inset-block-start: 100%;
+        display: none;
     }
 
     &_siblingsHaveBrands {

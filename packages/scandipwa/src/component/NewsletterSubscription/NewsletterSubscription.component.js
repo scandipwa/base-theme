@@ -44,14 +44,17 @@ export class NewsletterSubscription extends FieldForm {
             <button
               type="submit"
               block="Button"
-              mix={ { block: 'FieldForm', elem: 'Button' } }
+              mods={ { isHollow: true } }
               aria-label={ __('Submit') }
-            />
+            >
+                { __('Subscribe') }
+            </button>
         );
     }
 
     render() {
         const { isLoading, onFormSubmit } = this.props;
+
         return (
             <div block="NewsletterSubscription">
                 <Form

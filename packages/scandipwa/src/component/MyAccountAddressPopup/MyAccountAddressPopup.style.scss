@@ -10,11 +10,13 @@
  */
 
 .MyAccountAddressPopup {
+    font-size: 12px;
+
     &-Address {
-        margin: 1.2rem 0;
+        margin: 12px 0;
 
         @include mobile {
-            margin: 1.4rem 0;
+            margin: 14px 0;
         }
     }
 

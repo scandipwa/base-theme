@@ -9,36 +9,41 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
+:root {
+    --checkbox-border-radius: var(--imported_checkboxes_border_radius, 0);
+    --checkbox-border-color: var(--imported_checkboxes_border_color, var(--primary-base-color));
+    --checkbox-border-color-active: var(--imported_checkboxes_border_color, var(--primary-base-color));
+    --checkbox-width: var(--imported_checkboxes_width, 18px);
+    --checkbox-height: var(--imported_checkboxes_height, 18px);
+}
+
 .Field {
-    margin-top: 1.2rem;
+    margin-block-start: 24px;
 
     @include mobile {
-        margin-top: 1.4rem;
+        margin-block-start: 14px;
     }
 
     &-Label {
-        font-weight: 700;
-        padding-bottom: .36rem;
+        font-size: 12px;
+        padding-block-end: 8px;
+    }
 
-        @include mobile {
-            padding-bottom: .42rem;
-        }
+    &-CheckboxLabel{
+        display: inline-flex;
+        align-items: center;
     }
 
     &-Message {
-        margin-bottom: -.1em;
-        font-size: 1.26rem;
-        font-weight: 600;
         color: var(--primary-error-color);
-
-        @include mobile {
-            font-size: 1.47rem;
-        }
+        font-size: 12px;
+        margin-block-end: -.1em;
+        margin-block-start: 6px;
     }
 
     &-Note {
-        margin-bottom: .24rem;
-        font-size: 1.2rem;
+        margin-block-end: 2px;
+        font-size: 12px;
         font-weight: 600;
         color: var(--field-note);
         opacity: 0;
@@ -47,19 +52,12 @@
         will-change: height, opacity;
 
         @include mobile {
-            margin-bottom: .28rem;
-            font-size: 1.4rem;
+            margin-block-end: 3px;
+            font-size: 14px;
         }
 
         &::before {
             content: '* ';
-        }
-    }
-
-    &_isValid {
-        input,
-        textarea {
-            border: 1px solid var(--primary-success-color);
         }
     }
 
@@ -70,13 +68,9 @@
         }
     }
 
-    &::placeholder {
-        color: var(--field-note);
-        font-size: 1.08rem;
-
-        @include mobile {
-            font-size: 1.26rem;
-        }
+    input::placeholder {
+        color:  var(--input-color);
+        opacity: .5;
     }
 
     input:focus + .Field-Note {
@@ -102,7 +96,7 @@
                     height: $size-mobile;
                     border: solid 1px $border-color;
 
-                    @include after-mobile {
+                    @include desktop {
                         width: $size;
                         height: $size;
                     }
@@ -123,10 +117,10 @@
                 text-align: center;
 
                 @include mobile {
-                    font-size: 1.4rem;
+                    font-size: 14px;
                 }
 
-                @include after-mobile {
+                @include desktop {
                     height: $size;
                     min-height: $size;
                     width: $input-width;
@@ -145,30 +139,51 @@
         &_radio {
             label {
                 &:first-of-type {
-                    display: inline-block;
-                    max-width: calc(100vw - 2.4rem - 45px);
+                    display: inline-flex;
+                    max-width: calc(100vw - 24px - 45px);
                     vertical-align: middle;
 
                     @include mobile {
-                        max-width: calc(100vw - 2.8rem - 45px);
+                        max-width: calc(100vw - 28px - 45px);
                     }
                 }
             }
 
             .input-control {
-                display: inline-block;
                 vertical-align: middle;
-                margin-left: 1.2rem;
+            }
+        }
 
-                @include mobile {
-                    margin-left: 1.4rem;
+        &_number {
+            align-items: center;
+            display: inline-flex;
+
+            .AddButton,
+            .SubtractButton {
+                width: 24px;
+                filter: var(--primary-base-filter);
+            }
+        }
+
+        &_text,
+        &_email,
+        &_password {
+            &.Field_isValid {
+                input,
+                textarea {
+                    border: 1px solid var(--primary-success-color);
                 }
+            }
+        }
+
+        &_checkbox {
+            span {
+                font-size: 12px;
             }
         }
     }
 
-    [type='checkbox'],
-    [type='radio'] {
+    [type='checkbox'] {
         position: absolute;
         opacity: 0;
         padding: 0;
@@ -176,136 +191,85 @@
         min-height: 0;
 
         + .input-control {
-            @include mobile {
-                width: 2.1rem;
-                height: 2.1rem;
-            }
+            --box-color: #{$white};
 
-            --box-color: #{white};
-
-            display: inline-block;
-            position: relative;
-            cursor: pointer;
-            padding: 0;
-            width: 1.8rem;
-            height: 1.8rem;
             background-color: var(--box-color);
-            border: 1px solid var(--input-border-color);
-            transition-property: background-color, border-color;
+            border: 2px solid var(--input-color);
+            border-radius: var(--checkbox-border-radius);
+            cursor: pointer;
+            display: inline-block;
+            height: 21px;
+            position: relative;
+            padding: 0;
             transition-duration: .25s;
+            transition-property: background-color, border-color;
             transition-timing-function: ease-in;
+            width: 21px;
             will-change: background-color, border-color;
+            margin-inline-end: 11px;
+
+            @include desktop {
+                width: var(--checkbox-width);
+                height: var(--checkbox-height);
+            }
 
             &::after {
                 --checkmark-color: transparent;
 
-                content: '';
-                position: absolute;
-                pointer-events: none;
                 background: var(--checkmark-color);
+                box-shadow:
+                        2px 0 0 var(--checkmark-color),
+                        4px 0 0 var(--checkmark-color),
+                        4px -2px 0 var(--checkmark-color),
+                        4px -4px 0 var(--checkmark-color),
+                        4px -6px 0 var(--checkmark-color),
+                        4px -8px 0 var(--checkmark-color);
+                content: '';
+                height: 2px;
+                // required for ltr + rtl support, don't change to 'inset-inline-start'
+                left: calc(50% - 5px);
+                pointer-events: none;
+                position: absolute;
+                inset-block-start: calc(50% - 1px);
                 transition-duration: .25s;
+                transition-property: background-color, box-shadow;
                 transition-timing-function: ease-in;
-                transition-property: background-color;
-                will-change: background-color;
+                transform: rotate(45deg);
+                width: 2px;
+                will-change: background-color, box-shadow;
             }
 
             &:hover {
-                @include after-mobile {
+                @include desktop {
                     --box-color: var(--secondary-light-color);
-                    border-color: var(--primary-base-color);
-                }
 
-                &::after {
-                    @include after-mobile {
-                        --checkmark-color: var(--secondary-dark-color);
+                    border-color: var(--checkbox-border-color-active);
+
+                    &::after {
+                        @include desktop {
+                            --checkmark-color: var(--secondary-dark-color);
+                        }
                     }
                 }
             }
         }
 
         &:disabled + .input-control {
-            color: #b8b8b8;
+            color: var(--color-dark-gray);
             cursor: auto;
         }
 
-        &:checked + .input-control {
-            background-color: var(--primary-base-color);
-            border-color: var(--primary-base-color);
-
-            &::after {
-                --checkmark-color: #{$white};
-            }
-        }
-    }
-
-    [type='checkbox'] {
-        + .input-control {
-            &::after {
-                left: .3rem;
-                top: .72rem;
-                width: .24rem;
-                height: .24rem;
-                box-shadow:
-                    2px 0 0 var(--checkmark-color),
-                    4px 0 0 var(--checkmark-color),
-                    4px -2px 0 var(--checkmark-color),
-                    4px -4px 0 var(--checkmark-color),
-                    4px -6px 0 var(--checkmark-color),
-                    4px -8px 0 var(--checkmark-color);
-                transform: rotate(45deg);
-                transition-property: background-color, box-shadow;
-                will-change: background-color, box-shadow;
-
-                @include mobile {
-                    left: .35rem;
-                    top: .84rem;
-                    width: .28rem;
-                    height: .28rem;
-                }
-            }
-        }
-
         &:checked {
-            &:hover {
-                + .input-control {
-                    @include after-mobile {
-                        background-color: var(--primary-base-color);
-                    }
+            + .input-control {
+                border-color: var(--checkbox-border-color-active);
+
+                &::after {
+                    --checkmark-color: var(--primary-base-color);
+
+                    // required for ltr + rtl support, don't change to 'inset-inline-start'
+                    left: calc(50% - 5px);
+                    inset-block-start: calc(50% - 1px);
                 }
-            }
-        }
-    }
-
-    [type='radio'] {
-        + .input-control {
-            border-radius: 50%;
-
-            &::after {
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                margin: auto;
-                width: .6rem;
-                height: .6rem;
-                border-radius: 50%;
-                transition-property: background-color, box-shadow;
-                will-change: background-color, box-shadow;
-
-                @include mobile {
-                    width: .7rem;
-                    height: .7rem;
-                }
-            }
-        }
-
-        &:focus + .input-control {
-            --box-color: var(--secondary-light-color);
-
-            border-color: var(--primary-base-color);
-
-            &::after {
-                --checkmark-color: #{$white};
             }
         }
     }
@@ -327,36 +291,42 @@
             justify-content: center;
             height: 180px;
             position: absolute;
-            top: 0;
+            inset-block-start: 0;
             width: 100%;
 
             p {
-                font-size: 1.6rem;
-                margin-bottom: 0;
+                font-size: 16px;
+                margin-block-end: 0;
             }
 
             span {
                 color: var(--primary-base-color);
-                font-size: 1.8rem;
+                font-size: 18px;
                 font-weight: 700;
                 text-transform: uppercase;
             }
 
             .Image {
-                margin-bottom: 10px;
+                margin-block-end: 10px;
                 text-align: center;
             }
 
             + p {
-                margin-top: 5px;
-                margin-bottom: 0;
+                margin-block-start: 5px;
+                margin-block-end: 0;
             }
         }
     }
 
     &-Labels {
         span {
-            letter-spacing: 1.05px;
+            letter-spacing: 1px;
         }
+    }
+
+    &-SubLabel {
+        font-weight: bold;
+        font-size: 12px;
+        white-space: break-spaces;
     }
 }

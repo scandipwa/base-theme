@@ -15,72 +15,58 @@
 }
 
 .ProductCustomizableOptions {
-    &-Content {
-        @include after-mobile{
-            max-width: 400px;
+    &-Wrapper {
+        margin-block-start: 24px;
+
+        @include mobile {
+            margin-block-end: 15px;
         }
+    }
+
+    &-Content {
+        margin-block-start: 17px;
 
         .Field {
+            margin-block-start: 12px;
+
             input,
             textarea {
                 width: 100%;
-            }
-
-            &_type_checkbox {
-                display: flex;
-
-                label {
-                    order: 1;
-
-                    .input-control {
-                        margin-left: 0;
-                    }
-                }
-
-                .Field-Label {
-                    margin-left: 1.2rem;
-                    order: 2;
-
-                    @include mobile {
-                        margin-left: 1.4rem;
-                    }
-                }
             }
         }
     }
 
     &-Required {
         color: var(--customizable-options-required-text-color);
-        margin-top: .6rem;
+        margin-block-start: 6px;
 
         @include mobile {
-            margin-top: .7rem;
+            margin-block-start: 7px;
         }
     }
 
     &-Information {
         color: var(--customizable-options-additional-information-color);
-        font-size: 1.1rem;
-        margin-top: .6rem;
+        font-size: 12px;
+        margin-block-start: 6px;
 
         @include mobile {
-            margin-top: .7rem;
+            margin-block-start: 7px;
         }
     }
 
     &-ExpandableContentContent {
         &_isContentExpanded {
-            @include before-desktop {
-                padding: 0 1.2rem 1.2rem;
-            }
 
             @include mobile {
-                padding: 0 1.4rem 1.4rem;
+                padding-block-start: 0;
+                padding-block-end: 14px;
+                padding-inline: 14px;
             }
 
             .Field {
                 &:first-child {
-                    margin-top: 0;
+                    margin-block-start: 0;
                 }
             }
         }
@@ -97,9 +83,15 @@
     }
 
     &-Heading {
-        font-weight: normal;
+        font-size: 14px;
 
         &Bold {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        &Price {
+            font-size: 12px;
             font-weight: bold;
         }
     }

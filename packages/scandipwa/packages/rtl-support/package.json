@@ -1,0 +1,20 @@
+{
+    "name": "rtl-support",
+    "version": "0.0.0",
+    "license": "OSL-3.0",
+    "scandipwa": {
+        "type": "extension",
+        "build": {
+            "cracoPlugins": [
+                "build-config/craco-config.js"
+            ]
+        }
+    },
+    "eslintConfig": {
+        "extends": "@scandipwa"
+    },
+    "dependencies": {
+        "postcss-dir-pseudo-class": "^5.0.0",
+        "postcss-logical": "^4.0.2"
+    }
+}

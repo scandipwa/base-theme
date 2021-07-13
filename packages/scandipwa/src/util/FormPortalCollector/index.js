@@ -16,6 +16,7 @@ export class FormPortalCollector {
     subscribe(id, f, name) {
         if (this.portalsObservers[id]) {
             this.portalsObservers[id][name] = f;
+
             return;
         }
 
@@ -32,6 +33,7 @@ export class FormPortalCollector {
 
     collect(id) {
         const portals = this.portalsObservers[id] || {};
+
         return Object.values(portals).map((portal) => portal());
     }
 }

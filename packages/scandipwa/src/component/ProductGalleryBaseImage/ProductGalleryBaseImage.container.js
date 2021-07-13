@@ -82,6 +82,7 @@ export class ProductGalleryBaseImageContainer extends Component {
 
     _getAlt() {
         const { mediaData: { label } = {} } = this.props;
+
         return label || '';
     }
 

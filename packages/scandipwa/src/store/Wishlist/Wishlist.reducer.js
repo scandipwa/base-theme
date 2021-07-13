@@ -48,6 +48,7 @@ export const clearWishlist = () => {
     const productsInWishlist = {};
 
     BrowserDatabase.setItem(productsInWishlist, PRODUCTS_IN_WISHLIST);
+
     return { productsInWishlist };
 };
 

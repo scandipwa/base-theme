@@ -48,7 +48,7 @@ export class CartItemPrice extends PureComponent {
               block="ProductPrice"
               elem="SubPrice"
             >
-                { `${ __('Excl. tax:') } ${ formatPrice(subPrice, currency_code) }` }
+                { __('Excl. tax: %s', formatPrice(subPrice, currency_code)) }
             </span>
         );
     }

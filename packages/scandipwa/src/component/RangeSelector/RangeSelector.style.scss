@@ -38,8 +38,8 @@
 
     &__slider {
         background-color: white;
-        margin-left: -10px;
-        margin-top: -12px;
+        margin-inline-start: 1px;
+        margin-block-start: -12px;
         width: 20px;
         height: 20px;
     }
@@ -50,12 +50,12 @@
 
     &__label {
         &--value {
-            top: -2.2rem;
+            inset-block-start: -22px;
         }
 
         &--min,
         &--max {
-            bottom: -1.6rem;
+            inset-block-end: -16px;
         }
     }
 }

@@ -124,6 +124,7 @@ export class MyAccountDispatcher {
      */
     forgotPassword(options = {}, dispatch) {
         const mutation = MyAccountQuery.getForgotPasswordMutation(options);
+
         return fetchMutation(mutation).then(
             /** @namespace Store/MyAccount/Dispatcher/forgotPasswordFetchMutationThen */
             () => dispatch(updateCustomerPasswordForgotStatus()),
@@ -167,6 +168,7 @@ export class MyAccountDispatcher {
 
                 if (confirmation_required) {
                     dispatch(updateIsLoading(false));
+
                     return 2;
                 }
 

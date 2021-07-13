@@ -1,7 +1,6 @@
 .CheckoutSuccess {
     @include mobile {
-        margin-top: 2.8rem;
-        text-align: center;
+        margin-block-start: 28px;
     }
 
     &-ContinueButton {
@@ -9,30 +8,30 @@
             width: 100%;
         }
 
-        @include after-mobile {
-            margin-top: 2.4rem;
+        @include desktop {
+            margin-block-start: 24px;
         }
     }
 
     &-ButtonWrapper {
         @include mobile {
-            padding: 1.4rem;
+            padding: 14px;
             position: fixed;
-            left: 0;
+            inset-inline-start: 0;
             width: 100%;
-            bottom: var(--navigation-tabs-height);
-            border-top: 1px solid var(--primary-divider-color);
+            inset-block-end: var(--navigation-tabs-height);
+            border-block-start: 1px solid var(--primary-divider-color);
         }
     }
 
     .Button {
-        @include before-desktop {
+        @include mobile {
             width: 100%;
             text-align: center;
         }
     }
 
     .CheckoutRegistrationLink {
-        margin-top: 2rem;
+        margin-block-start: 20px;
     }
 }

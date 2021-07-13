@@ -29,6 +29,7 @@ export class CheckoutTermsAndConditionsPopup extends PureComponent {
 
     renderContent() {
         const { payload: { text = 'No text was passed' } } = this.props;
+
         return (
             <Html content={ text } />
         );

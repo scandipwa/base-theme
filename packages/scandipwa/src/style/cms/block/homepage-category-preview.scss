@@ -9,80 +9,66 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-:root {
-    --homepage-button-background: #fff;
-    --homepage-button-color: #000;
-}
-
 .HomepageCategories {
     @include desktop {
-        grid-gap: 1.2rem;
+        grid-gap: 12px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        margin-top: 3px;
+        margin-block-start: 3px;
     }
 
     &-Figure {
-        margin-top: 1.2rem;
 
         @include mobile {
-            margin-top: 1.4rem;
+            margin-block-start: 24px;
         }
 
-        @include after-mobile {
-            margin-top: 5px;
-            height: 400px;
+        @include desktop {
+            margin-block-start: 5px;
+        }
+
+        > .Image {
+            border-block-end: 1px solid var(--primary-divider-color);
         }
 
         .Image {
-            height: 100%;
             display: block;
-            padding-bottom: 0;
-
-            @include mobile {
-                height: 0;
-                padding-bottom: 56.5%;
-            }
+            height: 0;
+            padding-block-end: 84.5%;
 
             &-Image {
                 object-fit: cover;
+                border: 1px solid var(--primary-divider-color);
             }
         }
     }
 
     &-Figcaption {
-        --button-background: var(--homepage-button-background);
-        --button-color: var(--homepage-button-color);
-        --button-border: transparent;
-        --button-hover-background: var(--homepage-button-color);
-        --button-hover-color: var(--homepage-button-background);
-        --button-hover-border: transparent;
-        --button-padding: 13px 40px;
-        --button-border-width: 0;
+        --button-color: var(--color-white);
+        --button-padding: 40px;
+        --hollow-button-background: var(--color-white);
+        --hollow-button-hover-background: var(--color-white);
 
-        @include mobile {
-            --button-padding: 5px 0;
-        }
+        position: absolute;
+        inset-block-end: 24px;
+        text-align: center;
 
-        @include after-mobile {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            text-align: center;
+        @include desktop {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            padding-inline: 16px;
         }
 
         &_isPlaceholder {
-            padding-bottom: 31px;
+            padding-block-end: 31px;
         }
-    }
-
-    &-Button.Button {
-        font-weight: 300;
 
         @include mobile {
-            text-align: left;
             width: 100%;
+            padding-inline: 16px;
+            inset-block-end: 16px;
         }
     }
 

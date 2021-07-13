@@ -21,184 +21,55 @@
 }
 
 .SearchField {
-    @include before-desktop {
-        flex-grow: 1;
-        opacity: 0;
-        pointer-events: none;
-    }
+    display: none;
+    margin: 8px auto;
+    max-width: 100%;
+    width: 100%;
 
     @include desktop {
-        text-align: right;
+        display: block;
+        width: 55%;
+        max-width: 600px;
     }
 
     &_isVisible {
-        opacity: 1;
-        pointer-events: all;
+        display: block;
+
+        @include mobile {
+            margin-block-start: 16px;
+        }
     }
 
     &_isActive {
-        --search-bar-width: 27vw;
-        --search-field-border-color: var(--primary-light-color);
-    }
-
-    &-Wrapper {
-        @include desktop {
-            margin-right: 1.2rem;
-        }
-    }
-
-    &-Input {
-        transition-property: opacity, background-color;
-        transition-duration: 200ms;
-        background-color: var(--search-field-background);
-        border-color: transparent;
-        border-radius: 15px;
-        border-width: 1px;
-        font-size: 1.6rem;
-        max-width: 0;
-        min-width: 0;
-        opacity: 1;
-        width: 100%;
-        padding: {
-            bottom: 5px;
-            left: 10px;
-            top: 4px;
-        };
-
-        @include before-desktop {
-            max-width: 100%;
-        }
-
-        @include desktop {
-            background-color: transparent;
-            border: 0;
-            border-bottom: 1px solid var(--search-input-desktop-border-color);
-            border-radius: 0;
-            font-size: 1.4rem;
-            margin: 4.8rem 3.6rem 0 0;
-            max-width: 100%;
-            padding-left: 3.6rem;
-            width: calc(100% - 7.2rem);
-            padding-bottom: 7px;
-        }
-
-        &:focus,
-        &:active {
-            --input-color: var(--search-field-color);
-
-            @include desktop {
-                border: 0;
-                border-bottom: 1px solid var(--search-input-desktop-border-color);
+        .SearchOverlay {
+            &-Results {
+                display: block;
             }
-        }
-    }
-
-    &-Placeholder {
-        font-size: 1.6rem;
-        height: min-content;
-        left: calc(50% - 5px);
-        padding-left: 20px;
-        pointer-events: none;
-        position: absolute;
-        top: 5px;
-        transform: translate3d(-50%, 0, 0);
-        visibility: hidden;
-        width: min-content;
-
-        @include search-icon;
-
-        &::before {
-            bottom: 0;
-            left: 0;
-            margin: auto;
-            top: 0;
-            transform: translateY(-2px);
-        }
-
-        &_isActive {
-            left: 0;
-            opacity: .7;
-            padding-left: 0;
-            transform: translate3d(10px, 0, 0);
-
-            &::before {
-                opacity: 0;
-            }
-        }
-
-        &_isPlaceholderVisible {
-            visibility: visible;
-        }
-    }
-
-    &-SearchIcon,
-    &-CloseIcon {
-        cursor: pointer;
-
-        @include desktop {
-            height: 24px;
-            width: 16px;
-        }
-    }
-
-    &-SearchIcon {
-        @include search-icon;
-
-        &::before {
-            box-shadow:
-                6px 6px 0 -7px var(--header-color),
-                7px 7px 0 -7px var(--header-color),
-                8px 8px 0 -7px var(--header-color),
-                9px 9px 0 -7px var(--header-color),
-                10px 10px 0 -7px var(--header-color),
-                11px 11px 0 -7px var(--header-color);
-            height: calc(16px - var(--header-icon-stroke-width) * 2);
-            left: 0;
-            top: 2px;
-            width: calc(16px - var(--header-icon-stroke-width) * 2);
         }
     }
 
     &-CloseIcon {
         @include close-button;
 
-        &::before,
-        &::after {
-            height: 22px;
-            left: 8px;
-            top: 2px;
-            width: 2px;
-        }
+        content: ' ';
+        position: absolute;
+        height: 24px;
+        inset-inline-end: 15px;
+        inset-block-start: calc(50% - 12px);
+        width: 24px;
     }
 
-    &-SearchWrapper {
-        background: var(--search-field-visible-background);
-        height: 100%;
-        max-width: 360px;
-        position: fixed;
-        right: 0;
-        top: calc(var(--header-total-height) + 3px);
-        transform: translateX(100%);
-        transition: transform 300ms ease-in;
+    &-Input {
         width: 100%;
-        will-change: transform;
-        border-left: 1px solid var(--primary-divider-color);
-
-        &_isVisible {
-            transform: translateX(0);
-        }
     }
 
-    &-SearchInnerWrapper {
-        .SearchField-SearchIcon {
-            left: 4.2rem;
-            position: absolute;
-            top: 4.8rem;
+    &-SearchIcon {
+        @include search-icon;
+        @include rtl-icon;
 
-            @include mobile {
-                left: 4.9rem;
-                top: 5.6rem;
-            }
-        }
+        content: ' ';
+        position: absolute;
+        inset-inline-end: 15px;
+        inset-block-start: calc(50% - 12px);
     }
 }

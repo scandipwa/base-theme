@@ -10,19 +10,26 @@
  */
 
 :root {
-    --input-type-number-width: 80px;
+    // Colors
+    --color-black: #{$black};
+    --color-white: #{$white};
+    --color-gray: #f3f3f2;
+    --color-dark-gray: #dddddd;
+    --color-karaka: #0a0903;
+    --primary-divider-color: #e0e0e0;
+    --secondary-error-color: #fff;
+    --primary-error-color: #d20b0b;
+    --secondary-success-color: #fff;
+    --primary-success-color: #2fbf71;
+    --secondary-info-color: var(--color-karaka);
+    --primary-info-color: #ffec51;
+    --body-content-color: var(--color-black);
+
+    // Placeholders
     --placeholder-gradient-color: #d9d9d9;
     --placeholder-image: linear-gradient(to right, #ebebeb 0, var(--placeholder-gradient-color) 15%, #ebebeb 30%);
     --placeholder-size: 1200px 100%;
     --placeholder-animation: placeholderAnimation 2s linear infinite;
-    --primary-divider-color: #f0f0f0;
-    --secondary-error-color: #fff;
-    --primary-error-color: #dc6d6d;
-    --secondary-success-color: #fff;
-    --primary-success-color: #7fcd91;
-    --secondary-info-color: #79632e;
-    --primary-info-color: #ffd166;
-    --body-content-color: $black;
 
     // Declare imported primary colors to change the theme's colors
     --primary-base-color: var(--imported_primary_base_color, #{$default-primary-base-color});
@@ -31,4 +38,6 @@
     --secondary-base-color: var(--imported_secondary_base_color, #{$default-secondary-base-color});
     --secondary-dark-color: var(--imported_secondary_dark_color, #{$default-secondary-dark-color});
     --secondary-light-color: var(--imported_secondary_light_color, #{$default-secondary-light-color});
+    --primary-base-filter: var(--imported_primary_base_filter, #{$svg-filter-primary-base-color});
+    --primary-dark-filter: var(--imported_primary_base_filter, #{$svg-filter-primary-dark-color});
 }

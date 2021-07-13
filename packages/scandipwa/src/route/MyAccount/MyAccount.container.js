@@ -156,7 +156,12 @@ export class MyAccountContainer extends PureComponent {
     containerFunctions = {
         changeActiveTab: this.changeActiveTab.bind(this),
         onSignIn: this.onSignIn.bind(this),
-        onSignOut: this.onSignOut.bind(this)
+        onSignOut: this.onSignOut.bind(this),
+        getMyWishlistSubHeading: this.getMyWishlistSubHeading.bind(this)
+    };
+
+    subHeadingRenderMap = {
+        [MY_WISHLIST]: this.getMyWishlistSubHeading.bind(this)
     };
 
     __construct(props) {
@@ -219,13 +224,41 @@ export class MyAccountContainer extends PureComponent {
         }
     }
 
-    getMyWishlistHeaderTitle = () => {
+    containerProps = () => ({
+        subHeading: this.getSubHeading()
+    });
+
+    _getWishlistItemsCount() {
         const { wishlistItems } = this.props;
 
         const { length } = Object.keys(wishlistItems);
 
-        return `${ length } ${ length === 1 ? __('item') : __('items') }`;
+        return length;
+    }
+
+    getMyWishlistHeaderTitle = () => {
+        const count = this._getWishlistItemsCount();
+
+        return `${ count } ${ count === 1 ? __('item') : __('items') }`;
     };
+
+    getSubHeading() {
+        const { activeTab } = this.state;
+
+        const subHeadingFunc = this.subHeadingRenderMap[activeTab];
+
+        if (!subHeadingFunc) {
+            return null;
+        }
+
+        return subHeadingFunc();
+    }
+
+    getMyWishlistSubHeading() {
+        const count = this._getWishlistItemsCount();
+
+        return ` (${ count })`;
+    }
 
     tabsFilterEnabled() {
         return Object.fromEntries(Object.entries(MyAccountContainer.tabMap)
@@ -332,6 +365,7 @@ export class MyAccountContainer extends PureComponent {
 
         if (pathname === '/forgot-password') { // forward the forgot password state
             history.push({ pathname: appendWithStoreCode('/'), state: { isForgotPassword: true } });
+
             return;
         }
 
@@ -343,6 +377,7 @@ export class MyAccountContainer extends PureComponent {
             <MyAccount
               { ...this.props }
               { ...this.state }
+              { ...this.containerProps() }
               { ...this.containerFunctions }
               tabMap={ this.tabsFilterEnabled(MyAccountContainer.tabMap) }
             />

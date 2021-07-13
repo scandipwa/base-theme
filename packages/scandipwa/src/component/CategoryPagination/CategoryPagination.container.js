@@ -50,6 +50,7 @@ export class CategoryPaginationContainer extends PureComponent {
     getSearchQuery = (pageNumber) => {
         const { history, location } = this.props;
         const page = pageNumber !== 1 ? pageNumber : '';
+
         return generateQuery({ page }, location, history);
     };
 

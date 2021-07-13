@@ -15,6 +15,7 @@ import { PureComponent } from 'react';
 import CategoryConfigurableAttributes from 'Component/CategoryConfigurableAttributes';
 import Loader from 'Component/Loader';
 import Overlay from 'Component/Overlay';
+import ResetAttributes from 'Component/ResetAttributes';
 import ResetButton from 'Component/ResetButton';
 
 import { CATEGORY_FILTER_OVERLAY_ID } from './CategoryFilterOverlay.config';
@@ -97,9 +98,23 @@ export class CategoryFilterOverlay extends PureComponent {
         );
     }
 
-    renderHeading() {
+    renderResetAttributes() {
+        const { customFiltersValues, availableFilters, toggleCustomFilter } = this.props;
+
         return (
-            <h3 block="CategoryFilterOverlay" elem="Heading">
+            <ResetAttributes
+              customFiltersValues={ customFiltersValues }
+              availableFilters={ availableFilters }
+              toggleCustomFilter={ toggleCustomFilter }
+            />
+        );
+    }
+
+    renderHeading() {
+        const { isContentFiltered } = this.props;
+
+        return (
+            <h3 block="CategoryFilterOverlay" elem="Heading" mods={ { isContentFiltered } }>
                 { __('Shopping Options') }
             </h3>
         );
@@ -132,9 +147,11 @@ export class CategoryFilterOverlay extends PureComponent {
         return (
             <>
                 { this.renderHeading() }
-                { this.renderResetButton() }
+                <div block="CategoryFilterOverlay" elem="ResetSection">
+                    { this.renderResetAttributes() }
+                    { this.renderResetButton() }
+                </div>
                 { this.renderFilters() }
-                { this.renderSeeResults() }
             </>
         );
     }
@@ -154,7 +171,12 @@ export class CategoryFilterOverlay extends PureComponent {
             return this.renderMinimalFilters();
         }
 
-        return this.renderDefaultFilters();
+        return (
+            <>
+                { this.renderDefaultFilters() }
+                { this.renderSeeResults() }
+            </>
+        );
     }
 
     renderLoader() {
@@ -198,7 +220,7 @@ export class CategoryFilterOverlay extends PureComponent {
               id={ CATEGORY_FILTER_OVERLAY_ID }
               isRenderInPortal={ false }
             >
-                <div>
+                <div block="CategoryFilterOverlay" elem="Wrapper">
                     { this.renderContent() }
                     { this.renderLoader() }
                 </div>

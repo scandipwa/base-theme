@@ -23,13 +23,13 @@ export class SharedTransition extends PureComponent {
             startingPosition: PropTypes.shape({
                 width: PropTypes.number,
                 height: PropTypes.number,
-                left: PropTypes.number,
+                start: PropTypes.number,
                 top: PropTypes.number
             }),
             destinationPosition: PropTypes.shape({
                 width: PropTypes.number,
                 height: PropTypes.number,
-                left: PropTypes.number,
+                start: PropTypes.number,
                 top: PropTypes.number
             }),
             sharedElementDestination: PropTypes.object,
@@ -59,7 +59,7 @@ export class SharedTransition extends PureComponent {
                 [key]: {
                     width,
                     height,
-                    left,
+                    start,
                     top
                 }
             }
@@ -69,7 +69,7 @@ export class SharedTransition extends PureComponent {
             --shared-element-width: ${width}px;
             --shared-element-height: ${height}px;
             --shared-element-top: ${top}px;
-            --shared-element-left: ${left}px;
+            --shared-element-start: ${start}px;
             --shared-element-animation-speed: ${this.animationSpeed}ms;
         `;
     }

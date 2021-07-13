@@ -29,6 +29,7 @@ export class ProductReviewItem extends PureComponent {
         // Safari bug
         const fixedDate = created_at.replace(/-/g, '/');
         const date = new Date(fixedDate);
+
         return date ? date.toDateString() : created_at;
     }
 
@@ -47,7 +48,7 @@ export class ProductReviewItem extends PureComponent {
               itemScope
               itemProp="reviewRating"
             >
-                <p itemProp="name">{ rating_code }</p>
+                <p itemProp="name" block="ProductReviewItem" elem="RatingItem">{ rating_code }</p>
                 <meta itemProp="ratingValue" content={ percent } />
                 <meta itemProp="worstRating" content={ 0 } />
                 <meta itemProp="bestRating" content={ 100 } />
@@ -95,7 +96,7 @@ export class ProductReviewItem extends PureComponent {
                 <div block="ProductReviewItem" elem="RatingSummary">
                     { rating_votes.map(this.renderReviewListItemRating) }
                 </div>
-                <div block="ProductReviewItem" elem="ReviewContent">
+                <div block="ProductReviewItem" elem="Content">
                     <p block="ProductReviewItem" elem="ReviewDetails" itemProp="reviewBody">
                         { detail }
                     </p>

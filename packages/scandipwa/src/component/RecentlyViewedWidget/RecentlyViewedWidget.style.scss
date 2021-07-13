@@ -14,34 +14,42 @@
 }
 
 .RecentlyViewedWidget {
-    @include after-mobile {
+    @include desktop {
         grid-column: 2;
         min-height: auto;
-        padding-bottom: 2rem;
+        padding-block-end: 20px;
     }
 
     &-Page {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
         grid-auto-rows: max-content;
-        grid-column-gap: 1rem;
 
         @include tablet {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include narrow-desktop {
             grid-template-columns: repeat(4, 1fr);
+        }
+
+        @include wide-desktop {
+            grid-template-columns: repeat(6, 1fr);
         }
 
         @include mobile {
             border: 0;
             grid-template-columns: 1fr 1fr;
+            grid-column-gap: 16px;
         }
 
-        @include after-mobile {
+        @include desktop {
             grid-column: 2;
+            grid-column-gap: 12px;
         }
     }
 
     &-ProductsMissing {
-        padding: 1rem;
+        padding: 10px;
         text-align: center;
     }
 
@@ -51,14 +59,14 @@
     }
 
     &-More {
-        min-height: 3rem;
+        min-height: 30px;
     }
 
     &-LoadButton {
         background-color: var(--category-product-list-load-button-background);
         cursor: pointer;
         font-size: 13pt;
-        margin-bottom: 1rem;
+        margin-block-end: 10px;
         padding: 1em 0;
         text-align: center;
     }

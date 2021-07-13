@@ -10,33 +10,28 @@
  */
 
 :root {
-    --product-review-item-border: var(--secondary-dark-color);
+    --product-review-item-border: #d8d8d8;
 }
 
 .ProductReviewItem {
-    display: flex;
-    flex-wrap: wrap;
+    @include desktop {
+        display: grid;
+        grid-template-areas:
+            "title ."
+            "content ratings";
+        grid-template-rows: repeat(1, min-content);
+        grid-template-columns: 2fr 1fr;
+        grid-column-gap: 24px;
+    };
+
     margin: 0;
-    padding: 0 0 1.2rem;
-    border-bottom: 1px solid var(--product-review-item-border);
     word-break: break-word;
-
-    @include mobile {
-        padding: 0 0 1.4rem;
-    }
-
-    @include after-mobile {
-        padding: 1.8rem 2.4rem;
-        border: 1px solid var(--product-review-item-border);
-    }
+    padding-inline: 24px;
+    padding-block: 24px;
+    border: 1px solid var(--product-review-item-border);
 
     &:last-child {
-        margin-bottom: 0;
-
-        @include mobile {
-            padding-bottom: 0;
-            border-bottom: 0;
-        }
+        margin-block-end: 0;
     }
 
     &::before {
@@ -45,14 +40,21 @@
 
     &-ReviewTitle {
         width: 100%;
-        margin-bottom: 1.2rem;
+        margin-block-end: 12px;
+        font-weight: 700;
+        grid-area: title;
 
         @include mobile {
-            margin-bottom: 1.4rem;
+            margin-block-end: 14px;
         }
     }
 
+    &-Content {
+        grid-area: content;
+    }
+
     &-RatingSummary {
+        grid-area: ratings;
         line-height: 1;
 
         @include desktop {
@@ -60,7 +62,7 @@
         }
 
         @include mobile {
-            margin-bottom: 1.4rem;
+            margin-block-end: 14px;
             width: 100%;
         }
     }
@@ -69,33 +71,44 @@
         align-items: center;
         display: flex;
         justify-content: space-between;
-        margin-bottom: .6rem;
+        margin-block-end: 16px;
 
         @include mobile {
-            margin-bottom: .7rem;
+            margin-block-end: 7px;
         }
 
         &:last-of-type {
-            margin-bottom: 0;
+            margin-block-end: 0;
         }
 
         .ProductReviewRating {
-            margin: 0 0 .24rem 1.2rem;
+            --star-size: 20px;
+
+            margin-block: 0 2px;
+            margin-inline: 12px 0;
 
             @include mobile {
-                margin: 0 0 .28rem 1.4rem;
+                margin-block: 0 3px;
+                margin-inline: 14px 0;
             }
         }
     }
 
     &-ReviewContent {
         flex: 1 0 0;
-        margin-left: 4.8rem;
+        margin-inline-end: 48px;
 
         @include mobile {
             flex: 0 0 auto;
-            margin-left: 0;
+            margin-inline-start: 0;
             width: 100%;
+            order: 3;
+        }
+
+        @include tablet {
+            flex: auto;
+            order: 15;
+            margin-block-start: 18px;
         }
 
         .TextPlaceholder {
@@ -104,33 +117,37 @@
     }
 
     &-ReviewAuthor {
-        margin-top: .6rem;
-        font-size: .96rem;
-
-        @include mobile {
-            margin-top: .7rem;
-            font-size: 1.12rem;
-        }
+        margin-block: 15px 0;
+        font-size: 12px;
     }
 
     &-ReviewDetails {
-        margin-bottom: 0;
+        margin-block-end: 0;
+        text-align: justify;
 
         @include mobile {
-            margin-bottom: 1.4rem;
+            margin-block-end: 14px;
         }
 
         .TextPlaceholder {
-            margin-top: .6rem;
+            margin-block-start: 6px;
             line-height: 1.1;
 
             @include mobile {
-                margin-top: .7rem;
+                margin-block-start: 7px;
             }
 
             &::after {
                 display: block;
             }
         }
+    }
+
+    .ProductReviewRating-Counter {
+        display: none;
+    }
+
+    &-RatingItem {
+        margin-block: auto;
     }
 }

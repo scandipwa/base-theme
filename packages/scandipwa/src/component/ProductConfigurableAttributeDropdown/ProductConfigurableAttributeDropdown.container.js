@@ -60,6 +60,7 @@ export class ProductConfigurableAttributeDropdownContainer extends PureComponent
         if (!attribute_options) {
             // eslint-disable-next-line no-console
             console.warn(`Please make sure "${ attribute_code }" is visible on Storefront.`);
+
             return [];
         }
 
@@ -86,6 +87,7 @@ export class ProductConfigurableAttributeDropdownContainer extends PureComponent
     _getSelectValue = () => {
         const { option: { attribute_code } } = this.props;
         const { parameters = {} } = this.props;
+
         return parameters[attribute_code];
     };
 

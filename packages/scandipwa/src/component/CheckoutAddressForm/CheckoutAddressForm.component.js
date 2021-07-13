@@ -172,6 +172,7 @@ export class CheckoutAddressForm extends MyAccountAddressForm {
             onBlur: this.onZipcodeChange
         };
 
+        // Make phone the last field
         if (telephone) {
             fieldMap.telephone = telephone;
         }

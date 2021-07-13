@@ -43,7 +43,8 @@ export class MyAccount extends PureComponent {
         changeActiveTab: PropTypes.func.isRequired,
         onSignIn: PropTypes.func.isRequired,
         onSignOut: PropTypes.func.isRequired,
-        isEditingActive: PropTypes.bool.isRequired
+        isEditingActive: PropTypes.bool.isRequired,
+        subHeading: PropTypes.func.isRequired
     };
 
     renderMap = {
@@ -63,6 +64,16 @@ export class MyAccount extends PureComponent {
               onSignIn={ onSignIn }
             />
         );
+    }
+
+    renderSubHeading() {
+        const { subHeading } = this.props;
+
+        if (!subHeading) {
+            return null;
+        }
+
+        return <span block="MyAccount" elem="SubHeading">{ subHeading }</span>;
     }
 
     renderContent() {
@@ -93,7 +104,10 @@ export class MyAccount extends PureComponent {
                   onSignOut={ onSignOut }
                 />
                 <div block="MyAccount" elem="TabContent">
-                    <h2 block="MyAccount" elem="Heading">{ name }</h2>
+                    <h2 block="MyAccount" elem="Heading">
+                        { name }
+                        { this.renderSubHeading() }
+                    </h2>
                     <TabContent isEditingActive={ isEditingActive } />
                 </div>
             </ContentWrapper>

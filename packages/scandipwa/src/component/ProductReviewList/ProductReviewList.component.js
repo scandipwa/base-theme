@@ -27,6 +27,7 @@ export class ProductReviewList extends PureComponent {
 
     renderReviews() {
         const { product: { reviews } } = this.props;
+
         return reviews.map((reviewItem, i) => (
             <ProductReviewItem
               reviewItem={ reviewItem }

@@ -14,14 +14,13 @@ fieldset {
 }
 
 legend {
-    font-size: 1.56rem;
-    padding-bottom: .6rem;
-    // border-bottom: 1px solid #e0e0e0;
+    font-size: 16px;
+    padding-block-end: 6px;
     display: block;
     width: 100%;
 
     @include mobile {
-        font-size: 1.82rem;
-        padding-bottom: .7rem;
+        font-size: 18px;
+        padding-block-end: 7px;
     }
 }

@@ -16,20 +16,48 @@
 
 .WishlistItem {
     @include mobile {
-        padding: 1.4rem var(--my-account-wrapper-padding-mobile);
-        border-top: 1px solid var(--wishlist-item-border-color);
+        padding-block: 14px;
+        margin-inline: var(--my-account-wrapper-margin-mobile);;
+        border-block-start: 1px solid var(--wishlist-item-border-color);
+    }
+
+    &-ActionWrapper {
+        margin-block-start: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    &-InformationWrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &Options-List, &Option {
+        font-weight: 400;
+        font-size: 12px;
+        color: var(--secondary-dark-color);
+    }
+
+    &Options-List {
+        min-height: 30px;
+
+        @include desktop {
+            padding-inline: 9px;
+        }
     }
 
     &:first-of-type {
         @include mobile {
-            border-top: none;
-            padding-top: 0;
+            border-block-start: none;
+            padding-block-start: 0;
         }
     }
 
     &:last-of-type {
         @include mobile {
-            margin-bottom: 0;
+            margin-block-end: 0;
         }
     }
 
@@ -38,26 +66,27 @@
         flex-direction: column;
 
         @include desktop {
-            padding: 1.2rem 0;
-            margin-bottom: 0;
+            margin-block-end: 0;
 
             &:last-child {
-                margin-bottom: 0;
+                margin-block-end: 0;
             }
-        }
-
-        .ProductAttribute {
-            font-size: 1rem;
-            text-transform: uppercase;
-            border: 1px solid #adadad;
-            color: #adadad;
-            padding: 3px 5px;
-            margin-right: 5px;
-            display: inline-block;
         }
 
         .ProductCard-Name {
             white-space: inherit;
+        }
+
+        .ProductCard-Price {
+            @include mobile {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+
+                span {
+                    display: inline-block;
+                }
+            }
         }
 
         .ProductPrice_hasDiscount {
@@ -67,55 +96,81 @@
             }
 
             del {
-                margin-left: 4px;
-
                 @include mobile {
                     order: -1;
-                    margin-left: 0;
+                    margin-inline: 0;
+                }
+            }
+        }
+
+        .ProductPrice {
+            &-Price {
+                @include mobile {
+                    width: min-content;
+                    text-align: right;
+                }
+            }
+
+            &-PriceBadge {
+                @include mobile {
+                    margin-inline-end: 0;
                 }
             }
         }
     }
 
     &-FigureWrapper {
-        flex: 1;
+        padding: 9px;
+
+        @include mobile {
+            display: flex;
+            padding-inline: 0;
+        }
+
+        h4 {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
     }
 
     &-ContentWrapper {
         @include mobile {
-            display: flex;
-            flex: 1;
+            width: 100%;
             min-height: 130px;
         }
     }
 
-    &-Remove {
+    &-Remove[aria-label='Remove'] {
+        @include close-button;
+
         position: absolute;
-        right: 5px;
-        top: 5px;
+        inset-inline-end: 4px;
+        inset-block-start: 4px;
         height: 30px;
         width: 30px;
 
-        @include close-button;
-
-        &::before,
-        &::after {
-            top: 5px;
+        @include mobile {
+            inset-block-start: -4px;
+            inset-inline-end: -4px;
+            width: 24px;
         }
     }
 
     &-AddToCart {
-        display: inline-block;
-        margin-top: 0;
+        display: flex;
+        margin-block-start: 0;
 
         @include mobile {
-            padding: 7px 12px 4px;
-            font-size: 1.3rem;
-            margin-left: auto;
+            padding-block-start: 7px;
+            padding-block-end: 4px;
+            padding-inline: 12px;
+            font-size: 13px;
+            margin-inline-end: 20px;
         }
 
-        @include after-mobile {
-            margin-top: 10px;
+        @include desktop {
+            margin-inline-end: 20px;
         }
 
         &_isEditingActive {
@@ -123,77 +178,120 @@
         }
 
         &.Button {
-            width: auto;
-
-            @include after-mobile {
+            @include desktop {
                 width: 100%;
             }
         }
     }
 
-    &-QuantityWrapper {
-        display: flex;
-        align-items: center;
-    }
+    &-Quantity {
+        &Text {
+            margin-inline-end: 10px;
+        }
 
-    &-QuantityText {
-        margin-right: 10px;
+        &Input {
+            margin-block-start: 0;
+
+            button {
+                width: 36px;
+                height: 36px;
+
+                &:not([disabled]) {
+                    cursor: pointer;
+                }
+            }
+
+            input {
+                min-width: 36px;
+                font-size: 14px;
+            }
+        }
+
+        &Wrapper {
+            display: flex;
+            align-items: center;
+        }
     }
 
     &-Price {
         display: inline-block;
 
-        @include after-mobile {
-            float: right;
-            text-align: right;
+        @include desktop {
+            margin-block-end: 16px;
+            min-height: 36px;
         }
     }
 
     &-Content {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
+        padding-block-start: 0;
+        padding-block-end: 9px;
+        padding-inline: 9px;
 
-        @include after-mobile {
-            justify-content: flex-end;
+        @include mobile {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
     }
 
     &-ImageWrapper {
-        margin-right: 15px;
+        margin-inline-end: 15px;
         width: 100px;
     }
 
     &-CommentField {
-        textarea {
-            width: 100%;
+        margin-block-start: 8px;
+
+        @include mobile {
+            margin-block-end: 8px;
         }
 
-        &_isNotEditingActive {
-            textarea {
-                padding: 0;
-                border: none;
-            }
+        input {
+            width: 100%;
         }
     }
 
     &-RowWrapper {
-        margin-top: auto;
         display: flex;
-        align-items: flex-end;
         justify-content: space-between;
 
-        @include mobile {
-            padding-top: 10px;
-        }
-
-        @include after-mobile {
-            margin-top: 10px;
+        @include desktop {
+            align-items: flex-start;
+            flex-direction: column;
+            margin-block-start: 10px;
         }
     }
 
     &-AttributeWrapper {
-        margin: 5px 0 12px;
+        margin-block-start: 5px;
+        margin-block-end: 12px;
+        margin-inline: 0;
+    }
+
+    &-EditIcon {
+        @include edit-icon;
+
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        margin-inline-end: 10px;
+
+        &:not([disabled]):hover {
+            filter: var(--primary-dark-filter);
+        }
+    }
+
+    &-MinicartIcon {
+        @include minicart-button;
+
+        filter: var(--primary-base-filter);
+        height: 20px;
+        margin-inline-end: 14px;
+        width: 18px;
+
+        @include desktop {
+            filter: invert(100%);
+        }
     }
 
     &-SelectWrapper {
@@ -207,8 +305,8 @@
         justify-content: center;
 
         &_isEditingActive {
-            width: calc(50px - 1.4rem);
-            padding-right: 1.4rem;
+            width: calc(50px - 14px);
+            padding-inline-end: 14px;
             display: flex;
         }
     }
@@ -225,28 +323,14 @@
         color: var(--whislist-swipe-to-delete-color);
     }
 
-    &Options {
-        margin-bottom: 2rem;
-        margin-top: -1rem;
-
-        &-Title {
-            margin-top: .5rem;
-            font-weight: bold;
-
-            &:hover {
-                cursor: pointer;
-                text-decoration: underline;
-            }
-        }
+    &-RatingPlaceholder {
+        height: 18px;
     }
 
-    &Option {
-        font-size: 0.9em;
-        padding: .25rem;
-
-        &-Value {
-            padding-left: .5rem;
-            font-weight: bold;
-        }
+    &-Brand {
+        color: var(--secondary-dark-color);
+        font-weight: 400;
+        font-size: 12px;
+        min-height: 20px;
     }
 }

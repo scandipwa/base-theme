@@ -9,7 +9,16 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
+:root {
+    --star-size: 18px;
+    --radiobutton-size: 14px;
+    --icon-clear-color: #{$black};
+    --plus-minus-icon-size: 24px;
+}
+
 @mixin clear-button {
+    cursor: pointer;
+
     &::before,
     &::after {
         content: '';
@@ -17,212 +26,91 @@
     }
 
     &::before {
-        top: 12px;
-        left: 12px;
+        inset-block-start: 12px;
+        inset-inline-start: 12px;
         width: 10px;
         height: 14px;
         transform: perspective(10px) rotateX(-10deg);
-        border: {
-            left: 1px solid var(--header-color);
-            right: 1px solid var(--header-color);
-            bottom: 1px solid var(--header-color);
-            bottom-left-radius: 3px;
-            bottom-right-radius: 3px;
-        }
+        border-inline: 1px solid var(--icon-clear-color);
+        border-block-end: 1px solid var(--icon-clear-color);
+        border-end-start-radius: 3px;
+        border-end-end-radius: 3px;
     }
 
     &::after {
-        left: 14px;
-        top: 7px;
+        inset-inline-start: 14px;
+        inset-block-start: 7px;
         width: 6px;
         height: 2px;
         box-shadow:
-            6px 2px 0 -1px var(--header-color),
-            -6px 2px 0 -1px var(--header-color),
-            -2px 2px 0 -1px var(--header-color),
-            2px 2px 0 -1px var(--header-color);
-        border: {
-            left: 1px solid var(--header-color);
-            right: 1px solid var(--header-color);
-            top: 1px solid var(--header-color);
-            top-left-radius: 2px;
-            top-right-radius: 2px;
-        };
+            6px 2px 0 -1px var(--icon-clear-color),
+            -6px 2px 0 -1px var(--icon-clear-color),
+            -2px 2px 0 -1px var(--icon-clear-color),
+            2px 2px 0 -1px var(--icon-clear-color);
+        border-inline: 1px solid var(--icon-clear-color);
+        border-block-start: 1px solid var(--icon-clear-color);
+        border-start-start-radius: 2px;
+        border-start-end-radius: 2px;
     }
 }
 
 @mixin close-button {
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        width: 1px;
-        height: 20px;
-        transform-origin: 50% 50%;
-        top: 7px;
-        transform: rotate(-45deg);
-        background-color: var(--header-color);
-    }
+    background-image: var(--imported_icons_seatch, url('./../icons/close.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
 
-    &::after {
-        transform: rotate(45deg);
+    &:hover {
+        filter: var(--primary-base-filter);
     }
+}
+
+@mixin not-available {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 32px;
+    transform-origin: 50% 50%;
+    inset-inline-start: 15px;
+    inset-block-start: 1px;
+    transform: rotate(45deg);
+    box-shadow: none;
+    border-radius: 0;
+    opacity: 1;
 }
 
 @mixin back-button {
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-    }
+    @include chevron-icon;
 
-    &::before {
-        width: 18px;
-        height: 1px;
-        top: 17px;
-        right: 8px;
-        background-color: var(--header-color);
-    }
-
-    &::after {
-        width: 8px;
-        height: 8px;
-        top: 13px;
-        left: 10px;
-        transform: rotate(-45deg);
-
-        border: {
-            top: 1px solid var(--header-color);
-            left: 1px solid var(--header-color);
-        }
-    }
+    background-size: cover;
+    transform: rotate(180deg);
 }
 
 @mixin menu-button {
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-    }
-
-    &::after {
-        width: 7px;
-        height: var(--header-icon-stroke-width);
-        top: 12px;
-        left: 8px;
-        background-color: var(--header-color);
-        box-shadow:
-            3px 0 0 0 var(--header-color),
-            0 6px 0 0 var(--header-color),
-            2px 6px 0 0 var(--header-color),
-            0 12px 0 0 var(--header-color),
-            6px 12px 0 0 var(--header-color),
-            10px 12px 0 0 var(--header-color);
-
-        @include desktop {
-            width: 20px;
-            box-shadow:
-                0 6px 0 0 var(--header-color),
-                0 12px 0 0 var(--header-color);
-        }
-    }
-
-    &::before {
-        @include before-desktop {
-            width: calc(12px - var(--header-icon-stroke-width) * 2);
-            height: calc(12px - var(--header-icon-stroke-width) * 2);
-            border: var(--header-icon-stroke-width) solid var(--header-color);
-            border-radius: 50%;
-            top: 10px;
-            right: 4px;
-            box-shadow:
-                4px 4px 0 -5px var(--header-color),
-                5px 5px 0 -5px var(--header-color),
-                6px 6px 0 -5px var(--header-color),
-                7px 7px 0 -5px var(--header-color),
-                8px 8px 0 -5px var(--header-color);
-        }
-
-        @include desktop {
-            content: 'menu';
-            color: var(--header-color);
-            text-transform: uppercase;
-            left: 35px;
-            top: 11px;
-            font-size: 1.2rem;
-        }
-    }
+    background-image: var(--imported_icons_menu, url('./../icons/menu.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 24px;
+    width: 24px;
 }
 
 @mixin account-button {
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        border-radius: 50%;
-        right: 0;
-        left: 0;
-        margin: auto;
-        border: var(--header-icon-stroke-width) solid var(--header-color);
-    }
-
-    &::before {
-        height: calc(9px - var(--header-icon-stroke-width) * 2);
-        top: 8px;
-        width: calc(9px - var(--header-icon-stroke-width) * 2);
-    }
-
-    &::after {
-        top: 19px;
-        width: calc(17px - var(--header-icon-stroke-width) * 2);
-        height: calc(17px - var(--header-icon-stroke-width) * 2);
-        clip-path: polygon(0 0, 0 50%, 100% 50%, 100% 0);
-    }
+    background-image: var(--imported_icons_account, url('./../icons/user.svg'));
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
 }
 
 @mixin minicart-button {
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: auto;
-    }
-
-    &::before {
-        border: var(--header-icon-stroke-width) solid var(--header-color);
-        border-radius: 1px;
-        width: calc(16px - var(--header-icon-stroke-width) * 2);
-        height: calc(14px - var(--header-icon-stroke-width) * 2);
-        top: 13px;
-        z-index: 1;
-
-        @include desktop {
-            height: calc(17px - var(--header-icon-stroke-width) * 2);
-            left: 3px;
-            top: 2px;
-            width: calc(15px - var(--header-icon-stroke-width) * 2);
-        }
-    }
-
-    &::after {
-        width: calc(8px - var(--header-icon-stroke-width));
-        height: 5px;
-        top: 7px;
-        border-top: var(--header-icon-stroke-width) solid var(--header-color);
-        border-left: var(--header-icon-stroke-width) solid var(--header-color);
-        border-right: var(--header-icon-stroke-width) solid var(--header-color);
-        border-top-right-radius: 5px;
-        border-top-left-radius: 5px;
-
-        @include desktop {
-            height: 8px;
-            left: 3px;
-            top: -3px;
-            width: calc(6px - var(--header-icon-stroke-width));
-        }
-    }
+    background-image: var(--imported_icons_cart, url('./../icons/bag.svg'));
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 @mixin clear-search-button {
@@ -234,14 +122,14 @@
     height: 15px;
     width: 15px;
     position: absolute;
-    right: 2.4rem;
+    inset-inline-end: 24px;
 
     &::before,
     &::after {
         height: 9px;
         width: 1px;
-        top: 3px;
-        left: 7px;
+        inset-block-start: 3px;
+        inset-inline-start: 7px;
         background-color: var(--header-background);
     }
 }
@@ -258,8 +146,8 @@
         position: absolute;
         transform-origin: 0 0;
         transform: rotate(45deg);
-        top: 4px;
-        right: 2px;
+        inset-block-start: 4px;
+        inset-inline-end: 2px;
     }
 
     &::before {
@@ -267,274 +155,134 @@
         box-shadow: 0 0 0 2px var(--header-background);
         width: 4px;
         height: 16px;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        border: {
-            top: 1px solid var(--header-color);
-            left: 1px solid var(--header-color);
-            right: 1px solid var(--header-color);
-        }
+        border-start-start-radius: 5px;
+        border-start-end-radius: 5px;
+        border-inline: 1px solid var(--header-color);
+        border-block-start: 1px solid var(--header-color);
     }
 
     &::after {
         background-color: var(--header-color);
         width: 6px;
-        top: 4px;
+        inset-block-start: 4px;
         height: 23px;
         clip-path:
             polygon(
                 3px 23px,
-                6.5px 17px,
+                6px 17px,
                 3px 17px,
-                3px 4.5px,
-                0 4.5px,
-                0 3.5px,
-                5px 3.5px,
-                5px 4.5px,
-                3px 4.5px,
+                3px 4px,
+                0 4px,
+                0 3px,
+                5px 3px,
+                5px 4px,
+                3px 4px,
                 3px 17px,
-                -.5px 17px,
+                0 17px,
                 3px 23px,
-                3px 21.5px,
+                3px 21px,
                 1px 18px,
                 5px 18px,
-                3px 21.5px,
+                3px 21px,
             );
     }
 }
 
 @mixin lock-button {
-    display: inline-block;
-    margin-right: 9px;
-
-    &::before,
-    &::after {
-        content: '';
-    }
-
-    &::after {
-        display: block;
-        position: relative;
-        top: 1px;
-        width: 10px;
-        height: 9px;
-        background: currentColor;
-        border-radius: 1px;
-        box-shadow: inset 0 0 0 -2px var(--button-background);
-    }
-
-    &::before {
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: auto;
-        top: -4px;
-        border-radius: 50%;
-        border: 1px solid currentColor;
-        width: 6px;
-        height: 6px;
-    }
+    background-image: url('./../icons/lock-white.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-inline-end: 10px;
+    height: 20px;
+    width: 20px;
 }
 
 @mixin home-icon {
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-    }
-
-    &::before {
-        border: var(--header-icon-stroke-width) solid var(--header-color);
-        border-top: 0;
-        border-radius: 1px;
-        width: calc(14px - var(--header-icon-stroke-width) * 2);
-        height: 10px;
-        top: 16px;
-        right: 0;
-        left: 0;
-        z-index: 1;
-        margin: auto;
-    }
-
-    &::after {
-        transform: rotate(45deg);
-        border-top: var(--header-icon-stroke-width) solid var(--header-color);
-        border-left: var(--header-icon-stroke-width) solid var(--header-color);
-        width: 13px;
-        height: 13px;
-        top: 12px;
-        left: 0;
-        right: 0;
-        margin: auto;
-    }
+    background-image: var(--imported_icons_home, url('./../icons/home.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 24px;
+    width: 24px;
 }
 
 @mixin search-icon {
-    &::before {
-        content: '';
-        position: absolute;
-        width: calc(10px - var(--header-icon-stroke-width) * 2);
-        height: calc(10px - var(--header-icon-stroke-width) * 2);
-        border: var(--header-icon-stroke-width) solid var(--header-color);
-        border-radius: 50%;
-        box-shadow:
-            4px 4px 0 -4px var(--header-color),
-            5px 5px 0 -4px var(--header-color),
-            6px 6px 0 -4px var(--header-color),
-            7px 7px 0 -4px var(--header-color);
-    }
+    background-image: var(--imported_icons_search, url('./../icons/search.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
 }
 
 @mixin ios-share {
     $color-dodger-blue: #3b9cfe;
 
     border: 2px solid $color-dodger-blue;
-    bottom: -3px;
+    inset-block-end: -3px;
     height: 18px;
     margin: 0 4px;
     width: 18px;
 
     &::before {
         content: '';
-        border-left: 2px solid $color-dodger-blue;
-        border-top: 2px solid $color-dodger-blue;
+        border-inline-start: 2px solid $color-dodger-blue;
+        border-block-start: 2px solid $color-dodger-blue;
         display: block;
         height: 6px;
-        left: 3px;
+        inset-inline-start: 3px;
         position: relative;
-        top: -9px;
+        inset-block-start: -9px;
         transform: rotate(45deg);
         width: 6px;
     }
 
     &::after {
-        border-left: 2px solid $color-dodger-blue;
+        border-inline-start: 2px solid $color-dodger-blue;
         content: '';
         display: block;
         height: 16px;
-        left: 6px;
+        inset-inline-start: 6px;
         position: relative;
-        top: -16px;
+        inset-block-start: -16px;
         width: 19px;
     }
 }
 
-@mixin base-plus-minus-icon {
-    $size: 20px;
-    $line-size: 10px;
-    $line-bg-color: #000;
-
-    width: $size;
-    height: $size;
-
-    &::before,
-    &::after {
-        content: '';
-        display: block;
-        height: 1px;
-        background-color: $line-bg-color;
-        width: $line-size;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    &::after {
-        transform: translate(-50%, -50%) rotate(90deg);
-    }
-}
-
 @mixin minus-icon {
-    @include base-plus-minus-icon;
+    background-image: var(--imported_icons_minus, url('./../icons/minus.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    height: var(--plus-minus-icon-size);
+    width: var(--plus-minus-icon-size);
 
-    &::after {
-        display: none;
+    &:hover {
+        filter: var(--primary-dark-filter);
     }
 }
 
 @mixin plus-icon {
-    @include base-plus-minus-icon;
+    background-image: var(--imported_icons_add, url('./../icons/add.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    height: var(--plus-minus-icon-size);
+    width: var(--plus-minus-icon-size);
+
+    &:hover {
+        filter: var(--primary-dark-filter);
+    }
 }
 
 @mixin ios-plus {
     $color-storm-grey: #7b7b86;
 
-    background:
-        linear-gradient($white, $white),
-        linear-gradient($white, $white),
-        $color-storm-grey;
-
-    background-position: center;
-    background-repeat: no-repeat;
+    background: linear-gradient($white, $white) linear-gradient($white, $white) no-repeat center;
     background-size: 53% 1px, 1px 50%;
     border-radius: 5px;
     height: 20px;
     margin: 0 4px;
     width: 20px;
-}
-
-@mixin share-button {
-    $share-button-stroke-width: var(--header-icon-stroke-width);
-
-    background-image: linear-gradient(to right, var(--header-color) 15%, var(--header-background) 0);
-    background-repeat: repeat-x;
-    background-size: 12px $share-button-stroke-width;
-    border-radius: 1px;
-    padding: calc(6px - #{$share-button-stroke-width}) calc(8px - #{$share-button-stroke-width});
-
-    border: {
-        bottom: $share-button-stroke-width solid var(--header-color);
-        left: $share-button-stroke-width solid var(--header-color);
-        right: $share-button-stroke-width solid var(--header-color);
-    }
-
-    @include desktop {
-        background-image: linear-gradient(to right, var(--header-color) 20%, var(--my-account-content-background) 0);
-        background-size: 15px $share-button-stroke-width;
-        padding: calc(11px - #{$share-button-stroke-width});
-    }
-
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-    }
-
-    &::before {
-        background-color: var(--header-color);
-        height: 10px;
-        left: 6px;
-        top: -4px;
-        width: $share-button-stroke-width;
-
-        @include desktop {
-            height: 13px;
-            left: 8px;
-            top: -6px;
-            width: 2px;
-        }
-    }
-
-    &::after {
-        height: 4px;
-        left: 4px;
-        top: -4px;
-        transform: rotate(45deg);
-        width: 4px;
-
-        border: {
-            left: $share-button-stroke-width solid var(--header-color);
-            top: $share-button-stroke-width solid var(--header-color);
-        }
-
-        @include desktop {
-            height: 6px;
-            left: 5px;
-            top: -7px;
-            width: 6px;
-        }
-    }
 }
 
 @mixin email-icon {
@@ -543,8 +291,8 @@
         content: '';
         display: block;
         position: absolute;
-        top: 50%;
-        left: 50%;
+        inset-block-start: 50%;
+        inset-inline-start: 50%;
         box-sizing: border-box;
         border: 1px solid $white;
     }
@@ -553,46 +301,133 @@
         width: 18px;
         height: 14px;
         transform: translate(-50%, -50%);
+
+        &:dir(rtl) {
+            transform: translate(50%, -50%);
+        }
     }
 
     &::after {
         width: 12px;
         height: 12px;
         transform: rotate(45deg) translate(calc(-50% - 4px), calc(-50% - 4px));
-        transform-origin: top left;
-        border-top-color: transparent;
-        border-left-color: transparent;
+        transform-origin: inset-block-start inset-inline-start;
+        border-block-start-color: transparent;
+        border-inline-start-color: transparent;
+
+        &:dir(rtl) {
+            transform: rotate(45deg) translate(calc(50% + 4px), calc(-50% - 4px));
+        }
     }
 }
 
-@mixin compare-icon($color) {
-    width: 1px;
-    height: 25px;
-    background-color: $color;
-    margin: auto;
+@mixin compare-icon {
+    background-image: var(--imported_icons_compare, url('./../icons/compare.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+}
 
-    &::before,
-    &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 7px;
-        height: calc(100% - 7px);
-        box-sizing: border-box;
-        top: 50%;
-        transform: translateY(-50%);
-        border-radius: 1px;
-        box-sizing: border-box;
+@mixin heart-icon {
+    background-image: url('./../icons/heart.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    &:hover {
+        @include desktop {
+            filter: var(--primary-base-filter);
+        }
     }
+}
 
-    &::before {
-        left: -7px;
-        background-color: $color;
-    }
+@mixin heart-icon-full {
+    background-image: url('./../icons/heart-full.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 
-    &::after {
-        left: 3px;
-        border: 1px solid $color;
-        border-left: none;
+@mixin exclamation-icon {
+    background-image: var(--imported_icons_exclamation, url('./../icons/exclamation.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 24px;
+    width: 24px;
+}
+
+@mixin chevron-icon {
+    background-image: var(--imported_icons_chevron, url('./../icons/chevron.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: var(--radiobutton-size);
+    width: var(--radiobutton-size);
+}
+
+@mixin radiobutton {
+    background-image: var(--imported_icons_chevron, url('./../icons/radiobutton.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: var(--radiobutton-size);
+    width: var(--radiobutton-size);
+}
+
+
+@mixin radiobutton-full {
+    background-image: var(--imported_icons_chevron, url('./../icons/radiobutton_full.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: var(--radiobutton-size);
+    width: var(--radiobutton-size);
+    filter: var(--primary-base-filter);
+}
+
+@mixin star-icon-full {
+    background-image: var(--imported_icons_menu, url('./../icons/star-full.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    height: var(--star-size);
+    width: var(--star-size);
+    filter: var(--primary-base-filter);
+}
+
+@mixin star-icon-half {
+    background-image: var(--imported_icons_menu, url('./../icons/star-half.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    height: var(--star-size);
+    width: var(--star-size);
+    filter: var(--primary-base-filter);
+}
+
+@mixin star-icon-empty {
+    background-image: var(--imported_icons_menu, url('./../icons/star-empty.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    height: var(--star-size);
+    width: var(--star-size);
+    filter: var(--primary-base-filter);
+}
+
+@mixin share-icon {
+    background-image: var(--imported_icons_share, url('./../icons/share.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+@mixin edit-icon {
+    background-image: var(--imported_icons_share, url('./../icons/edit.svg'));
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+@mixin rtl-icon {
+    [dir="rtl"] & {
+        transform: scaleX(-1);
     }
 }

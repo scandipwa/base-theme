@@ -10,35 +10,35 @@
  */
 
 :root {
-    --category-details-background: var(--secondary-base-color);
+    --category-details-background:  #{$white};
 }
 
 .CategoryDetails {
     display: grid;
-    grid-template-columns: auto minmax(100px, 18rem);
-    grid-gap: 1.2rem;
+    grid-template-columns: auto minmax(100px, 160px);
+    grid-gap: 12px;
     background-color: var(--category-details-background);
-    margin-bottom: 1.2rem;
+    margin-block-end: 12px;
 
     @include mobile {
-        grid-template-columns: auto minmax(100px, 21rem);
-        grid-gap: 1.4rem;
-        margin-bottom: 1.4rem;
+        grid-template-columns: auto minmax(100px, 210px);
+        grid-gap: 14px;
+        margin-block-end: 14px;
         display: none;
     }
 
     &-Picture {
         mix-blend-mode: multiply;
-        height: 100%;
+        height: 72px;
         background: none;
     }
 
     &-Heading {
-        text-transform: uppercase;
-        margin-bottom: .6rem;
+        margin-block-end: 6px;
+        margin-block-start: 0;
 
         @include mobile {
-            margin-bottom: .7rem;
+            margin-block-end: 7px;
         }
     }
 
@@ -46,12 +46,11 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        font-size: 1.4rem;
-        font-weight: 300;
-        padding: 2.4rem;
+        font-size: 14px;
+        font-weight: 400;
 
         @include mobile {
-            padding: 2.8rem;
+            padding: 28px;
         }
     }
 }

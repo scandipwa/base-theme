@@ -42,11 +42,11 @@ export class LoginAccountComponent extends MyAccountOverlay {
 
         if (device.isMobile) {
             return (
-                <div block="LoginAccount" elem="CreateAccountWrapper">
-                    <h4>{ __('Don`t have an account?') }</h4>
+                <div block="LoginAccount" elem="CreateAccount">
+                    <h4>{ __("Don't have an account?") }</h4>
                     <button
                       block="Button"
-                      mods={ { isHollow: true } }
+                      mods={ { likeLink: true } }
                       onClick={ onCreateAccountClick }
                     >
                         { __('Create an Account') }
@@ -56,7 +56,7 @@ export class LoginAccountComponent extends MyAccountOverlay {
         }
 
         return (
-            <div block="LoginAccount" elem="CreateAccountWrapper">
+            <div block="LoginAccount" elem="CreateAccount">
                 <h3>{ __('New Customers') }</h3>
                 <p>
                     { __('Creating an account has many benefits:') }

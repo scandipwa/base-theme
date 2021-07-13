@@ -1,7 +1,8 @@
 .ProductLinks {
+    width: 100%;
+
     @include mobile {
-        margin-top: 1.4rem;
-        border-bottom: 1px solid var(--primary-divider-color);
+        margin-block-start: 14px;
     }
 
     @include desktop {
@@ -9,23 +10,30 @@
     }
 
     &-Wrapper {
-        padding-bottom: 0;
-        padding-top: 0;
+        padding-block: 0;
+
+        @include mobile {
+            padding-inline: 0;
+        }
     }
 
     &-List {
         display: grid;
-        grid-gap: 1.2rem;
+        grid-gap: 12px;
         grid-template-columns: 1fr 1fr;
 
         @include mobile {
-            grid-gap: 1.4rem;
+            grid-gap: 14px;
         }
 
-        @include after-mobile {
+        @include desktop {
             grid-template-columns: repeat(6, 1fr);
-            grid-gap: 3.6rem;
+            grid-gap: 24px;
             justify-content: center;
+        }
+
+        @include narrow-desktop {
+            grid-template-columns: repeat(4, 1fr);
         }
 
         @include tablet {
@@ -34,17 +42,18 @@
     }
 
     &-Title {
-        text-transform: uppercase;
-        font-weight: 600;
         line-height: 1;
 
         @include mobile {
-            padding: .42rem 0 1.82rem;
+            padding-block-start: 4px;
+            padding-block-end: 18px;
+            padding-inline: 0;
         }
 
-        @include after-mobile {
-            // text-align: center;
-            padding: 1.2rem 0 3.6rem;
+        @include desktop {
+            padding-block-start: 12px;
+            padding-block-end: 36px;
+            padding-inline: 0;
             font-weight: bold;
         }
     }

@@ -9,67 +9,69 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-:root {
-    --cookiepopup-bg: #{$white};
-    --cookiepopup-border: var(--secondary-base-color);
-}
 
 .CookiePopup {
-    display: flex;
-    width: 100vw;
+    --cookie-popup-bottom-margin: 10px;
+
+    background-color: black;
     position: fixed;
-    left: 0;
-    bottom: 0;
+    inset-block-end: var(--cookie-popup-bottom-margin);
+    display: flex;
+    opacity: 0.9;
     align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 0 calc(env(safe-area-inset-bottom) + 1.2rem);
-    background-color: var(--cookiepopup-bg);
-    border-top: 1px solid var(--cookiepopup-border);
-    z-index: 300;
+    width: fit-content;
+    z-index: 200;
 
-    @include mobile {
-        margin-bottom: 51px;
-        padding: 1.4rem 0 calc(env(safe-area-inset-bottom) + 1.4rem);
-        z-index: 90;
-        transform: translateY(0);
-        transition: transform 200ms cubic-bezier(.47, 0, .745, .715);
-    }
+    @include desktop {
+        inset-inline-start: 50%;
+        transform: translateX(-50%);
+        padding: 5px 10px;
 
-    &-ContentWrapper {
-        @include after-mobile {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        &:dir(rtl) {
+            transform: translateX(50%);
         }
     }
 
-    &-Wrapper {
-        width: 100%;
+    @include mobile {
+        inset-block-end: calc(var(--footer-total-height) + var(--cookie-popup-bottom-margin));
+        flex-direction: column;
+        width: calc(100% - 32px);
+        margin-inline: 16px;
+        padding: 8px 16px;
     }
 
     &-Content {
-        font-size: 1.5rem;
-        max-width: 500px;
+        color: white;
+        font-size: 12px;
+        font-weight: 700;
+        margin-block-end: 0;
+        text-align: center;
 
-        @include mobile {
-            padding-bottom: 1.4rem;
+        &::after {
+            content: '.';
+            color: var(--color-white);
         }
     }
 
     &-Link {
-        display: inline;
-        margin-left: 5px;
+        font-size: 12px;
     }
 
     &-CTA {
-        button {
-            @include mobile {
-                width: 100%;
-            }
+        color: var(--primary-base-color);
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        white-space: nowrap;
+
+        @include desktop {
+            margin-inline-start: 41px;
         }
 
-        @include after-mobile {
-            margin-left: 2.4rem;
+        @include mobile {
+            margin-block-start: 12px;
         }
     }
 }
+

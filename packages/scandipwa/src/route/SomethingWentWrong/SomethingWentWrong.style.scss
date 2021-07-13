@@ -16,29 +16,29 @@
     text-align: center;
     background: var(--secondary-base-color);
     min-height: 100vh;
-    margin-top: 0;
-    padding: 1.2rem;
-    margin-bottom: 0;
+    margin-block-start: 0;
+    padding: 12px;
+    margin-block-end: 0;
 
     @include mobile {
-        padding: 1.4rem;
+        padding: 14px;
     }
 
     &-Debug {
-        text-align: left;
+        text-align: start;
         white-space: pre-line;
-        margin-top: 4.8rem;
+        margin-block-start: 48px;
         font-family: 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback';
         background-color: $black;
         color: $white;
-        padding: 1.2rem;
+        padding: 12px;
         overflow: scroll;
-        max-width: calc(100vw - 2.4rem);
+        max-width: calc(100vw - 24px);
 
         @include mobile {
-            margin-top: 5.6rem;
-            padding: 1.4rem;
-            max-width: calc(100vw - 2.8rem);
+            margin-block-start: 56px;
+            padding: 14px;
+            max-width: calc(100vw - 28px);
         }
     }
 }

@@ -34,6 +34,7 @@ export class MyAccountMyOrders extends PureComponent {
 
     renderNoOrders() {
         const { device } = this.props;
+
         return (
             <tr block="MyAccountMyOrders" elem="NoOrders">
                 { /* eslint-disable-next-line no-magic-numbers */ }

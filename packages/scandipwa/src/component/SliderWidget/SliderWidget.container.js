@@ -67,6 +67,7 @@ export class SliderWidgetContainer extends DataContainer {
 
     _getGalleryPictures() {
         const { gallery } = this.state;
+
         return gallery;
     }
 

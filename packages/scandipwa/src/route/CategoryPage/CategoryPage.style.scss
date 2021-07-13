@@ -9,23 +9,24 @@
  * @link https://github.com/scandipwa/base-theme
  */
 :root {
-    --category-page-miscellaneous-min-height: 56px;
+    --category-page-miscellaneous-height: 0px;
 }
 
 .CategoryPage {
+    --category-page-miscellaneous-height: 44px;
+
     &-Wrapper {
-        @include after-mobile {
+        @include desktop {
             display: grid;
-            padding-top: 2.4rem;
+            padding-block-start: 24px;
+            grid-column-gap: 48px;
         }
 
-        @include desktop {
-            grid-template-columns: 280px auto;
-            grid-column-gap: 4.8rem;
-        }
+        grid-template-columns: 236px auto;
 
         @include mobile {
             padding: 0;
+            margin-block-start: calc(var(--header-nav-height) + var(--category-page-miscellaneous-height));
         }
 
         &_hideProducts {
@@ -33,97 +34,83 @@
 
             .CategoryPage-CMS {
                 @include mobile {
-                    margin-top: 0;
+                    margin-block-start: 0;
                 }
             }
         }
     }
 
     &-ProductListWrapper {
-        @include before-desktop {
-            padding-top: 56px;
+        @include mobile {
+            padding-block-start: 16px;
         }
     }
 
     &-ItemsCount {
         padding: 0;
 
-        @include before-desktop {
+        @include mobile {
             order: 1;
-            padding: .36rem 1.2rem 1.2rem 0;
+            padding-block: 4px 12px;
             text-align: center;
             grid-column: span 2;
+            padding-inline: 14px;
         }
 
-        @include mobile {
-            padding: 1.4rem;
+        @include desktop {
+            margin-block-end: 0;
         }
     }
 
     &-Filter {
-        text-transform: uppercase;
-        text-align: right;
+        text-align: end;
         grid-column: 2;
-        font-weight: 600;
-        font-size: 1.6rem;
-        min-height: 50px;
+        font-size: 16px;
+        display: inline-flex;
+        align-items: center;
 
         @include desktop {
             display: none;
         }
+    }
 
-        &::before,
-        &::after {
-            content: '';
-            position: absolute;
-            left: calc(90% - 68px);
-            top: calc(50% - 5px);
-        }
+    &-FilterIcon {
+        width: 18px;
+        height: 18px;
+        margin-inline-end: 15px;
+        padding-block-end: 0;
+    }
 
-        &::before {
-            right: 70%;
-            width: 11px;
-            height: 8px;
-            background-color: var(--header-color);
-            clip-path:
-                polygon(
-                    5px 8px,
-                    11px 0,
-                    0 0,
-                    5px 8px,
-                    5px 6px,
-                    2px 1.5px,
-                    8.6px 1.5px,
-                    5px 6px
-                );
-        }
-
-        &::after {
-            height: 5px;
-            width: 1px;
-            background-color: var(--header-color);
-            transform: translate3d(5px, 6px, 0);
-        }
+    &-Subheading {
+        font-weight: 600;
+        font-size: 14px;
+        white-space: pre;
     }
 
     &-Miscellaneous {
         z-index: 1;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-        min-height: var(--category-page-miscellaneous-min-height);
         transform: translateY(0);
         transition: transform 200ms cubic-bezier(.47, 0, .745, .715);
 
+        @include desktop {
+            padding-block-start: 10px;
+            padding-block-end: 60px;
+            padding-inline: 0;
+        }
+
         @include mobile {
             position: fixed;
-            top: var(--header-total-height);
-            left: 0;
+            inset-block-start: var(--header-total-height);
+            inset-inline-start: 0;
             width: 100%;
             z-index: 90;
             background: #fff;
-            border-bottom: 1px solid var(--primary-divider-color);
+            border-block-end: 1px solid var(--primary-divider-color);
             grid-template-columns: repeat(2, 1fr);
+            height: var(--category-page-miscellaneous-height);
         }
 
         @include tablet {
@@ -143,21 +130,22 @@
 
         > * {
             @include mobile {
-                padding-left: 1.4rem;
-                padding-right: 1.4rem;
+                padding-inline-start: 14px;
+                padding-inline-end: 14px;
             }
         }
     }
 
     &-CMS {
         @include mobile {
-            margin-top: calc(var(--header-total-height) + var(--category-page-miscellaneous-min-height));
-            padding-left: 1rem;
-            padding-right: 1rem;
+            margin-block-start: calc(var(--header-total-height) + var(--category-page-miscellaneous-height));
+            padding-inline: 10px;
+            padding-block-start: 20px;
+            overflow-x: scroll;
         }
 
-        @include after-mobile {
-            margin-bottom: 10px;
+        @include desktop {
+            margin-block-end: 10px;
         }
     }
 
@@ -166,53 +154,33 @@
         display: flex;
 
         p {
-            margin-bottom: 0;
-        }
-
-        @include mobile {
-            display: none;
+            margin-block-end: 0;
         }
     }
 
     &-LayoutButtons {
-        margin-bottom: 10px;
-        margin-right: 30px;
+        display: flex;
+        align-items: center;
+
+        @include mobile {
+            display: none;
+        }
 
         button {
             color: transparent;
-            margin-right: 10px;
+            margin-inline-end: 10px;
+            cursor: pointer;
 
-            &.list {
-                &:after {
-                    background-image: url(icons/list.svg);
-                }
-
-                &_isActive {
-                    &:after {
-                        background-image: url(icons/listFilled.svg);
-                    }
-                }
-            }
-
-            &.grid {
-                &:after {
-                    background-image: url(icons/grid.svg);
-                }
-
-                &_isActive {
-                    &:after {
-                        background-image: url(icons/gridFilled.svg);
-                    }
-                }
-            }
-
-            &:after {
-                background-size: cover;
-                content: '';
-                height: 25px;
-                left: 0;
-                position: absolute;
+            .Image {
                 width: 26px;
+                height: 25px;
+            }
+
+            &.grid_isActive, &.list_isActive {
+
+                img {
+                    filter: var(--primary-base-filter);
+                }
             }
         }
     }

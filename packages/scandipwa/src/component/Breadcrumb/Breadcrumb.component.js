@@ -71,6 +71,7 @@ export class Breadcrumb extends PureComponent {
                 <span itemProp="name">
                     { this.renderName() }
                 </span>
+                <span block="Breadcrumb" elem="Arrow" />
                 <meta itemProp="position" content={ index } />
             </Link>
         );

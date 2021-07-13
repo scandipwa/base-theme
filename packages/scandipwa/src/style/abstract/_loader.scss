@@ -15,8 +15,8 @@
     height: 23.09px;
     background-color: #fff;
     margin: 11.55px 0;
-    border-left: solid 5px var(--primary-base-color);
-    border-right: solid 5px var(--primary-base-color);
+    border-inline-start: solid 5px var(--primary-base-color);
+    border-inline-end: solid 5px var(--primary-base-color);
     box-sizing: border-box;
     animation: rotate 2s linear infinite;
     transform-origin: 50% 50%;
@@ -30,10 +30,11 @@
         height: 28.28px;
         transform: scaleY(.5774) rotate(-45deg);
         background-color: inherit;
-        left: .8579px;
+        inset-inline-start: 0.8579px;
         box-sizing: border-box;
     }
 
+    // ltr + rtl adjusted, don't replace 'left' and 'right' here
     &::before {
         top: -14.1421px;
         border-top: solid 7.0711px var(--primary-base-color);
@@ -49,8 +50,8 @@
     span {
         position: absolute;
         top: 0;
-        left: 0;
-        right: 0;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
         bottom: 0;
         margin: auto;
         width: 18px;

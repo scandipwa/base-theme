@@ -10,11 +10,14 @@
  */
 
 :root {
-    --input-border-color: #e0e0e0;
-    --input-border-color-focus: #{$black};
-    --input-background-color: #fff;
-    --input-padding: 13px 20px;
-    --input-color: var(--primary-base-color);
+    --default-input-padding: 15px 20px 14px;
+    --input-background-color: var(--imported_input_background_color, #fff);
+    --input-border-color: var(--imported_input_border_color, #e0e0e0);
+    --input-border-color-focus: var(--primary-base-color);
+    --input-border-radius: var(--imported_input_border_radius, 2px);
+    --input-padding: var(--imported_input_padding, var(--default-input-padding));
+    --input-color: var(--imported_input_color, var(--color-karaka));
+    --input-type-number-width: 28px;
 }
 
 input,
@@ -22,6 +25,8 @@ textarea,
 select {
     border: 1px solid var(--input-border-color);
     background-color: var(--input-background-color);
+    border-radius: var(--input-border-radius);
+    color: var(--input-color);
     padding: var(--input-padding);
     appearance: none;
     caret-color: var(--primary-base-color);
@@ -31,10 +36,10 @@ select {
     }
 
     &:not(:first-of-type) {
-        margin-top: 1.2rem;
+        margin-block-start: 12px;
 
         @include mobile {
-            margin-top: 1.4rem;
+            margin-block-start: 14px;
         }
     }
 
@@ -45,18 +50,32 @@ select {
 }
 
 textarea {
-    width: 30rem;
+    width: 300px;
 
     @include mobile {
-        width: 35rem;
+        width: 100%;
+    }
+}
+
+[type='text'] {
+    @include mobile {
+        width: 100%;
     }
 }
 
 [type='number'] {
-    width: var(--input-type-number-width);
-    font-weight: 700;
-    padding-right: 0;
     -moz-appearance: textfield;
+
+    color: var(--color-black);
+    border: 0;
+    font-size: 18px;
+    font-weight: 700;
+    height: var(--input-type-number-width);
+    padding: 0;
+    order: 2;
+    text-align: center;
+    width: var(--input-type-number-width);
+    pointer-events: none;
 
     &:focus {
         border: 1px solid var(--input-border-color);
@@ -69,36 +88,51 @@ textarea {
     }
 
     ~ button {
-        position: absolute;
-        right: 0;
-        padding: 0;
-        margin: 0;
-        width: 1.8rem;
-        font-size: 1.8rem;
+        background: transparent;
+        border: 2px solid var(--primary-base-color);
+        border-radius: var(--button-border-radius);
+        color: $black;
+        inset-inline-start: 0;
         line-height: 0;
+        margin: 0;
+        order: 1;
+        display: flex;
+        width: 48px;
+        height: 48px;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        inset-block-start: 0;
 
         @include mobile {
-            width: 2.1rem;
-            font-size: 2.1rem;
+            width: 36px;
+            height: 36px;
+        }
+
+        &:not([disabled]):hover {
+            filter: var(--primary-dark-filter);
         }
 
         &:first-of-type {
-            @include plus-icon;
+            inset-inline-start: 0;
+            order: 3;
         }
 
         &:last-of-type {
-            @include minus-icon;
-            bottom: 0;
-        }
-
-        &:first-of-type,
-        &:last-of-type {
-            height: 50%;
+            inset-block-end: 0;
+            inset-inline-end: 0;
+            order: 1;
         }
 
         &:disabled {
             opacity: .2;
             cursor: not-allowed;
+        }
+
+        span {
+            @include mobile {
+                inset-block-start: -2px;
+            }
         }
     }
 }

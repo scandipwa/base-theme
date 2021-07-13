@@ -51,6 +51,7 @@ export class RecentlyViewedProductsDispatcher extends QueryDispatcher {
         const { recentProducts, store } = options;
         const recentlyViewedProductsSKUs = recentProducts[store].reduce((productSKUs, item) => {
             const { sku } = item;
+
             return [...productSKUs, `${ sku.replace(/ /g, '%20') }`];
         }, []);
 

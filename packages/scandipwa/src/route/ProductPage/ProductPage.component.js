@@ -14,14 +14,16 @@ import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
 import ContentWrapper from 'Component/ContentWrapper';
+import Popup from 'Component/Popup/Popup.container';
 import ProductActions from 'Component/ProductActions';
 import ProductAttributes from 'Component/ProductAttributes';
-import ProductCompareButton from 'Component/ProductCompareButton';
 import ProductCustomizableOptions from 'Component/ProductCustomizableOptions';
 import ProductGallery from 'Component/ProductGallery';
 import ProductInformation from 'Component/ProductInformation';
 import ProductLinks from 'Component/ProductLinks';
+import ProductReviewForm from 'Component/ProductReviewForm/ProductReviewForm.container';
 import ProductReviews from 'Component/ProductReviews';
+import { REVIEW_POPUP_ID } from 'Component/ProductReviews/ProductReviews.config';
 import ProductTabs from 'Component/ProductTabs';
 import NoMatchHandler from 'Route/NoMatchHandler';
 import {
@@ -64,6 +66,7 @@ export class ProductPage extends PureComponent {
             name: __('About'),
             shouldTabRender: () => {
                 const { isInformationTabEmpty } = this.props;
+
                 return !isInformationTabEmpty;
             },
             render: (key) => this.renderProductInformationTab(key)
@@ -72,6 +75,7 @@ export class ProductPage extends PureComponent {
             name: __('Details'),
             shouldTabRender: () => {
                 const { isAttributesTabEmpty } = this.props;
+
                 return !isAttributesTabEmpty;
             },
             render: (key) => this.renderProductAttributesTab(key)
@@ -83,29 +87,6 @@ export class ProductPage extends PureComponent {
             render: (key) => this.renderProductReviewsTab(key)
         }
     };
-
-    renderProductCompareButton() {
-        const {
-            dataSource: { id } = {},
-            device: { isMobile } = {}
-        } = this.props;
-
-        if (!isMobile) {
-            return null;
-        }
-
-        return (
-            <div block="ProductPage" elem="ProductCompareButtonWrapper">
-                <ProductCompareButton
-                  productId={ id }
-                  mix={ {
-                      block: 'ProductCompareButton',
-                      mods: { isGrey: true }
-                  } }
-                />
-            </div>
-        );
-    }
 
     renderProductPageContent() {
         const {
@@ -133,7 +114,6 @@ export class ProductPage extends PureComponent {
                   product={ productOrVariant }
                   areDetailsLoaded={ areDetailsLoaded }
                 />
-                { this.renderProductCompareButton() }
                 <ProductActions
                   getLink={ getLink }
                   updateConfigurableVariant={ updateConfigurableVariant }
@@ -257,6 +237,19 @@ export class ProductPage extends PureComponent {
         );
     }
 
+    renderReviewPopup() {
+        const { productOrVariant } = this.props;
+
+        return (
+            <Popup
+              id={ REVIEW_POPUP_ID }
+              mix={ { block: 'ProductReviews', elem: 'Popup' } }
+            >
+                <ProductReviewForm product={ productOrVariant } />
+            </Popup>
+        );
+    }
+
     render() {
         return (
             <NoMatchHandler>
@@ -273,6 +266,7 @@ export class ProductPage extends PureComponent {
                         { this.renderProductPageContent() }
                     </ContentWrapper>
                     { this.renderAdditionalSections() }
+                    { this.renderReviewPopup() }
                 </main>
             </NoMatchHandler>
         );

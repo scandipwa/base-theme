@@ -56,28 +56,6 @@ export class SearchField extends PureComponent {
 
     searchBarRef = createRef();
 
-    state = {
-        isPlaceholderVisible: true,
-        showSearch: false
-    };
-
-    static getDerivedStateFromProps(props) {
-        const { isActive } = props;
-        if (isActive) {
-            return null;
-        }
-
-        return { isPlaceholderVisible: true };
-    }
-
-    componentDidUpdate() {
-        const { showSearch } = this.state;
-
-        if (showSearch) {
-            this.onIconClick();
-        }
-    }
-
     onClearSearchButtonClick(isFocusOnSearchBar = true) {
         const { onClearSearchButtonClick } = this.props;
         if (isFocusOnSearchBar) {
@@ -108,22 +86,17 @@ export class SearchField extends PureComponent {
         const { onSearchBarFocus } = this.props;
 
         onSearchBarFocus();
-        this.setState({ showSearch: true });
     };
 
     closeSearch = () => {
         const { onSearchOutsideClick } = this.props;
 
         onSearchOutsideClick();
-        this.setState({ showSearch: false });
     };
 
     handleChange = (e) => {
-        const { target: { value } } = e;
         const { onSearchBarChange } = this.props;
         onSearchBarChange(e);
-
-        this.setState({ isPlaceholderVisible: value === '' });
     };
 
     clearSearch = () => {
@@ -155,14 +128,9 @@ export class SearchField extends PureComponent {
         const {
             searchCriteria,
             onSearchBarFocus,
-            isActive
+            isActive,
+            device
         } = this.props;
-
-        const { showSearch } = this.state;
-
-        if (!showSearch) {
-            return null;
-        }
 
         return (
             <div
@@ -179,20 +147,14 @@ export class SearchField extends PureComponent {
                   onKeyDown={ this.onSearchEnterPress }
                   value={ searchCriteria }
                   mods={ { isActive } }
+                  placeholder={ __('Search products') }
                   autoComplete="off"
                   aria-label={ __('Search') }
                 />
-                <div
-                  block="SearchField"
-                  elem="SearchIcon"
-                  role="button"
-                  tabIndex="0"
-                  onClick={ this.onIconClick }
-                  aria-label={ __('Search') }
-                />
+                { this.renderSearchIcon() }
                 <Suspense fallback={ this.renderOverlayFallback() }>
                     <SearchOverlay
-                      isHideOverlay
+                      isHideOverlay={ !device.isMobile }
                       clearSearch={ this.clearSearch }
                       searchCriteria={ searchCriteria }
                     />
@@ -202,9 +164,9 @@ export class SearchField extends PureComponent {
     }
 
     renderSearchIcon() {
-        const { showSearch } = this.state;
+        const { isActive } = this.props;
 
-        if (showSearch) {
+        if (isActive) {
             return (
                 <div
                   block="SearchField"
@@ -229,74 +191,6 @@ export class SearchField extends PureComponent {
         );
     }
 
-    renderDesktopContent() {
-        const { device } = this.props;
-        const { showSearch } = this.state;
-
-        if (device.isMobile) {
-            return null;
-        }
-
-        return (
-            <>
-                { this.renderSearchIcon() }
-                <div
-                  block="SearchField"
-                  elem="SearchWrapper"
-                  mods={ { isVisible: showSearch } }
-                >
-                    { this.renderSearch() }
-                </div>
-            </>
-        );
-    }
-
-    renderMobileContent() {
-        const {
-            searchCriteria,
-            onSearchBarFocus,
-            isActive,
-            device
-        } = this.props;
-
-        if (!device.isMobile) {
-            return null;
-        }
-
-        const { isPlaceholderVisible } = this.state;
-
-        return (
-            <>
-                <input
-                  id="search-field"
-                  ref={ this.searchBarRef }
-                  block="SearchField"
-                  elem="Input"
-                  onFocus={ onSearchBarFocus }
-                  onChange={ this.handleChange }
-                  onKeyDown={ this.onSearchEnterPress }
-                  value={ searchCriteria }
-                  mods={ { isActive } }
-                  autoComplete="off"
-                  aria-label={ __('Search') }
-                />
-                <div
-                  block="SearchField"
-                  elem="Placeholder"
-                  mods={ {
-                      isActive,
-                      isPlaceholderVisible
-                  } }
-                >
-                    <span>{ __('Search') }</span>
-                </div>
-                <Suspense fallback={ this.renderOverlayFallback() }>
-                    <SearchOverlay clearSearch={ this.clearSearch } searchCriteria={ searchCriteria } />
-                </Suspense>
-            </>
-        );
-    }
-
     render() {
         const {
             isVisible,
@@ -307,8 +201,7 @@ export class SearchField extends PureComponent {
             <div block="SearchField" mods={ { isVisible, isActive } }>
                 <ClickOutside onClick={ this.closeSearch }>
                     <div block="SearchField" elem="Wrapper">
-                        { this.renderMobileContent() }
-                        { this.renderDesktopContent() }
+                        { this.renderSearch() }
                     </div>
                 </ClickOutside>
             </div>

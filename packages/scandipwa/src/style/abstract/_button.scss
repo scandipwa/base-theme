@@ -14,44 +14,51 @@
 }
 
 @mixin button {
-    text-decoration: none; // because we never need underlines in buttons
-
-    display: inline-block;
-    border-radius: 0;
-    font-weight: 700;
-    font-size: 1.32rem;
-    line-height: normal;
-    text-transform: uppercase;
-    padding: var(--button-padding);
-    color: var(--button-color);
+    align-items: center;
     background-color: var(--button-background);
+    border-radius: var(--button-border-radius);
+    cursor: pointer;
+    display: inline-flex;
+    color: var(--button-color);
+    font-size: 14px;
+    font-weight: 700;
+    justify-content: center;
+    height: var(--button-height);
+    line-height: normal;
+    padding-inline: var(--button-padding);
+    text-decoration: var(--button-text-decoration);
+    text-transform: uppercase;
+    transition-duration: .25s;
+    transition-timing-function: ease-out;
     transition-property: background-color, color, border;
     will-change: background-color, color, border;
-    transition-timing-function: ease-out;
-    transition-duration: .25s;
-    cursor: pointer;
+
     @include mobile {
-        font-size: 1.54rem;
+        user-select: none;
+        width: 100%;
     }
 
     border: {
-        width: var(--button-border-width);
-        style: solid;
         color: var(--button-border);
+        style: solid;
+        width: var(--button-border-width);
     }
 
     &:hover,
     &:focus {
-        text-decoration: none;
+        text-decoration: var(--button-hover-text-decoration);
     }
 
     &:not([disabled]) {
         &:hover,
         &:focus {
-            @include after-mobile {
-                border-color: var(--button-hover-border);
+            @include desktop {
                 background-color: var(--button-hover-background);
+                border-color: var(--button-hover-border);
+                border-radius: var(--button-hover-border-radius);
                 color: var(--button-hover-color);
+                height: var(--button-hover-height);
+                padding-inline: var(--button-hover-padding);
             }
         }
     }
@@ -61,9 +68,32 @@
     }
 
     &_isHollow {
-        border-color: var(--button-background);
-        color: var(--button-background);
-        background: transparent;
+        background-color: var(--hollow-button-background);
+        border-color: var(--hollow-button-border);
+        border-radius: var(--hollow-button-border-radius);
+        color: var(--hollow-button-color);
+        height: var(--hollow-button-height);
+        padding-inline: var(--hollow-button-padding);
+        text-decoration: var(--hollow-button-text-decoration);
+
+        &:not([disabled]) {
+            &:hover,
+            &:focus {
+                @include desktop {
+                    background-color: var(--hollow-button-hover-background);
+                    border-color: var(--hollow-button-hover-border);
+                    border-radius: var(--hollow-button-hover-border-radius);
+                    color: var(--hollow-button-hover-color);
+                    height: var(--hollow-button-hover-height);
+                    padding-inline: var(--hollow-button-hover-padding);
+                    text-decoration: var(--hollow-button-hover-text-decoration);
+                }
+            }
+        }
+    }
+
+    &_isWithoutBorder {
+        border: 0;
     }
 
     &_likeLink {
@@ -73,16 +103,22 @@
         --button-hover-border: transparent;
         --button-hover-background: transparent;
         --button-hover-color: var(--primary-base-color);
+        --button-padding: 0;
+        --button-hover-padding: 0;
+        --button-height: min-content;
+        --button-hover-height: min-content;
 
+        border: none;
         text-transform: none;
         margin: 0;
         padding: 0;
         font-weight: normal;
-        text-align: left;
+        text-align: start;
 
         &:hover,
         &:focus {
             text-decoration: underline;
+            padding: 0;
         }
     }
 }

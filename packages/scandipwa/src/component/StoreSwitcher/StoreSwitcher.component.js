@@ -95,6 +95,7 @@ export class StoreSwitcher extends PureComponent {
                       onClick={ onStoreSwitcherClick }
                     >
                         { storeLabel }
+                        <span />
                     </button>
 
                     <div block="StoreSwitcher" elem="StoreList" mods={ mods }>

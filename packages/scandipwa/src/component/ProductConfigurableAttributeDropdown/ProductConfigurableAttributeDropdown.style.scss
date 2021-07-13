@@ -1,13 +1,11 @@
 .ProductConfigurableAttributeDropdown {
+    margin-block-start: 16px;
+
     @include desktop {
         width: 45%;
     }
 
     @include tablet {
         width: 60%;
-    }
-
-    @include mobile {
-        margin: var(--option-margin);
     }
 }

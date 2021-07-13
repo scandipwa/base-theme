@@ -15,7 +15,6 @@ import PropTypes from 'prop-types';
 import { createRef, lazy, Suspense } from 'react';
 
 import ClickOutside from 'Component/ClickOutside';
-import CmsBlock from 'Component/CmsBlock';
 import CurrencySwitcher from 'Component/CurrencySwitcher';
 import Link from 'Component/Link';
 import Logo from 'Component/Logo';
@@ -51,6 +50,7 @@ import {
     FILTER,
     MENU,
     MENU_SUBCATEGORY,
+    NO_MATCH,
     PDP,
     POPUP,
     PRODUCT_COMPARE,
@@ -73,7 +73,6 @@ export class Header extends NavigationAbstract {
         onClearSearchButtonClick: PropTypes.func.isRequired,
         onMyAccountButtonClick: PropTypes.func.isRequired,
         onSearchBarChange: PropTypes.func.isRequired,
-        onClearButtonClick: PropTypes.func.isRequired,
         isWishlistLoading: PropTypes.bool.isRequired,
         onEditButtonClick: PropTypes.func.isRequired,
         onMinicartButtonClick: PropTypes.func.isRequired,
@@ -113,6 +112,9 @@ export class Header extends NavigationAbstract {
             title: true,
             logo: true
         },
+        [NO_MATCH]: {
+            title: true
+        },
         [POPUP]: {
             title: true,
             close: true
@@ -138,7 +140,6 @@ export class Header extends NavigationAbstract {
         [CUSTOMER_WISHLIST]: {
             share: true,
             title: true,
-            edit: true,
             ok: true
         },
         [MENU]: {
@@ -146,7 +147,8 @@ export class Header extends NavigationAbstract {
         },
         [MENU_SUBCATEGORY]: {
             back: true,
-            title: true
+            title: true,
+            search: true
         },
         [SEARCH]: {
             back: true,
@@ -165,7 +167,6 @@ export class Header extends NavigationAbstract {
         },
         [FILTER]: {
             close: true,
-            clear: true,
             title: true
         },
         [CHECKOUT]: {
@@ -199,20 +200,22 @@ export class Header extends NavigationAbstract {
         cancel: this.renderCancelButton.bind(this),
         back: this.renderBackButton.bind(this),
         close: this.renderCloseButton.bind(this),
-        share: this.renderShareWishListButton.bind(this),
         title: this.renderTitle.bind(this),
         logo: this.renderLogo.bind(this),
-        account: this.renderAccount.bind(this),
-        minicart: this.renderMinicart.bind(this),
-        compare: this.renderComparePageButton.bind(this),
         search: this.renderSearchField.bind(this),
-        clear: this.renderClearButton.bind(this),
-        edit: this.renderEditButton.bind(this),
+        account: this.renderAccount.bind(this),
+        compare: this.renderComparePageButton.bind(this),
+        minicart: this.renderMinicart.bind(this),
+        share: this.renderShareWishListButton.bind(this),
         ok: this.renderOkButton.bind(this)
     };
 
     renderBackButton(isVisible = false) {
-        const { onBackButtonClick } = this.props;
+        const { onBackButtonClick, device: { isMobile } } = this.props;
+
+        if (!isMobile) {
+            return null;
+        }
 
         return (
             <button
@@ -229,7 +232,11 @@ export class Header extends NavigationAbstract {
     }
 
     renderCloseButton(isVisible = false) {
-        const { onCloseButtonClick } = this.props;
+        const { onCloseButtonClick, device: { isMobile } } = this.props;
+
+        if (!isMobile) {
+            return null;
+        }
 
         return (
             <button
@@ -246,9 +253,9 @@ export class Header extends NavigationAbstract {
     }
 
     renderMenu() {
-        const { isCheckout, device } = this.props;
+        const { isCheckout, device: { isMobile } } = this.props;
 
-        if (device.isMobile || isCheckout) {
+        if (isMobile || isCheckout) {
             return null;
         }
 
@@ -444,12 +451,6 @@ export class Header extends NavigationAbstract {
             >
                 <div
                   block="Header"
-                  elem="MyAccountTitle"
-                >
-                    { __('Account') }
-                </div>
-                <div
-                  block="Header"
                   elem="Button"
                   mods={ { isVisible, type: 'account' } }
                 />
@@ -461,11 +462,11 @@ export class Header extends NavigationAbstract {
         const {
             onMyAccountOutsideClick,
             isCheckout,
-            device
+            device: { isMobile }
         } = this.props;
 
         // on mobile hide button if not in checkout
-        if (device.isMobile && !isCheckout) {
+        if (isMobile && !isCheckout) {
             return null;
         }
 
@@ -474,19 +475,22 @@ export class Header extends NavigationAbstract {
         }
 
         return (
-            <ClickOutside
-              onClick={ onMyAccountOutsideClick }
-              key="account"
-            >
-                <div
-                  aria-label="My account"
-                  block="Header"
-                  elem="MyAccount"
+            <>
+                { this.renderWelcomeMessage() }
+                <ClickOutside
+                  onClick={ onMyAccountOutsideClick }
+                  key="account"
                 >
-                    { this.renderAccountButton(isVisible) }
-                    { this.renderAccountOverlay() }
-                </div>
-            </ClickOutside>
+                    <div
+                      aria-label="My account"
+                      block="Header"
+                      elem="MyAccount"
+                    >
+                        { this.renderAccountButton(isVisible) }
+                        { this.renderAccountOverlay() }
+                    </div>
+                </ClickOutside>
+            </>
         );
     }
 
@@ -543,12 +547,6 @@ export class Header extends NavigationAbstract {
               onClick={ onMinicartButtonClick }
             >
                 <span
-                  block="Header"
-                  elem="MinicartTitle"
-                >
-                    { __('Cart') }
-                </span>
-                <span
                   aria-label="Minicart"
                   block="Header"
                   elem="MinicartIcon"
@@ -562,10 +560,10 @@ export class Header extends NavigationAbstract {
         const {
             onMinicartOutsideClick,
             isCheckout,
-            device
+            device: { isMobile }
         } = this.props;
 
-        if (device.isMobile || isCheckout) {
+        if (isMobile || isCheckout) {
             return null;
         }
 
@@ -583,42 +581,6 @@ export class Header extends NavigationAbstract {
                     { this.renderMinicartOverlay() }
                 </div>
             </ClickOutside>
-        );
-    }
-
-    renderClearButton(isVisible = false) {
-        const { isClearEnabled, onClearButtonClick } = this.props;
-
-        return (
-            <button
-              key="clear"
-              block="Header"
-              elem="Button"
-              mods={ { type: 'clear', isVisible, isDisabled: !isClearEnabled } }
-              onClick={ onClearButtonClick }
-              aria-label="Clear"
-              aria-hidden={ !isVisible }
-              tabIndex={ isVisible ? 0 : -1 }
-            />
-        );
-    }
-
-    renderEditButton(isVisible = false) {
-        const { onEditButtonClick } = this.props;
-
-        return (
-            <button
-              key="edit"
-              block="Header"
-              elem="Button"
-              mods={ { type: 'edit', isVisible } }
-              onClick={ onEditButtonClick }
-              aria-label="Edit"
-              aria-hidden={ !isVisible }
-              tabIndex={ isVisible ? 0 : -1 }
-            >
-                { __('Edit') }
-            </button>
         );
     }
 
@@ -641,6 +603,24 @@ export class Header extends NavigationAbstract {
         );
     }
 
+    renderWelcomeMessage(isVisible = false) {
+        const { firstname } = this.props;
+
+        if (!isSignedIn() || !firstname) {
+            return null;
+        }
+
+        return (
+            <div
+              block="Header"
+              elem="Welcome"
+              mods={ { type: 'Welcome', isVisible } }
+            >
+                { __('Welcome, %s!', firstname) }
+            </div>
+        );
+    }
+
     renderCancelButton(isVisible = false) {
         const { onCancelButtonClick } = this.props;
 
@@ -660,40 +640,29 @@ export class Header extends NavigationAbstract {
         );
     }
 
-    renderContacts() {
-        const { header_content: { contacts_cms } = {} } = window.contentConfiguration;
-
-        if (contacts_cms) {
-            return (
-                <CmsBlock identifier={ contacts_cms } />
-            );
-        }
-
-        // following strings are not translated, use CMS blocks to do it
-        return (
-            <dl block="contacts-wrapper">
-                <dt>{ __('Telephone:') }</dt>
-                <dd>
-                    <a href="tel:983829842">+0 (983) 829842</a>
-                </dd>
-                <dt>{ __('Mail:') }</dt>
-                <dd>
-                    <a href="mailto:info@scandipwa.com">info@scandipwa.com</a>
-                </dd>
-            </dl>
-        );
-    }
-
     renderTopMenu() {
-        const { device } = this.props;
-        if (device.isMobile) {
+        const { device: { isMobile } } = this.props;
+
+        if (isMobile) {
             return null;
         }
 
         return (
             <div block="Header" elem="TopMenu">
-                <div block="Header" elem="Contacts">
-                    { this.renderContacts() }
+                <div block="Header" elem="News">
+                    <div
+                      block="Header"
+                      elem="NewsIcon"
+                    />
+                    <span>{ __('Check new arrivals') }</span>
+                    <Link
+                      to="/"
+                      key="news"
+                      block="Header"
+                      elem="NewsButton"
+                    >
+                        { __('here!') }
+                    </Link>
                 </div>
                 <div block="Header" elem="Switcher">
                     <CurrencySwitcher />
@@ -708,10 +677,10 @@ export class Header extends NavigationAbstract {
         const {
             navigationState: { name, isHiddenOnMobile = false },
             isCheckout,
-            device
+            device: { isMobile }
         } = this.props;
 
-        if (!device.isMobile) {
+        if (!isMobile) {
             // hide edit button on desktop
             stateMap[CUSTOMER_WISHLIST].edit = false;
             stateMap[CUSTOMER_WISHLIST].share = false;

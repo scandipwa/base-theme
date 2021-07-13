@@ -103,6 +103,7 @@ export class Html extends PureComponent {
 
             if (rule) {
                 const { replace } = rule;
+
                 return replace.call(this, domNode);
             }
         }
@@ -122,6 +123,7 @@ export class Html extends PureComponent {
             }, {});
 
         const properties = convertPropertiesToValidFormat(attribs);
+
         return attributesToProps(properties);
     }
 
@@ -244,6 +246,7 @@ export class Html extends PureComponent {
 
     render() {
         const { content } = this.props;
+
         return parser(content, this.parserOptions);
     }
 }

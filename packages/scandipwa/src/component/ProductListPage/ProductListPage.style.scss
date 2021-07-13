@@ -12,37 +12,34 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: max-content;
-    grid-column-gap: 1.2rem;
+    grid-column-gap: 12px;
 
     @include tablet {
         grid-template-columns: repeat(3, 1fr);
     }
 
     @include mobile {
-        grid-column-gap: 1.4rem;
+        grid-column-gap: 14px;
         grid-template-columns: 1fr 1fr;
         border: 0;
-        padding: {
-            left: 1rem;
-            right: 1rem;
-        }
+        padding-inline: 10px;
     }
 
-    @include after-mobile {
+    @include desktop {
         grid-column: 2;
     }
 
     &-Offset {
         @include mobile {
             height: 150vh;
-            top: -150vh;
+            inset-block-start: -150vh;
         }
 
         height: 100vh;
         pointer-events: none;
-        top: -100vh;
+        inset-block-start: -100vh;
         position: absolute;
-        left: 0;
+        inset-inline-start: 0;
         width: 100%;
 
         &::before {

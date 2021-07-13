@@ -13,26 +13,26 @@
     dt,
     dd {
         display: inline-block;
-        font-size: 1.2rem;
+        font-size: 12px;
 
         @include mobile {
-            font-size: 1.4rem;
+            font-size: 14px;
         }
     }
 
     dt {
-        margin-right: 1.2rem;
+        margin-inline-end: 12px;
 
         @include mobile {
-            margin-right: 1.4rem;
+            margin-inline-end: 14px;
         }
     }
 
     dd {
-        margin-right: 2.4rem;
+        margin-inline-end: 24px;
 
         @include mobile {
-            margin-right: 2.8rem;
+            margin-inline-end: 28px;
         }
     }
 }

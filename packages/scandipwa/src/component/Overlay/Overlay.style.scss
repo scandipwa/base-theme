@@ -12,7 +12,7 @@
 :root {
     --overlay-background: var(--secondary-base-color);
     --overlay-content-background: #fff;
-    --overlay-desktop-border-color: var(--primary-light-color);
+    --overlay-desktop-border-color: var(--primary-divider-color);
 
     @include desktop {
         --overlay-background: #fff;
@@ -25,18 +25,18 @@
     z-index: 10;
     opacity: 0;
 
-    background-color: var(--overlay-background);
+    background-color: var(--overlay-content-background);
 
     &:not(.Overlay_isStatic) {
-        @include before-desktop {
+        @include mobile {
             -webkit-overflow-scrolling: touch;
 
             position: fixed;
-            top: var(--header-total-height);
-            left: 0;
+            inset-block-start: var(--header-total-height);
+            inset-inline-start: 0;
             width: 100%;
             height: calc(100% - var(--header-total-height));
-            padding-bottom: var(--navigation-tabs-height);
+            padding-block-end: var(--navigation-tabs-height);
             overflow: scroll;
             overflow-x: hidden;
             max-width: 100%;

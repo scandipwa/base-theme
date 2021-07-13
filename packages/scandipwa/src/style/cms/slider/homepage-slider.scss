@@ -14,33 +14,22 @@
 }
 
 .homepage-slider {
-    --button-background: var(--homepage-button-background);
-    --button-color: var(--homepage-button-color);
-    --button-border: transparent;
-    --button-hover-background: var(--homepage-button-color);
-    --button-hover-color: var(--homepage-button-background);
-    --button-hover-border: transparent;
-    --button-padding: 13px 40px;
-    --button-border-width: 0;
 
     h1 {
-        font-size: 6.2rem;
-        text-transform: uppercase;
-        color: var(--homepage-slider-color);
-        margin-bottom: 3rem;
+        margin-block-end: 30px;
 
         @include mobile {
 
-            font-size: 3rem;
-            margin-bottom: 1.4rem;
+            font-size: 30px;
+            margin-block-end: 14px;
         }
     }
 
     .Slider-Crumbs {
-        bottom: 2.4rem;
+        inset-block-end: 24px;
 
         @include mobile {
-            bottom: 2.8rem;
+            inset-block-end: 28px;
         }
     }
 
@@ -48,7 +37,11 @@
         text-align: center;
 
         @include desktop {
-            padding-top: 6rem;
+            padding-block-start: 60px;
+        }
+
+        @include mobile {
+            padding-inline: 16px;
         }
     }
 }

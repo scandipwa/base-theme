@@ -139,7 +139,13 @@ export class ProductListPage extends PureComponent {
     }
 
     renderPlaceholders() {
-        const { numberOfPlaceholders } = this.props;
+        const {
+            numberOfPlaceholders, mix: {
+                mods: {
+                    layout = GRID_LAYOUT
+                } = {}
+            }
+        } = this.props;
 
         return Array.from(
             { length: numberOfPlaceholders },
@@ -147,6 +153,7 @@ export class ProductListPage extends PureComponent {
                 <ProductCard
                   key={ i }
                   product={ {} }
+                  layout={ layout }
                 />
             )
         );

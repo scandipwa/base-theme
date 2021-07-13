@@ -35,7 +35,7 @@ br {
         zoom: 1;
         overflow: hidden;
         width: .3em;
-        float: right;
+        float: inline-end;
 
         @include mobile {
             display: initial;
