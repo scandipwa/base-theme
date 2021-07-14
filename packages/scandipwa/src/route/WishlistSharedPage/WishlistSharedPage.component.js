@@ -13,7 +13,8 @@ import PropTypes from 'prop-types';
 import ContentWrapper from 'Component/ContentWrapper';
 import Loader from 'Component/Loader';
 import SourceWishlist from 'Component/MyAccountMyWishlist/MyAccountMyWishlist.component';
-import SharedWishlistItem from 'Component/SharedWishlistItem';
+import WishlistItem from 'Component/WishlistItem/WishlistItem.component';
+import { isMobile } from 'Util/Mobile';
 
 import './WishlistSharedPage.style';
 
@@ -31,12 +32,24 @@ export class WishlistSharedPage extends SourceWishlist {
         );
     }
 
-    renderProduct = ([id, product]) => (
-        <SharedWishlistItem
-          key={ id }
-          product={ product }
-        />
-    );
+    renderProduct = ([id, product]) => {
+        const { attributes } = product;
+
+        const labels = Object.values(attributes)
+            .filter((attribute) => attribute && attribute.attribute_label)
+            .map(({ attribute_label }) => attribute_label);
+
+        return (
+            <WishlistItem
+              key={ id }
+              product={ product }
+              isMobile={ isMobile.any() }
+              attributes={ labels }
+              isEditingActive={ false }
+              handleSelectIdChange={ id }
+            />
+        );
+    };
 
     renderCreatorsInfo() {
         const { creatorsName } = this.props;

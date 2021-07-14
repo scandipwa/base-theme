@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 
 import { MyAccountMyWishlistContainer } from 'Component/MyAccountMyWishlist/MyAccountMyWishlist.container';
 import WishlistQuery from 'Query/Wishlist.query';
+import { toggleBreadcrumbs } from 'Store/Breadcrumbs/Breadcrumbs.action';
 import { updateNoMatch } from 'Store/NoMatch/NoMatch.action';
 import { showNotification } from 'Store/Notification/Notification.action';
 import { MatchType } from 'Type/Common';
@@ -44,9 +45,7 @@ export const mapDispatchToProps = (dispatch) => ({
     showNotification: (message) => dispatch(showNotification('success', message)),
     showError: (message) => dispatch(showNotification('error', message)),
     showNoMatch: () => dispatch(updateNoMatch(true)),
-    updateBreadcrumbs: (breadcrumbs) => BreadcrumbsDispatcher.then(
-        ({ default: dispatcher }) => dispatcher.update(breadcrumbs, dispatch)
-    )
+    toggleBreadcrumbs: (visibility) => dispatch(toggleBreadcrumbs(visibility))
 });
 
 /** @namespace Route/WishlistSharedPage/Container/wishlistSharedContainer */
@@ -55,7 +54,7 @@ export class WishlistSharedPageContainer extends MyAccountMyWishlistContainer {
         match: MatchType.isRequired,
         showError: PropTypes.func.isRequired,
         showNoMatch: PropTypes.func.isRequired,
-        updateBreadcrumbs: PropTypes.func.isRequired
+        toggleBreadcrumbs: PropTypes.func.isRequired
     };
 
     state = {
@@ -67,6 +66,12 @@ export class WishlistSharedPageContainer extends MyAccountMyWishlistContainer {
 
     componentDidMount() {
         this.requestWishlist();
+        this.toggleBreadcrumbs(false);
+    }
+
+    toggleBreadcrumbs(visibility) {
+        const { toggleBreadcrumbs } = this.props;
+        toggleBreadcrumbs(visibility);
     }
 
     componentDidUpdate(prevProps) {
@@ -96,12 +101,11 @@ export class WishlistSharedPageContainer extends MyAccountMyWishlistContainer {
     };
 
     requestWishlist() {
-        const { showError, showNoMatch, updateBreadcrumbs } = this.props;
+        const { showError, showNoMatch } = this.props;
 
         const code = this.getCode();
         const query = prepareQuery([WishlistQuery.getWishlistQuery(code)]);
 
-        updateBreadcrumbs([]);
         this.setLoading();
 
         executeGet(query, 'SharedWishlist', FIVE_MINUTES_IN_SECONDS).then(
@@ -137,11 +141,6 @@ export class WishlistSharedPageContainer extends MyAccountMyWishlistContainer {
                         }
                     };
                 }, {});
-
-                updateBreadcrumbs([
-                    { name: creatorsName, url: `/wishlist/shared/${code}` },
-                    { name: __('Shared Wishlist'), url: '/' }
-                ]);
 
                 this.setState({
                     creatorsName,
