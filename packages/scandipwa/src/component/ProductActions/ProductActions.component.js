@@ -621,18 +621,18 @@ export class ProductActions extends PureComponent {
             product: {
                 type_id,
                 samples_title,
-                downloadable_product_samples
+                downloadable_product_samples: samples
             }
         } = this.props;
 
-        if (type_id !== DOWNLOADABLE || !downloadable_product_samples) {
+        if (type_id !== DOWNLOADABLE || !samples || (Array.isArray(samples) && !samples.length)) {
             return null;
         }
 
         return (
             <ProductDownloadableSamples
               title={ samples_title }
-              samples={ downloadable_product_samples }
+              samples={ samples }
             />
         );
     }
