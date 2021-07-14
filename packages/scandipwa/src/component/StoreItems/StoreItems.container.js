@@ -27,6 +27,7 @@ export class StoreItemsContainer extends PureComponent {
 
     containerProps = () => {
         const { item } = this.props;
+
         return { item };
     };
 

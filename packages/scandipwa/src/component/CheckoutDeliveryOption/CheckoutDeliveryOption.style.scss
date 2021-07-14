@@ -16,58 +16,30 @@
 }
 
 .CheckoutDeliveryOption {
-    padding: 0;
-    margin-bottom: 0;
+    padding-block: 19px;
+    margin-block-end: 0;
     display: flex;
-    align-items: center;
-    border-top: 1px solid var(--checkout-delivery-option-border-color);
+    align-items: flex-start;
+    border-block-start: 1px solid var(--checkout-delivery-option-border-color);
+
+    &:first-child {
+        border-block-start: 0;
+    }
 
     &::before {
         content: none;
     }
 
     &:last-child {
-        margin-bottom: 0;
-        border-bottom: 1px solid var(--checkout-delivery-option-border-color);
+        margin-block-end: 0;
     }
 
     &-Button {
         --check-mark-opacity: 0;
-
+        font-size: 14px;
         width: 100%;
-        padding: 1.2rem 3.6rem 1.2rem;
-        text-align: left;
-
-        @include mobile {
-            padding: 1.4rem 4.2rem 1.4rem;
-        }
-
-        &::after {
-            content: '';
-            position: absolute;
-            z-index: 1;
-            opacity: var(--check-mark-opacity);
-            transition: opacity 150ms ease-in;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-            left: 8px;
-            width: 12px;
-            height: 6px;
-            transform: rotate(135deg) translateX(-5px);
-            border-right: 2px solid var(--check-mark-color);
-            border-top: 2px solid var(--check-mark-color);
-        }
-
-        &_isSelected {
-            --check-mark-opacity: 1;
-            --check-mark-color: var(--checkout-delivery-option-check-mark-color);
-        }
-
-        &:not(&_isSelected):hover {
-            --check-mark-opacity: 1;
-            --check-mark-color: var(--checkout-delivery-option-check-mark-hover-color);
-        }
+        text-align: start;
+        display: flex;
 
         &_isDisabled {
             pointer-events: none;
@@ -77,20 +49,25 @@
     &-Row {
         strong {
             display: inline-block;
+            white-space: pre;
         }
     }
 
     &-SubPrice {
-        font-size: .7em;
-        font-weight: 300;
-        text-align: right;
+        font-size: 12px;
+        font-weight: 400;
+        text-align: end;
         position: absolute;
-        left: 0;
-        top: 1.5em;
+        inset-inline-start: 0;
+        inset-block-start: 1.5em;
         white-space: nowrap;
     }
 
     &-Message {
         color: var(--primary-error-color);
+    }
+
+    .Field_type_checkbox {
+        margin-block-start: 0;
     }
 }

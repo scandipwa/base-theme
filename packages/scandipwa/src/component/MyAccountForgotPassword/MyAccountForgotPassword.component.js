@@ -41,12 +41,17 @@ export class MyAccountForgotPassword extends PureComponent {
                   type="text"
                   id="email"
                   name="email"
+                  placeholder={ __('Your email address') }
                   label={ __('Email') }
                   autocomplete="email"
                   validation={ ['notEmpty', 'email'] }
                 />
                 <div block="MyAccountOverlay" elem="Buttons">
-                    <button block="Button" type="submit">
+                    <button
+                      block="Button"
+                      type="submit"
+                      mix={ { block: 'MyAccountOverlay', elem: 'ResetPassword' } }
+                    >
                         { __('Send reset link') }
                     </button>
                 </div>
@@ -63,7 +68,7 @@ export class MyAccountForgotPassword extends PureComponent {
 
         return (
             <section aria-labelledby="create-account-label">
-                <h4 id="create-account-label">{ __('Don`t have an account?') }</h4>
+                <h4 id="create-account-label">{ __("Don't have an account?") }</h4>
                 <button
                   block="Button"
                   mods={ { likeLink: true } }
@@ -87,7 +92,7 @@ export class MyAccountForgotPassword extends PureComponent {
                       mods={ { likeLink: true } }
                       onClick={ handleSignIn }
                     >
-                        { __('Sign in here') }
+                        { __('Sign in') }
                     </button>
                 </section>
                 { this.renderCreateAccountLabel() }

@@ -1,0 +1,135 @@
+{
+    "price": {
+        "attribute_code": "price",
+        "attribute_label": "Price",
+        "attribute_values": [
+            "90_100",
+            "100_200",
+            "200_300",
+            "300_400"
+        ],
+        "attribute_type": "select",
+        "attribute_options": {
+            "90_100": {
+                "label": "90~100",
+                "count": 20,
+                "value_string": "90_100",
+                "swatch_data": null
+            },
+            "100_200": {
+                "label": "100~200",
+                "count": 20,
+                "value_string": "100_200",
+                "swatch_data": null
+            },
+            "200_300": {
+                "label": "300~400",
+                "count": 20,
+                "value_string": "200_300",
+                "swatch_data": null
+            },
+            "300_400": {
+                "label": "300~400",
+                "count": 20,
+                "value_string": "300_400",
+                "swatch_data": null
+            }
+        }
+    },
+    "size": {
+        "attribute_code": "size",
+        "attribute_label": "Size",
+        "attribute_values": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "15"
+        ],
+        "attribute_type": "select",
+        "attribute_options": {
+            "11": {
+                "label": "Small size",
+                "count": 2,
+                "value_string": "11",
+                "swatch_data": {
+                    "type": "0",
+                    "value": "S"
+                }
+            },
+            "12": {
+                "label": "Medium size",
+                "count": 2,
+                "value_string": "12",
+                "swatch_data": {
+                    "type": "0",
+                    "value": "M"
+                }
+            },
+            "13": {
+                "label": "Large size",
+                "count": 2,
+                "value_string": "13",
+                "swatch_data": {
+                    "type": "0",
+                    "value": "L"
+                }
+            },
+            "14": {
+                "label": "Extra Large size",
+                "count": 2,
+                "value_string": "14",
+                "swatch_data": {
+                    "type": "0",
+                    "value": "XL"
+                }
+            },
+            "15": {
+                "label": "Extra Small size",
+                "count": 2,
+                "value_string": "15",
+                "swatch_data": {
+                    "type": "0",
+                    "value": "XS"
+                }
+            }
+        }
+    },
+    "color": {
+        "attribute_code": "color",
+        "attribute_label": "Color",
+        "attribute_values": [
+            "6", "7", "8"
+        ],
+        "attribute_type": "select",
+        "attribute_options": {
+            "6": {
+                "label": "Black",
+                "count": 2,
+                "value_string": "6",
+                "swatch_data": {
+                    "type": "1",
+                    "value": "#1b1b1b"
+                }
+            },
+            "7": {
+                "label": "Red",
+                "count": 2,
+                "value_string": "7",
+                "swatch_data": {
+                    "type": "1",
+                    "value": "#e43022"
+                }
+            },
+            "8": {
+                "label": "Blue",
+                "count": 2,
+                "value_string": "8",
+                "swatch_data": {
+                    "type": "1",
+                    "value": "#1034e6"
+                }
+            }
+        }
+    }
+}

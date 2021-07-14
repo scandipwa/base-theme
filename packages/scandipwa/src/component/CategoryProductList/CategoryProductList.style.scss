@@ -10,47 +10,54 @@
  */
 
 .CategoryProductList {
-    @include after-mobile {
-        top: -56px;
+    @include desktop {
+        inset-block-start: -56px;
         grid-column: 2;
-        padding-bottom: 2.4rem;
+        padding-block-end: 24px;
     }
 
     &-Page {
         &_layout {
             &_grid {
                 display: grid;
-                grid-template-columns: repeat(4, 1fr);
                 grid-auto-rows: max-content;
-                grid-column-gap: 1.2rem;
+                grid-column-gap: 12px;
 
-                @include tablet {
+                @include narrow-desktop {
                     grid-template-columns: repeat(3, 1fr);
                 }
 
+                @include wide-desktop {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+
+                @include tablet {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
                 @include mobile {
-                    grid-column-gap: 1.4rem;
+                    grid-column-gap: 14px;
                     // remove margin from top to other pages
                     grid-template-columns: 1fr 1fr;
                     border: 0;
                 }
 
-                @include after-mobile {
+                @include desktop {
                     grid-column: 2;
-                    margin-top: 1.2rem;
+                    margin-block-start: 12px;
                 }
 
                 // remove margin from top to other pages
                 ~ .CategoryProductList-Page {
-                    @include after-mobile {
-                        margin-top: 0;
+                    @include desktop {
+                        margin-block-start: 0;
                     }
                 }
             }
 
             &_list {
                 display: block;
-                max-width: 550px;
+                max-width: 600px;
 
                 .ProductCard-Link {
                     flex-direction: row;
@@ -60,32 +67,46 @@
                     .Image {
                         width: 200px;
                     }
+
+                    .ProductCompareButton {
+                        .Image {
+                            width: var(--compare-button-size);
+                        }
+                    }
+
+                    .ProductWishlistButton {
+                        .Image,
+                        &-Heart {
+                            height: var(--wishlist-heart-size);
+                            width: var(--wishlist-heart-size);
+                        }
+                    }
                 }
             }
         }
 
         // remove margin from top to other pages
         ~ .CategoryProductList-Page {
-            @include after-mobile {
-                margin-top: 0;
+            @include desktop {
+                margin-block-start: 0;
             }
         }
     }
 
     &-ProductsMissing {
-        padding: 1.2rem;
+        padding: 12px;
         text-align: center;
 
         @include mobile {
-            padding: 1.4rem;
+            padding: 14px;
         }
     }
 
     &-More {
-        min-height: 3.6rem;
+        min-height: 36px;
 
         @include mobile {
-            min-height: 4.2rem;
+            min-height: 42px;
         }
     }
 
@@ -93,12 +114,12 @@
         background-color: var(--category-product-list-load-button-background);
         cursor: pointer;
         font-size: 13pt;
-        margin-bottom: 1.2rem;
+        margin-block-end: 12px;
         padding: 1em 0;
         text-align: center;
 
         @include mobile {
-            margin-bottom: 1.4rem;
+            margin-block-end: 14px;
         }
     }
 }

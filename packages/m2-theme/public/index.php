@@ -7,7 +7,7 @@ $themeColor = $this->getThemeConfiguration('webmanifest_customization/webmanifes
 $icons = $this->getAppIconData();
 ?>
 <!DOCTYPE html>
-<html lang="<?= $this->getLanguageCode() ?>">
+<html lang="<?= $this->getLanguageCode() ?>" dir="ltr">
 
 <head>
     <meta charset="utf-8" />

@@ -173,7 +173,8 @@ export class ProductCustomizableOptionContainer extends PureComponent {
                 id: option_type_id,
                 name: title,
                 value: option_type_id,
-                label: `${title} ${this.renderOptionLabel(price_type, priceInclTax, price, currency)}`
+                label: `${title} `,
+                subLabel: this.renderOptionLabel(price_type, priceInclTax, price, currency)
             });
 
             return acc;

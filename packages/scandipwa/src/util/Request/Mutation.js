@@ -16,5 +16,6 @@ import { executePost } from 'Util/Request/Request';
 // eslint-disable-next-line import/prefer-default-export
 export const fetchMutation = (rawMutations) => {
     const queries = rawMutations instanceof Field ? [rawMutations] : rawMutations;
+
     return executePost(prepareMutation(queries, true));
 };

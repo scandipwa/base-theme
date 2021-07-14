@@ -34,6 +34,7 @@ export class MyAccountDashboardContainer extends PureComponent {
     getDefaultAddress(isBilling) {
         const { customer: { addresses = [] } } = this.props;
         const key = isBilling ? 'default_billing' : 'default_shipping';
+
         return addresses.find(({ [key]: defaultAddress }) => defaultAddress);
     }
 

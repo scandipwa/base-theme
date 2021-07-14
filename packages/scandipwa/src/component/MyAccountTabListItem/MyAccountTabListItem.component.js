@@ -53,6 +53,7 @@ export class MyAccountTabListItem extends PureComponent {
                   role="link"
                 >
                     { name }
+                    <span />
                 </button>
             </li>
         );

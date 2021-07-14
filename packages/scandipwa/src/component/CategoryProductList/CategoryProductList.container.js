@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 
 import ProductList from 'Component/ProductList';
 import { updateLoadStatus } from 'Store/ProductList/ProductList.action';
+import { LayoutType } from 'Type/Layout';
 import { FilterInputType } from 'Type/ProductList';
 
 import './CategoryProductList.style';
@@ -47,7 +48,7 @@ export class CategoryProductListContainer extends PureComponent {
         isLoading: PropTypes.bool.isRequired,
         isMatchingListFilter: PropTypes.bool,
         isMatchingInfoFilter: PropTypes.bool,
-        layout: PropTypes.string,
+        layout: LayoutType,
         filter: FilterInputType,
         requestProductList: PropTypes.func.isRequired,
         isCurrentCategoryLoaded: PropTypes.bool
@@ -117,7 +118,7 @@ export class CategoryProductListContainer extends PureComponent {
 
     requestProductList(options) {
         const { requestProductList } = this.props;
-        requestProductList(options);
+        requestProductList({ ...options, isPlp: true });
     }
 
     containerProps = () => ({

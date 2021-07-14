@@ -12,7 +12,6 @@
 import PropTypes from 'prop-types';
 import { Fragment, PureComponent } from 'react';
 
-import ContentWrapper from 'Component/ContentWrapper';
 import ExpandableContent from 'Component/ExpandableContent';
 import ProductAttributeValue from 'Component/ProductAttributeValue';
 import { AttributeType } from 'Type/ProductList';
@@ -46,12 +45,12 @@ export class ProductAttributes extends PureComponent {
         return (
             uniqueGroups.map(
                 (group) => (
-<Fragment key={ group.attribute_group_id }>
-                    <p block="ProductAttributes" elem="Group">
-                        { group.attribute_group_name }
-                    </p>
-                    { this.renderAttributes(group.attribute_group_id) }
-</Fragment>
+                    <div block="ProductAttributes" elem="AttributeBlock">
+                        <h2 block="ProductAttributes" elem="Group">
+                            { group.attribute_group_name }
+                        </h2>
+                        { this.renderAttributes(group.attribute_group_id) }
+                    </div>
                 )
             )
         );
@@ -96,7 +95,7 @@ export class ProductAttributes extends PureComponent {
 
     renderContent() {
         const { areDetailsLoaded } = this.props;
-        const heading = areDetailsLoaded ? __('Product attributes') : '';
+        const heading = areDetailsLoaded ? __('Details') : '';
 
         return (
             <ExpandableContent
@@ -104,9 +103,7 @@ export class ProductAttributes extends PureComponent {
               heading={ heading }
               mix={ { block: 'ProductAttributes', elem: 'Content' } }
             >
-                <div>
                     { this.renderGroups() }
-                </div>
             </ExpandableContent>
         );
     }
@@ -120,15 +117,7 @@ export class ProductAttributes extends PureComponent {
             return null;
         }
 
-        return (
-            <ContentWrapper
-              label="Product attributes"
-              mix={ { block: 'ProductAttributes' } }
-              wrapperMix={ { block: 'ProductAttributes', elem: 'Wrapper' } }
-            >
-                { this.renderContent() }
-            </ContentWrapper>
-        );
+        return this.renderContent();
     }
 }
 

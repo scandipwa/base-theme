@@ -15,6 +15,7 @@ import { PureComponent } from 'react';
 import ContentWrapper from 'Component/ContentWrapper';
 import ExpandableContent from 'Component/ExpandableContent';
 import Html from 'Component/Html';
+import TextPlaceholder from 'Component/TextPlaceholder';
 import { ProductType } from 'Type/ProductList';
 
 import './ProductInformation.style';
@@ -30,13 +31,15 @@ export class ProductInformation extends PureComponent {
         const { product: { description: { html } = {} } } = this.props;
 
         if (!html) {
-            return '';
+            return (
+                <TextPlaceholder length="long" />
+            );
         }
 
         const cleanDescription = html.replace(/<\/?[^>]+(>|$)/g, '');
 
         return (
-            <div>
+            <div block="ProductInformation" elem="Description">
                 <meta itemProp="description" content={ cleanDescription } />
                 <Html content={ html } />
             </div>
@@ -45,7 +48,7 @@ export class ProductInformation extends PureComponent {
 
     renderContent() {
         const { areDetailsLoaded } = this.props;
-        const heading = areDetailsLoaded ? __('Product information') : '';
+        const heading = areDetailsLoaded ? __('About') : '';
 
         return (
             <ExpandableContent
@@ -74,6 +77,7 @@ export class ProductInformation extends PureComponent {
 
         // check if at least one HTML element has content
         const elementsWithContent = Array.from(document.body.children).filter((element) => element.innerText !== '');
+
         return elementsWithContent.length === 0;
     }
 

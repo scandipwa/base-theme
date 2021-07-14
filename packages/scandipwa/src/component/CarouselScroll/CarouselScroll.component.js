@@ -11,6 +11,7 @@
 import PropTypes from 'prop-types';
 import { createRef, PureComponent } from 'react';
 
+import { CAROUSEL_ITEM_GAP } from 'Component/CarouselScroll/CarouselScroll.config';
 import CarouselScrollArrow from 'Component/CarouselScrollArrow';
 import CarouselScrollItem from 'Component/CarouselScrollItem';
 import { ChildrenType } from 'Type/Common';
@@ -24,7 +25,6 @@ export class CarouselScroll extends PureComponent {
         children: ChildrenType.isRequired,
         showArrow: PropTypes.bool,
         showedItemCount: PropTypes.number,
-        showedActiveItemNr: PropTypes.number,
         onChange: PropTypes.func,
         activeItemId: PropTypes.number
     };
@@ -32,13 +32,13 @@ export class CarouselScroll extends PureComponent {
     static defaultProps = {
         showArrow: true,
         showedItemCount: 1,
-        showedActiveItemNr: 2,
         onChange: () => {},
         activeItemId: null
     };
 
     state = {
-        activeItemId: 0
+        activeItemId: 0,
+        firstCarouselItemId: 0
     };
 
     itemRef = createRef();
@@ -47,11 +47,13 @@ export class CarouselScroll extends PureComponent {
 
     componentDidMount() {
         const { showedItemCount } = this.props;
+        const { offsetWidth: cardWidth } = this.itemRef.current;
 
-        const heightSize = 100;
-        const height = `${ heightSize / showedItemCount }%`;
+        const margin = CAROUSEL_ITEM_GAP;
+        const width = `${ (margin + cardWidth) * showedItemCount - margin }px`;
 
-        CSS.setVariable(this.carouselRef, 'carousel-item-height', height);
+        CSS.setVariable(this.carouselRef, 'carousel-scroll-gap', `${margin}px`);
+        CSS.setVariable(this.carouselRef, 'carousel-width', width);
     }
 
     componentDidUpdate(prevProps) {
@@ -71,21 +73,9 @@ export class CarouselScroll extends PureComponent {
     }
 
     getNextTranslate(nextId) {
-        const { showedItemCount, showedActiveItemNr, children: { length: childrenLength } } = this.props;
-        const { offsetHeight } = this.itemRef.current;
+        const { offsetWidth } = this.itemRef.current;
 
-        // When selected item isnt reached wanted position
-        if (nextId < (showedActiveItemNr - 1) || childrenLength <= showedItemCount) {
-            return 0;
-        }
-
-        const isEndReached = (showedItemCount - showedActiveItemNr) + nextId + 1 > childrenLength;
-
-        const position = isEndReached
-            ? childrenLength - showedItemCount
-            : nextId - (showedActiveItemNr - 1);
-
-        return `${ -position * offsetHeight }px`;
+        return `${ -nextId * (offsetWidth + CAROUSEL_ITEM_GAP) }px`;
     }
 
     setTranslate(nextId) {
@@ -96,28 +86,43 @@ export class CarouselScroll extends PureComponent {
         }
 
         const translate = this.getNextTranslate(nextId);
-        CSS.setVariable(this.carouselRef, 'translateY', translate);
+        CSS.setVariable(this.carouselRef, 'translateX', translate);
+    }
+
+    getMaxFirstItemId = () => {
+        const { children: { length: childrenLength }, showedItemCount } = this.props;
+
+        return childrenLength - showedItemCount;
+    };
+
+    getNewCarouselItemId(isNextArrow) {
+        const { showedItemCount } = this.props;
+        const { firstCarouselItemId: prevFirstCarouselItemId } = this.state;
+
+        const scrollStep = Math.ceil(showedItemCount / 2);
+
+        return isNextArrow
+            ? Math.min(prevFirstCarouselItemId + scrollStep, this.getMaxFirstItemId())
+            : Math.max(prevFirstCarouselItemId - scrollStep, 0);
     }
 
     handleArrowClick = (isNextArrow) => {
-        const { children } = this.props;
-        const { activeItemId: prevActiveItemId } = this.state;
-
-        const activeItemId = prevActiveItemId + (isNextArrow ? 1 : -1);
-
-        if (children.length - 1 < activeItemId || activeItemId < 0) {
-            return;
-        }
-
-        this.handleChange(activeItemId);
+        const firstCarouselItemId = this.getNewCarouselItemId(isNextArrow);
+        this.setTranslate(firstCarouselItemId);
+        this.setState({ firstCarouselItemId });
     };
 
     handleChange = (nextId) => {
-        const { onChange } = this.props;
-
-        this.setTranslate(nextId);
-        this.setState({ activeItemId: nextId });
+        const { onChange, showedItemCount } = this.props;
+        const { firstCarouselItemId } = this.state;
         onChange(nextId);
+        this.setState({ activeItemId: nextId });
+
+        if (nextId < firstCarouselItemId || nextId >= firstCarouselItemId + showedItemCount) {
+            const newId = Math.min(this.getMaxFirstItemId(), nextId);
+            this.setTranslate(newId);
+            this.setState({ firstCarouselItemId: newId });
+        }
     };
 
     handleReset() {
@@ -125,7 +130,7 @@ export class CarouselScroll extends PureComponent {
 
         const activeItemId = 0;
 
-        CSS.setVariable(this.carouselRef, 'translateY', 0);
+        CSS.setVariable(this.carouselRef, 'translateX', 0);
 
         onChange(activeItemId);
         this.setState({ activeItemId });
@@ -133,21 +138,21 @@ export class CarouselScroll extends PureComponent {
 
     renderArrow(isNextArrow = false) {
         const { showArrow, children: { length: childrenLength }, showedItemCount } = this.props;
-        const { activeItemId } = this.state;
+        const { firstCarouselItemId } = this.state;
 
         if (!showArrow || childrenLength <= showedItemCount) {
             return null;
         }
 
-        const isDisabled = isNextArrow
-            ? activeItemId === childrenLength - 1
-            : !activeItemId;
+        // render hidden arrow to avoid carousel jumping on error hide/appear
+        const isInvisible = (!isNextArrow && firstCarouselItemId === 0)
+            || (isNextArrow && firstCarouselItemId >= this.getMaxFirstItemId());
 
         return (
             <CarouselScrollArrow
               isNextArrow={ isNextArrow }
-              isDisabled={ isDisabled }
               onClick={ this.handleArrowClick }
+              isInvisible={ isInvisible }
             />
         );
     }

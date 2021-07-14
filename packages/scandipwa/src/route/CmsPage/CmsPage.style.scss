@@ -11,66 +11,56 @@
 
 .CmsPage {
     &_isBreadcrumbsHidden {
-        margin-top: calc(var(--header-total-height) + 1.2rem);
+        margin-block-start: calc(var(--header-total-height) + 12px);
 
         @include mobile {
-            margin-top: calc(var(--header-total-height) + 1.4rem);
+            margin-block-start: calc(var(--header-total-height) + 14px);
         }
     }
 
     &-Content {
-        ul,
-        ol {
-            margin-top: 1rem;
+
+        .cms-content {
+            @include default-list;
+        }
+
+        h2 {
+            @include mobile {
+                text-align: center;
+            }
         }
     }
 
     &-Wrapper {
         grid-template-columns: auto;
         max-width: var(--content-wrapper-width);
-
-        padding: {
-            left: 1.2rem;
-            right: 1.2rem;
-        };
-
-        margin: {
-            top: calc(var(--header-total-height) + 1.2rem);
-            bottom: var(--header-nav-height);
-            left: auto;
-            right: auto;
-        };
+        padding-inline: 32px;
+        margin-block-start: calc(var(--header-total-height) + 12px);
+        margin-block-end: var(--header-nav-height);
+        margin-inline: auto;
 
         @include mobile {
-            padding: {
-                left: 1.4rem;
-                right: 1.4rem;
-            }
-            margin: {
-                top: calc(var(--header-total-height) + 1.4rem);
-            }
+            padding-inline: 14px;
+            margin-block-start: calc(var(--header-total-height) + 14px);
         }
 
-        @include after-mobile {
-            margin-top: 2.4rem;
+        @include desktop {
+            margin-block-start: 24px;
         }
 
         &_page_width {
             &_full {
                 max-width: 100%;
-                padding: {
-                    left: 0;
-                    right: 0;
-                };
+                padding-inline: 0;
             }
         }
     }
 
     &-Heading {
-        margin-bottom: 1.8rem;
+        margin-block-end: 18px;
 
         @include mobile {
-            margin-bottom: 2.1rem;
+            margin-block-end: 21px;
             display: none;
         }
     }
@@ -79,35 +69,48 @@
         background-image: var(--placeholder-image);
         background-size: var(--placeholder-size);
         animation: var(--placeholder-animation);
-        margin: 0 0 10px;
-        padding-bottom: 30%;
+        margin: 0;
+        margin-block-end: 10px;
+        padding-block-end: 30%;
 
         @include mobile {
-            padding-bottom: 60%;
+            padding-block-end: 60%;
         }
 
         &:first-child {
-            padding-bottom: 40%;
+            padding-block-end: 40%;
 
             @include mobile {
-                padding-bottom: 100%;
+                padding-block-end: 100%;
             }
         }
     }
 
     .TextPlaceholder {
-        margin-bottom: 2.16rem;
+        margin-block-end: 22px;
         display: block;
 
         @include mobile {
-            margin-bottom: 2.52rem;
+            margin-block-end: 25px;
         }
     }
 
-    h2,
+    .Slider-Crumbs {
+        position: unset;
+        margin-block: 16px 40px;
+
+        @include mobile {
+            margin-block: 20px 28px;
+        }
+    }
+
     h3 {
         @include mobile {
-            font-size: 1.4rem;
+            font-size: 14px;
         }
+    }
+
+    .widget {
+        overflow-x: scroll;
     }
 }

@@ -67,7 +67,8 @@ export class FieldContainer extends PureComponent {
         ]),
         formRefMap: PropTypes.object,
         validateSeparately: PropTypes.bool,
-        isSubmitted: PropTypes.bool
+        isSubmitted: PropTypes.bool,
+        disabled: PropTypes.bool
     };
 
     static defaultProps = {
@@ -88,7 +89,8 @@ export class FieldContainer extends PureComponent {
         id: '',
         formRefMap: {},
         validateSeparately: false,
-        isSubmitted: false
+        isSubmitted: false,
+        disabled: false
     };
 
     containerFunctions = {
@@ -174,7 +176,8 @@ export class FieldContainer extends PureComponent {
     containerProps = () => {
         const {
             checked: propsChecked,
-            customValidationStatus
+            customValidationStatus,
+            disabled
         } = this.props;
 
         const {
@@ -191,7 +194,8 @@ export class FieldContainer extends PureComponent {
             value,
             validationStatus: customValidationStatus ?? validationStatus,
             message: validationMessage,
-            filename
+            filename,
+            disabled
         };
     };
 
@@ -221,6 +225,7 @@ export class FieldContainer extends PureComponent {
 
             const validationRules = validationConfig[rule];
             const isValid = validationRules.validate(inputNode, formRefMap);
+
             return !isValid;
         });
 

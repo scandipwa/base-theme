@@ -84,12 +84,16 @@ export class ProductTabs extends PureComponent {
     renderTabs() {
         const { tabs } = this.props;
 
+        if (isMobile.any()) {
+            return this.renderAllTabs();
+        }
+
         return (
             <>
                 <ul block="ProductTabs">
                     { tabs.map(this.renderTab) }
                 </ul>
-                { isMobile.any() ? this.renderAllTabs() : this.renderActiveTab() }
+                { this.renderActiveTab() }
             </>
         );
     }

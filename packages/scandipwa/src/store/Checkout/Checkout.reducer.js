@@ -34,6 +34,7 @@ export const CheckoutReducer = (state = getInitialState(), action) => {
 
     case UPDATE_EMAIL:
         const { email } = action;
+
         return {
             ...state,
             email
@@ -41,6 +42,7 @@ export const CheckoutReducer = (state = getInitialState(), action) => {
 
     case UPDATE_EMAIL_AVAILABLE:
         const { isEmailAvailable } = action;
+
         return {
             ...state,
             isEmailAvailable

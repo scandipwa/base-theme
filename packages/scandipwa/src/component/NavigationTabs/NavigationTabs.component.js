@@ -36,19 +36,19 @@ export class NavigationTabs extends NavigationAbstract {
         [MENU_TAB]: {
             menu: true
         },
-        [ACCOUNT_TAB]: {
-            account: true
-        },
         [CART_TAB]: {
             minicart: true
+        },
+        [ACCOUNT_TAB]: {
+            account: true
         }
     };
 
     renderMap = {
         home: this.renderHomeButton.bind(this),
         menu: this.renderMenuButton.bind(this),
-        minicart: this.renderMinicartButton.bind(this),
-        account: this.renderAccountButton.bind(this)
+        account: this.renderAccountButton.bind(this),
+        minicart: this.renderMinicartButton.bind(this)
     };
 
     renderHomeButton(isActive = false) {
@@ -143,12 +143,19 @@ export class NavigationTabs extends NavigationAbstract {
               onClick={ onMinicartButtonClick }
               aria-label="Minicart"
             >
-                <div
-                  block="Header"
-                  elem="Button"
-                  mix={ { block: 'NavigationTabs', elem: 'Icon', mods: { isActive } } }
-                  mods={ { isVisible: true, type: 'minicart' } }
-                >
+                <div block="Header" elem="MinicartWrapper">
+                    <div
+                      block="Header"
+                      elem="Button"
+                      mix={ { block: 'NavigationTabs', elem: 'Icon', mods: { isActive } } }
+                      mods={ { isVisible: true, type: 'minicart' } }
+                    >
+                        <span
+                          aria-label="Minicart"
+                          block="Header"
+                          elem="MinicartIcon"
+                        />
+                    </div>
                     { this.renderMinicartItemsQty() }
                 </div>
             </button>

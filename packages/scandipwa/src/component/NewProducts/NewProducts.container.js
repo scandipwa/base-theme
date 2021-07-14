@@ -125,6 +125,7 @@ export class NewProductsContainer extends PureComponent {
         const requestDate = new Date(requestTime);
 
         const timeOffset = 10;
+
         return requestDate.toISOString().slice(0, timeOffset);
     }
 

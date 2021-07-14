@@ -98,6 +98,7 @@ export class ProductDownloadableLinksContainer extends PureComponent {
         return selectedLinks.reduce(
             (base, { link_id }) => {
                 const link = links.find(({ id }) => id === link_id);
+
                 return base + link.price;
             },
             0

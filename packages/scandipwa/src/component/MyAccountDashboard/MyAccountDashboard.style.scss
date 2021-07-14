@@ -12,15 +12,15 @@
 .MyAccountDashboard {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: 2.4rem;
+    grid-gap: 24px;
 
     @include mobile {
-        grid-gap: 2.8rem;
+        grid-gap: 28px;
     }
 
     @include desktop {
         grid-template-columns: 1fr 1fr;
-        grid-gap: 4.8rem;
+        grid-gap: 48px;
     }
 
     &-DefaultAddress {
@@ -36,18 +36,18 @@
     }
 
     &-Info {
-        margin-bottom: 5px;
+        margin-block-end: 5px;
     }
 
     button + button {
-        margin-top: 1.2rem;
+        margin-block-start: 12px;
 
         @include mobile {
-            margin-top: 1.4rem;
+            margin-block-start: 14px;
         }
 
-        @include after-mobile {
-            margin-left: 1.2rem;
+        @include desktop {
+            margin-inline-start: 12px;
         }
     }
 }

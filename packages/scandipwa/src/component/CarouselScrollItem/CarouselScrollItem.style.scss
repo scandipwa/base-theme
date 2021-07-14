@@ -1,13 +1,19 @@
 .CarouselScrollItem {
     display: flex;
-    height: var(--carousel-item-height);
-    width: 100%;
     scroll-snap-align: start;
-    border: solid 1px transparent;
+    border: solid 1px var(--option-border-color);
     transition: border-color var(--animation-speed), filter var(--animation-speed);
     filter: opacity(.5);
     flex: 1;
     cursor: pointer;
+    width: 57px;
+    height: 38px;
+    border-color: var(--option-border-color);
+    border-radius: 2px;
+
+    & + .CarouselScrollItem {
+        margin-inline-start: var(--carousel-scroll-gap);
+    }
 
     &_isActive {
         filter: opacity(1);

@@ -15,16 +15,20 @@
 }
 
 .SwipeToDelete {
-    --right-side-content-width: 0;
+    --end-side-content-width: 0;
 
     transform: translateX(var(--translateX));
     transition: transform var(--animation-speed) ease-out;
 
+    [dir="rtl"] & {
+        transform: translateX(calc(-1 * var(--translateX)));
+    }
+
     &-RightSideContentWrapper {
         background-color: var(--swipe-to-delete-bg-color);
         position: absolute;
-        top: 0;
-        right: 0;
+        inset-block-start: 0;
+        inset-inline-end: 0;
         height: 100%;
         width: calc(-1 * var(--translateX));
         transition: width var(--animation-speed) ease-out;
@@ -33,15 +37,15 @@
 
     &-RightSideContent {
         height: 100%;
-        margin-left: calc(100% - var(--right-side-content-width));
+        margin-inline-start: calc(100% - var(--end-side-content-width));
         display: flex;
         justify-content: center;
         align-items: center;
-        width: var(--right-side-content-width);
-        transition: margin-left var(--right-side-content-animation-speed) ease-out;
+        width: var(--end-side-content-width);
+        transition: margin-inline-start var(--right-side-content-animation-speed) ease-out;
 
         &_isAheadRemoveItemThreshold {
-            margin-left: 0;
+            margin-inline-start: 0;
         }
     }
 }

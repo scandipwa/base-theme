@@ -77,6 +77,7 @@ export class NewProducts extends Component {
 
     render() {
         const { products } = this.props;
+
         return (
             <section block="NewProducts" ref={ this.newProductsRef }>
                 <h2>{ __('New Products') }</h2>

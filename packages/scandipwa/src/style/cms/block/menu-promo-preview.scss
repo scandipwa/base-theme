@@ -13,37 +13,39 @@
     &-Promotion {
         @include desktop {
             display: flex;
-            padding: 0 1.2rem 40px;
+            padding-block-start: 0;
+            padding-block-end: 40px;
+            padding-inline: 12px;
         }
     }
 
     &-PageLink {
-        margin: 1.8rem 0;
+        margin: 18px 0;
         text-align: center;
 
         @include mobile {
-            margin: 2.1rem 0;
+            margin: 21px 0;
         }
 
         @include desktop {
-            font-size: 1.3rem;
-            margin: 0 3.6rem 0 0;
+            font-size: 13px;
+            margin-inline: 0 36px;
         }
     }
 
     &-Social {
         display: flex;
         justify-content: center;
-        margin-top: 3rem;
+        margin-block-start: 30px;
 
         @include mobile {
-            margin-top: 3.5rem;
+            margin-block-start: 35px;
         }
 
         @include desktop {
             align-items: center;
-            margin-left: 7.2rem;
-            margin-top: 0;
+            margin-inline-start: 72px;
+            margin-block-start: 0;
         }
 
         h3 {
@@ -61,10 +63,10 @@
             display: grid;
             grid-auto-flow: column;
             justify-items: center;
-            width: 16.8rem;
+            width: 168px;
 
             @include mobile {
-                width: 19.6rem;
+                width: 196px;
             }
 
             @include desktop {
@@ -74,14 +76,14 @@
         }
 
         li {
-            width: 2.28rem;
+            width: 23px;
 
             @include mobile {
-                width: 2.66rem;
+                width: 27px;
             }
 
             @include desktop {
-                margin-bottom: 0;
+                margin-block-end: 0;
                 width: 16px;
             }
         }

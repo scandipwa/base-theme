@@ -43,7 +43,8 @@ export class SearchBarDispatcher extends QueryDispatcher {
 
         return ProductListQuery.getQuery({
             ...options,
-            notRequireInfo: true
+            notRequireInfo: true,
+            noVariants: true
         });
     }
 }

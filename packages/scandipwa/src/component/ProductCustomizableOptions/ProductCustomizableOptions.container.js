@@ -120,6 +120,7 @@ export class ProductCustomizableOptionsContainer extends PureComponent {
 
         if (!option_value) {
             const filteredOptions = textFieldValues.filter((item) => item.option_id !== option_id);
+
             return this.setState({ textFieldValues: filteredOptions });
         }
 
@@ -127,6 +128,7 @@ export class ProductCustomizableOptionsContainer extends PureComponent {
 
         if (textFieldValues.some(({ option_id: val }) => option_id === val)) {
             const filteredItems = textFieldValues.filter((value) => value.option_id !== option_id);
+
             return this.setState({ textFieldValues: filteredItems.concat(textFieldValue) });
         }
 
@@ -145,6 +147,7 @@ export class ProductCustomizableOptionsContainer extends PureComponent {
 
         if (!value) {
             const filteredOptions = selectedDropdownOptions.filter((item) => item.option_id !== option_id);
+
             return this.setState({ selectedDropdownOptions: filteredOptions });
         }
 
@@ -152,6 +155,7 @@ export class ProductCustomizableOptionsContainer extends PureComponent {
 
         if (selectedDropdownOptions.some(({ option_id: val }) => option_id === val)) {
             const filteredItems = selectedDropdownOptions.filter((value) => value.option_id !== option_id);
+
             return this.setState({ selectedDropdownOptions: filteredItems.concat(optionData) });
         }
 

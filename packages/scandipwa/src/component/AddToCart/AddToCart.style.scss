@@ -10,11 +10,20 @@
  */
 
 .AddToCart {
-    min-width: 14.4rem;
+    width: 100%;
+    padding: 0;
     vertical-align: middle;
 
+    &:hover, :focus {
+        --button-hover-padding: 0;
+    }
+
     @include mobile {
-        min-width: 16.8rem;
+        min-width: 168px;
+    }
+
+    &_layout_list {
+        width: 222px;
     }
 
     span {
@@ -27,16 +36,13 @@
         transition-duration: .25s;
 
         &:last-child {
-            width: 100%;
-            left: 0;
-            opacity: 0;
-            position: absolute;
+            inset-inline-start: 0;
             transform: translateY(0);
         }
     }
 
     &_isPlaceholder {
-        height: 4.8rem;
+        height: 48px;
         display: inline-block;
         padding: var(--button-padding);
         background-image: var(--placeholder-image);
@@ -45,7 +51,7 @@
         will-change: background-position;
 
         @include mobile {
-            height: 5.6rem;
+            height: 56px;
         }
     }
 
@@ -53,12 +59,10 @@
         span {
             &:first-child {
                 opacity: 0;
-                transform: translateY(-50%);
             }
 
             &:last-child {
                 opacity: 1;
-                transform: translateY(-100%);
             }
         }
 
@@ -70,5 +74,12 @@
                 }
             }
         }
+    }
+
+    &-Icon {
+        margin-inline-end: 16px;
+        padding-block-end: 20px;
+        width: 20px;
+        filter: brightness(0) invert(1);
     }
 }

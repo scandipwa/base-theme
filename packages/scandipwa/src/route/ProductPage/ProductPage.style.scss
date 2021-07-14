@@ -10,29 +10,30 @@
  */
 
 .ProductPage {
-    @include after-mobile {
-        padding-top: 1.2rem;
+    @include desktop {
+        padding-block-start: 12px;
     }
 
     @include tablet {
-        padding-top: 0;
-        margin-top: 0;
+        padding-block-start: 0;
+        margin-block-start: 0;
     }
 
     @include mobile {
-        padding-bottom: 75px;
+        padding-block-end: 133px;
+        margin-inline: 16px;
     }
 
     &-Wrapper {
         display: grid;
-        grid-template-columns: 6fr 4fr;
-        grid-column-gap: 2.4rem;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 24px;
         grid-template-rows: min-content min-content;
-        padding-top: 2.4rem;
+        padding-block-start: 24px;
 
-        @include after-mobile {
-            grid-column-gap: 4.8rem;
-            padding-bottom: 7.2rem;
+        @include desktop {
+            grid-column-gap: 48px;
+            padding-block-end: 72px;
         }
 
         @include mobile {
@@ -47,11 +48,5 @@
                 display: block;
             }
         }
-    }
-
-    &-ProductCompareButtonWrapper {
-        position: absolute;
-        top: 0;
-        right: 1.4rem;
     }
 }

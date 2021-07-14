@@ -53,9 +53,11 @@ export class CartDispatcher {
 
             setGuestQuoteId(quoteId);
             this._updateCartData({}, dispatch);
+
             return quoteId;
         } catch (error) {
             dispatch(showNotification('error', getErrorMessage(error)));
+
             return null;
         }
     }
@@ -73,6 +75,7 @@ export class CartDispatcher {
             return id;
         } catch (error) {
             dispatch(showNotification('error', getErrorMessage(error)));
+
             return null;
         }
     }
@@ -102,6 +105,7 @@ export class CartDispatcher {
             return this._updateCartData(cartData, dispatch);
         } catch (error) {
             dispatch(showNotification('error', getErrorMessage(error)));
+
             return Promise.reject();
         }
     }
@@ -158,6 +162,7 @@ export class CartDispatcher {
                 return this._updateCartData(cartData, dispatch);
             } catch (error) {
                 dispatch(showNotification('error', getErrorMessage(error)));
+
                 return Promise.reject();
             }
         }
@@ -179,9 +184,11 @@ export class CartDispatcher {
             );
 
             this._updateCartData(cartData, dispatch);
+
             return cartData;
         } catch (error) {
             dispatch(showNotification('error', getErrorMessage(error)));
+
             return null;
         }
     }
@@ -272,6 +279,7 @@ export class CartDispatcher {
      */
     _getProductAttribute(attribute, product) {
         const { variants, configurableVariantIndex, [attribute]: attributeValue } = product;
+
         return configurableVariantIndex >= 0
             ? variants[configurableVariantIndex][attribute]
             : attributeValue;

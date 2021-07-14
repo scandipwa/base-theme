@@ -32,6 +32,7 @@ export class CheckoutDispatcher extends QueryDispatcher {
 
     onError(error, dispatch) {
         dispatch(updateEmailAvailable(true));
+
         return error;
     }
 

@@ -10,60 +10,52 @@
  */
 
 :root {
-    --checkout-address-table-border: var(--secondary-base-color);
+    --checkout-address-table-border: transparent;
     --checkout-address-table-hover-border: var(--secondary-base-color);
     --checkout-address-table-check-mark-hover-color: var(--secondary-dark-color);
     --checkout-address-selected-color: var(--primary-base-color);
-    --checkout-address-table-check-mark-selected-color: var(--checkout-address-table-border);
+    --checkout-address-table-check-mark-selected-color: var(--secondary-base-color);
 }
 
 .CheckoutAddressTable {
     width: 100%;
 
-    &:first-child &-Button {
-        margin-top: 0;
-    }
-
     &-Button {
         --check-mark-opacity: 0;
 
         border: 2px solid var(--checkout-address-table-border);
-        margin: 1.2rem 1.2rem 0 0;
+        border-radius: 2px;
         transition-property: border-color, background, border-color;
         transition-duration: 150ms;
         transition-timing-function: ease-in;
         width: 100%;
 
+        .KeyValueTable-Heading {
+            span {
+                @include radiobutton;
+
+                float: inline-end;
+                display: inline-block;
+                inset-block-start: 3px;
+            }
+        }
+
+        &:not(&_isSelected):hover,
+        &_isSelected {
+            .KeyValueTable-Heading {
+                span {
+                    @include radiobutton-full;
+                }
+            }
+        }
+
         @include mobile {
-            margin: 1.4rem 1.4rem 0 0;
+            margin-block: 14px 0;
+            margin-inline: 0 14px;
         }
 
-        &::before,
-        &::after {
-            content: '';
-            opacity: var(--check-mark-opacity);
-            position: absolute;
-            z-index: 1;
-            transition: opacity 150ms ease-in;
-        }
-
-        &::before {
-            top: 6px;
-            right: 6px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--checkout-address-table-border);
-        }
-
-        &::after {
-            top: 12px;
-            right: 11px;
-            width: 12px;
-            height: 6px;
-            transform: rotate(135deg);
-            border-right: 2px solid var(--check-mark-color);
-            border-top: 2px solid var(--check-mark-color);
+        @include desktop {
+            margin-block-end: 20px;
         }
 
         &:not(&_isSelected):hover {

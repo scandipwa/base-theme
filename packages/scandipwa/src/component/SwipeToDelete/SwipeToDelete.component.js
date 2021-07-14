@@ -16,6 +16,7 @@ import Draggable from 'Component/Draggable';
 import Loader from 'Component/Loader';
 import { ChildrenType } from 'Type/Common';
 import CSS from 'Util/CSS';
+import { isRtl } from 'Util/CSS/CSS';
 
 import {
     ANIMATION_DURATION,
@@ -118,10 +119,12 @@ export class SwipeToDelete extends PureComponent {
         this.setAnimationSpeedStyle(0);
     };
 
-    handleDrag = ({ translateX }) => {
+    handleDrag = ({ translateX: translate }) => {
         const { dragRightOpenThreshold } = this.props;
         const { isRightSideOpen, isAheadRemoveItemThreshold } = this.state;
         const { draggableRemoveThreshold } = this;
+
+        const translateX = isRtl() ? -translate : translate;
         const nextIsAheadRemoveItemThreshold = Math.abs(translateX) > draggableRemoveThreshold;
 
         if (isAheadRemoveItemThreshold !== nextIsAheadRemoveItemThreshold) {
@@ -159,7 +162,7 @@ export class SwipeToDelete extends PureComponent {
         }
     };
 
-    handleDragEnd = ({ translateX }) => {
+    handleDragEnd = ({ translateX: translate }) => {
         const {
             dragRightOpenThreshold,
             dragRightOpenTriggerThreshold,
@@ -168,20 +171,23 @@ export class SwipeToDelete extends PureComponent {
         } = this.props;
         const { isAheadRemoveItemThreshold } = this.state;
         const { draggableWidth } = this;
-        const shouldOpen = translateX > -dragRightOpenTriggerThreshold;
+
+        const translateX = isRtl() ? -translate : translate;
+        const shouldOpen = translateX <= -dragRightOpenTriggerThreshold;
 
         if (isAheadRemoveItemThreshold) {
             // swipe to the end
             this.setAnimationSpeedStyle(animationDurationOnRemove);
             this.setTranslateXStyle(-draggableWidth);
             onAheadOfDragItemRemoveThreshold();
+
             return;
         }
 
         this.setAnimationSpeedStyle();
-        this.setState({ isRightSideOpen: !shouldOpen });
+        this.setState({ isRightSideOpen: shouldOpen });
 
-        if (shouldOpen) {
+        if (!shouldOpen) {
             this.setTranslateXStyle(0);
 
             return;

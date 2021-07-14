@@ -15,6 +15,8 @@ import Field from 'Component/Field';
 import Form from 'Component/Form';
 import { signInStateType } from 'Type/Account';
 
+import './MyAccountSignIn.style.scss';
+
 /** @namespace Component/MyAccountSignIn/Component */
 export class MyAccountSignIn extends PureComponent {
     static propTypes = {
@@ -56,6 +58,7 @@ export class MyAccountSignIn extends PureComponent {
                   label={ __('Email') }
                   id="email"
                   name="email"
+                  placeholder={ __('Your email address') }
                   value={ emailValue }
                   autocomplete={ isCheckout ? 'off' : 'email' }
                   validation={ ['notEmpty', 'email'] }
@@ -66,19 +69,21 @@ export class MyAccountSignIn extends PureComponent {
                   label={ __('Password') }
                   id="password"
                   name="password"
+                  placeholder={ __('Enter your password') }
                   autocomplete="current-password"
                   validation={ ['notEmpty', 'password'] }
                 />
-                <div block="MyAccountOverlay" elem="Buttons">
-                    <button block="Button">{ __('Sign in') }</button>
-                </div>
                 <button
                   block="Button"
                   mods={ { likeLink: true } }
+                  mix={ { block: 'MyAccountOverlay', elem: 'ForgotPassword' } }
                   onClick={ handleForgotPassword }
                 >
                     { __('Forgot password?') }
                 </button>
+                <div block="MyAccountOverlay" elem="SignInButton">
+                    <button block="Button">{ __('Sign in') }</button>
+                </div>
             </Form>
         );
     }
@@ -97,10 +102,10 @@ export class MyAccountSignIn extends PureComponent {
         return (
             <article block="MyAccountOverlay" elem="Additional" mods={ { state } }>
                 <section>
-                    <h4 id="forgot-password-label">{ __('Don`t have an account?') }</h4>
+                    <h4 id="forgot-password-label">{ __("Don't have an account?") }</h4>
                     <button
                       block="Button"
-                      mods={ { isHollow: true } }
+                      mods={ { likeLink: true } }
                       onClick={ handleCreateAccount }
                     >
                         { __('Create an account') }

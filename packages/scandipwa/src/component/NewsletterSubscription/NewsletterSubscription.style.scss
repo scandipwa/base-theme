@@ -17,16 +17,9 @@
 
 .NewsletterSubscription {
     min-width: 230px;
-    padding: 0 1rem;
-
-    @include desktop {
-        padding: 0;
-    }
 
     .FieldForm {
         &-Fieldset {
-            display: flex;
-            flex-wrap: nowrap;
 
             &_isLoading {
                 opacity: .7;
@@ -35,7 +28,7 @@
 
             .Field {
                 width: 100%;
-                margin-top: 0;
+                margin-block-start: 0;
 
                 &-Message {
                     position: absolute;
@@ -49,38 +42,22 @@
                         color: var(--newsletter-subscription-placeholder-color);
                     }
                 }
-
-                &_hasError {
-                    input {
-                        border: 1px solid var(--primary-error-color);
-                        border-right: 0;
-                    }
-                }
             }
         }
 
         &-Fields {
-            margin-bottom: 0;
-        }
-
-        &-Button {
-            width: 44px;
-            background-color: var(--newsletter-subscription-button-background);
-            border-color: var(--newsletter-subscription-button-background);
-
-            &:focus,
-            &:hover {
-                border-color: var(--newsletter-subscription-button-background);
-                background-color: var(--newsletter-subscription-button-background);
-            }
-
-            @include email-icon;
+            margin-block-end: 0;
         }
     }
 
     .Form {
         &_isInvalid {
-            margin-bottom: 1.8rem;
+            margin-block-end: 18px;
         }
+    }
+
+    .Button {
+        margin-block-start: 32px;
+        width: 100%;
     }
 }

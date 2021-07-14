@@ -9,11 +9,6 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-:root {
-    --slider-crumb-color: #fff;
-    --slider-crumb-background: #000;
-}
-
 .Slider {
     --translateX: 0;
     --translateY: 0;
@@ -50,33 +45,79 @@
         }
     }
 
+    &-Image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     &-Crumbs {
+        height: auto;
+        min-height: 16px;
         position: absolute;
         margin: auto;
         display: grid;
-        grid-gap: 10px;
-
+        grid-gap: 4px;
         width: 100%;
-        grid-template-columns: repeat(auto-fit, 7px);
+        grid-template-columns: repeat(auto-fit, 16px);
         justify-content: center;
-        bottom: 1.2rem;
+        inset-block-end: 12px;
 
-        @include mobile {
-            bottom: 1.4rem;
+        @include desktop {
+            grid-gap: 16px;
         }
     }
 
     &-Crumb {
-        width: 7px;
-        height: 7px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
-        background-color: var(--slider-crumb-background);
-        border: 1px solid var(--slider-crumb-color);
-        transition: background-color 300ms;
+        background-color: var(--primary-base-color);
+        will-change: width, height;
+        transition: width 300ms, height 300ms;
 
         &_isActive {
-            background-color: var(--slider-crumb-color);
-            border-color: var(--slider-crumb-background);
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &-Arrow {
+        @include chevron-icon;
+
+        cursor: pointer;
+        position: absolute;
+        inset-block-start: 50%;
+        width: 35px;
+        height: 35px;
+
+        &_isPrev {
+            inset-inline-start: -45px;
+
+            &:dir(ltr) {
+                transform: translateY(-50%) scale(-1);
+            }
+
+            &:dir(rtl) {
+                transform: translateY(-50%);
+            }
+        }
+
+        &_isNext {
+            inset-inline-end: -45px;
+
+            &:dir(ltr) {
+                transform: translateY(-50%);
+            }
+
+            &:dir(rtl) {
+                transform: translateY(-50%) scale(-1);
+            }
+        }
+
+        &_isDisabled {
+            pointer-events: none;
+            opacity: .5;
         }
     }
 }

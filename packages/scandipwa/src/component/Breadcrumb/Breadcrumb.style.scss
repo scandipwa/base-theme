@@ -10,33 +10,30 @@
  */
 
 .Breadcrumb {
-    $crumb-padding: 20px;
-    $arrow-size: 4px;
+    $crumb-padding: 12px;
 
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 12px;
     line-height: 20px;
-    padding: 0 $crumb-padding 0 0;
+    padding-inline-end: $crumb-padding;
 
     @include mobile {
-        font-size: 1.4rem;
+        font-size: 14px;
     }
 
     &:not(:last-child) {
         margin: 0;
 
-        &::after {
-            content: '';
-            position: relative;
+        .Breadcrumb-Arrow {
+            @include chevron-icon;
+            @include rtl-icon;
+
+            filter: invert(57%) sepia(0%) saturate(1%) hue-rotate(105deg) brightness(93%) contrast(90%);
             display: inline-block;
-            height: $arrow-size;
-            width: $arrow-size;
-            transform: rotate(-135deg);
-            margin-left: $crumb-padding - 4;
-            border-color: currentColor;
-            border-style: solid;
-            border-width: 0 0 1px 1px;
-            top: -1px;
+            margin-inline-start: $crumb-padding;
+            width: 12px;
+            height: 12px;
+            inset-block-end: -2px;
         }
     }
 
@@ -55,5 +52,7 @@
         text-transform: capitalize;
         color: var(--breadcrumbs-color);
         display: inline-block;
+        font-weight: 400;
+        font-size: 12px;
     }
 }

@@ -60,6 +60,7 @@ export class CategoryPriceRangeContainer extends PureComponent {
         const { minPriceValue, maxPriceValue } = this.props;
         const { defaultPriceRange: { min: defaultMin, max: defaultMax } } = this.config;
         const { min, max } = this._getPriceRangeFromUrl();
+
         return { min: min || minPriceValue || defaultMin, max: max || maxPriceValue || defaultMax };
     }
 
@@ -67,6 +68,7 @@ export class CategoryPriceRangeContainer extends PureComponent {
         const { location } = this.props;
         const min = +getQueryParam('priceMin', location);
         const max = +getQueryParam('priceMax', location);
+
         return { min, max };
     }
 

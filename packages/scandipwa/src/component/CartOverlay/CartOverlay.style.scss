@@ -13,82 +13,73 @@
     --cart-overlay-totals-background: var(--secondary-base-color);
     --cart-overlay-divider-background: #d8d8d8;
     --cart-overlay-promo-background: #fff;
-    --cart-overlay-width: 400px;
 }
 
 .CartOverlay {
-    @include after-mobile {
-        position: absolute;
-        top: calc(var(--header-nav-height) - 7px);
-        right: 22px;
-        padding: 0;
-        width: var(--cart-overlay-width);
-    }
+    cursor: auto;
 
-    &_isVisible {
-        @include after-mobile {
-            border: 1px solid var(--overlay-desktop-border-color);
-        }
+    @include desktop {
+        position: absolute;
+        inset-block-start: calc(var(--header-nav-height) - 7px);
+        inset-inline-end: -10px;
+        padding: 0;
+        width: 453px;
     }
 
     &::before {
-        @include after-mobile {
+        @include desktop {
             content: '';
             position: absolute;
-            top: -9px;
-            right: 9px;
+            inset-block-start: -8px;
+            inset-inline-end: 9px;
             height: 15px;
             width: 15px;
             transform: rotate(45deg);
-            background-color: var(--overlay-desktop-border-color);
-            border: {
-                top: 1px solid var(--overlay-desktop-border-color);
-                left: 1px solid var(--overlay-desktop-border-color);
-            }
+            background-color: var(--primary-base-color);
+            border-block-start: 1px solid var(--primary-base-color);
+            border-inline-start:  1px solid var(--primary-base-color);
         }
     }
 
     &-Empty {
-        padding: 1.2rem;
-
-        @include mobile {
-            padding: 1.4rem;
-        }
+        padding: 16px;
+        text-align: center;
     }
 
     &-Actions {
         display: flex;
-        padding: 1.2rem;
+        padding: 16px;
 
         @include mobile {
-            padding: 1.4rem;
+            padding: 14px;
         }
     }
 
     &-OutOfStockProductsWarning {
-        padding: 1rem;
+        padding: 10px;
         display: flex;
         justify-content: center;
         background-color: var(--primary-error-color, red);
+        color: var(--color-white);
         font-size: 14px;
-        font-weight: bold;
+        font-weight: 600;
     }
 
     &-CheckoutButton {
-        margin-left: 1.2rem;
+        margin-inline-start: 12px;
 
         span {
             @include lock-button;
         }
 
         @include mobile {
-            margin-left: 1.4rem;
+            margin-inline-start: 16px;
             width: 100%;
             display: block;
             text-align: center;
         }
 
-        @include after-mobile {
+        @include desktop {
             flex-grow: 1;
             text-align: center;
         }
@@ -102,32 +93,33 @@
 
     &-Promo,
     &-Total {
-        min-height: 4.8rem;
+        font-weight: 600;
 
         @include mobile {
-            min-height: 5.6rem;
+            min-height: 56px;
         }
 
-        @include after-mobile {
-            min-height: 3.6rem;
+        @include desktop {
+            min-height: 36px;
         }
     }
 
     &-Promo {
-        padding: 1.2rem;
+        padding: 12px;
         text-align: center;
         background: var(--cart-overlay-promo-background);
-        margin-bottom: 0;
+        margin-block-end: 0;
 
         @include mobile {
-            padding: 1.4rem;
-            border-bottom: 1px solid var(--cart-overlay-divider-background);
-            border-top: 1px solid var(--expandable-content-color);
+            padding: 14px;
+            border-block-end: 1px solid var(--cart-overlay-divider-background);
+            border-block-start: 1px solid var(--expandable-content-color);
         }
 
-        @include after-mobile {
-            padding: .84rem;
-            background: var(--primary-light-color);
+        @include desktop {
+            padding: 10px;
+            color: var(--color-white);
+            background: var(--primary-base-color);
         }
 
         strong {
@@ -136,52 +128,49 @@
     }
 
     &-Items {
+        padding-inline: 16px;
         max-height: 40vh;
         overflow-y: scroll;
     }
 
+    &-Tax {
+        font-size: 14px;
+    }
+
     &-Total,
-    &-Discount,
     &-Tax,
-    &-Shipping {
+    &-Discount {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        padding: 1.2rem 1.2rem .6rem;
-        font-size: 1.8rem;
+        padding-block-start: 12px;
+        padding-block-end: 6px;
+        padding-inline: 12px;
+
         background: var(--cart-overlay-totals-background);
 
         @include mobile {
-            padding: 1.4rem 1.4rem .7rem;
-        }
-
-        @include after-mobile {
-            font-size: 1.6rem;
+            padding-block-start: 14px;
+            padding-block-end: 7px;
+            padding-inline: 14px;
         }
 
         dd {
-            text-align: right;
+            text-align: end;
 
             span {
                 display: block;
-                font-size: .6em;
-                font-weight: 300;
+                font-size: 12px;
+                font-weight: 400;
             }
         }
     }
 
     &-Total {
         font-weight: bold;
-
-        @include after-mobile {
-            border-bottom: 1px solid var(--cart-item-divider-color);
-        }
+        font-size: 18px;
     }
 
-    &-DiscountCoupon {
-        &::after {
-            content: ':';
-            font-weight: normal;
-        }
+    &-ContentWrapper {
+        border: 1px solid var(--primary-divider-color);
     }
 }

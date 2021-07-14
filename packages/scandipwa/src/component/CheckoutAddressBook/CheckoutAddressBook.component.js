@@ -19,6 +19,7 @@ import Loader from 'Component/Loader';
 import { BILLING_STEP, SHIPPING_STEP } from 'Route/Checkout/Checkout.config';
 import { MY_ACCOUNT_URL } from 'Route/MyAccount/MyAccount.config';
 import { ADDRESS_BOOK, customerType } from 'Type/Account';
+import { getDefaultAddressLabel } from 'Util/Address';
 import { isSignedIn } from 'Util/Auth';
 
 import './CheckoutAddressBook.style';
@@ -79,15 +80,17 @@ export class CheckoutAddressBook extends PureComponent {
         );
     }
 
-    renderAddress = (address) => {
+    renderAddress = (address, index) => {
         const { onAddressSelect, selectedAddressId } = this.props;
+        const addressNumber = index + 1;
         const { id } = address;
+        const postfix = getDefaultAddressLabel(address);
 
         return (
             <CheckoutAddressTable
               onClick={ onAddressSelect }
               isSelected={ selectedAddressId === id }
-              title={ __('Address #%s', id) }
+              title={ __('Address #%s%s', addressNumber, postfix) }
               address={ address }
               key={ id }
             />
@@ -108,11 +111,14 @@ export class CheckoutAddressBook extends PureComponent {
 
     renderHeading() {
         const { isBilling } = this.props;
-        const addressName = isBilling ? __('Select billing address') : __('Select shipping address');
+
+        if (isBilling) {
+            return null;
+        }
 
         return (
             <h2 block="Checkout" elem="Heading">
-                { addressName }
+                { __('Shipping address') }
             </h2>
         );
     }

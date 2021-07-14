@@ -39,6 +39,7 @@ export class DataContainer extends PureComponent {
 
         if (window.dataCache[queryHash]) {
             onSucces(window.dataCache[queryHash]);
+
             return;
         }
 

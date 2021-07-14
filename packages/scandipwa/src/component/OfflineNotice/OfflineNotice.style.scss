@@ -28,10 +28,10 @@
     flex-direction: row;
     position: fixed;
     z-index: 99;
-    top: calc(var(--header-height) + var(--demo-notice-height));
-    bottom: 0;
-    right: 0;
-    left: 0;
+    inset-block-start: calc(var(--header-height) + var(--demo-notice-height));
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    inset-inline-start: 0;
 
     &_isBig {
         --line-color: var(--primary-info-color);
@@ -40,49 +40,49 @@
 
         flex-direction: column;
         text-align: center;
-        padding: 1.2rem;
+        padding: 12px;
 
         @include mobile {
             --diameter: 10;
-            padding: 1.4rem;
+            padding: 14px;
         }
     }
 
     &-Text {
         &-Title {
-            font-size: 3.6rem;
+            font-size: 36px;
 
             @include mobile {
 
-                font-size: 2.8rem;
+                font-size: 28px;
             }
         }
 
         &-Description {
-            max-width: 36rem;
+            max-width: 360px;
             margin: 0 auto;
-            font-size: 1.8rem;
+            font-size: 18px;
 
             @include mobile {
 
-                max-width: 28rem;
+                max-width: 280px;
                 margin: 0 auto;
-                font-size: 1.4rem;
+                font-size: 14px;
             }
         }
     }
 
     &-Logo {
-        padding-left: calc(var(--diameter) * 1px);
-        padding-top: calc(var(--diameter) * 4px);
-        padding-right: 25px;
+        padding-inline-start: calc(var(--diameter) * 1px);
+        padding-block-start: calc(var(--diameter) * 4px);
+        padding-inline-end: 25px;
         width: calc(20px * var(--diameter));
         height: calc(10px * var(--diameter));
 
         &_isBig {
-            padding-left: calc(var(--diameter) * 1px);
-            padding-right: 0;
-            padding-top: 0;
+            padding-inline-start: calc(var(--diameter) * 1px);
+            padding-inline-end: 0;
+            padding-block-start: 0;
         }
 
         &-Cloud,
@@ -99,21 +99,21 @@
             &::before,
             &::after {
                 border-radius: 50% 50% 50% 50%;
-                box-shadow: calc(3px * var(--diameter)) calc(-3px * var(--diameter)) 0 0 var(--fill-color), calc(10px * var(--diameter)) 0 0 0 var(--fill-color), calc(7px * var(--diameter)) calc(-3px * var(--diameter)) 0 calc(-1px * var(--diameter)) var(--fill-color), calc(3px * var(--diameter)) 0 0 0 var(--fill-color), calc(5px * var(--diameter)) 0 0 0 var(--fill-color), calc(8px * var(--diameter)) 0 0 0 var(--fill-color);
+                box-shadow: calc(3px * var(--diameter)) calc(-3px * var(--diameter)) 0 0 var(--fill-color), calc(1px * var(--diameter)) 0 0 0 var(--fill-color), calc(7px * var(--diameter)) calc(-3px * var(--diameter)) 0 calc(-1px * var(--diameter)) var(--fill-color), calc(3px * var(--diameter)) 0 0 0 var(--fill-color), calc(5px * var(--diameter)) 0 0 0 var(--fill-color), calc(8px * var(--diameter)) 0 0 0 var(--fill-color);
             }
 
             &::before {
                 --fill-color: var(--line-color);
-                left: 0;
-                top: calc(-2px * var(--diameter));
+                inset-inline-start: 0;
+                inset-block-start: calc(-2px * var(--diameter));
                 width: calc(8px * var(--diameter));
                 height: calc(8px * var(--diameter));
             }
 
             &::after {
                 border-radius: 50% 50% 50% 50%;
-                left: calc(1px * var(--diameter));
-                top: calc(-1px * var(--diameter));
+                inset-inline-start: calc(1px * var(--diameter));
+                inset-block-start: calc(-1px * var(--diameter));
                 width: calc(6px * var(--diameter));
                 height: calc(6px * var(--diameter));
             }
@@ -124,20 +124,20 @@
             &::after {
                 -webkit-transform: rotate(45deg);
                 transform: rotate(45deg);
-                top: 0;
+                inset-block-start: 0;
             }
 
             &::before {
                 width: calc(22px * var(--diameter));
                 height: calc(3px * var(--diameter));
-                left: calc(-1px * var(--diameter));
+                inset-inline-start: calc(-1px * var(--diameter));
             }
 
             &::after {
                 --fill-color: var(--line-color);
                 width: calc(20px * var(--diameter));
                 height: calc(1px * var(--diameter));
-                left: calc(-1px * var(--diameter));
+                inset-inline-start: calc(-1px * var(--diameter));
             }
         }
     }

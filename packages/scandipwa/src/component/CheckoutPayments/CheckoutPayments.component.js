@@ -83,6 +83,7 @@ export class CheckoutPayments extends PureComponent {
 
     renderKlarnaPayment() {
         const { setOrderButtonEnableStatus } = this.props;
+
         return <Klarna setOrderButtonEnableStatus={ setOrderButtonEnableStatus } />;
     }
 
@@ -92,6 +93,7 @@ export class CheckoutPayments extends PureComponent {
 
     renderNotSupported() {
         const { setOrderButtonEnableStatus } = this.props;
+
         return <NotSupportedPayment disableButton={ setOrderButtonEnableStatus } />;
     }
 
@@ -116,6 +118,7 @@ export class CheckoutPayments extends PureComponent {
 
     renderPayments() {
         const { paymentMethods } = this.props;
+
         return paymentMethods.map(this.renderPayment);
     }
 
@@ -132,7 +135,7 @@ export class CheckoutPayments extends PureComponent {
     renderHeading() {
         return (
             <h2 block="Checkout" elem="Heading">
-                { __('Select payment method') }
+                { __('Payment method') }
             </h2>
         );
     }

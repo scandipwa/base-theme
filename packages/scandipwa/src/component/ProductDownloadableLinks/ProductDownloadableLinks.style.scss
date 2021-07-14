@@ -11,13 +11,14 @@
 
 .ProductDownloadableLinks {
     &-Title {
-        margin-bottom: .1rem;
+        margin-block-end: 1px;
+        font-weight: 700;
 
         &_isRequired {
             &::after{
                 content: '*';
                 color: var(--primary-base-color);
-                padding: 0 .5rem;
+                padding: 0 5px;
             }
         }
 
@@ -31,7 +32,7 @@
             padding: 0;
         }
 
-        @include after-mobile {
+        @include desktop {
             &Heading {
                 display: none;
             }
@@ -39,24 +40,30 @@
 
         &Content_isContentExpanded {
             @include mobile {
-                padding: 0 1.4rem 1.4rem;
+                padding-block: 0 14px;
             }
+        }
+
+        &Heading {
+            text-transform: uppercase;
         }
     }
 
-    @include after-mobile {
-        margin-bottom: 3rem;
+    @include desktop {
+        margin-block-end: 30px;
     }
 }
 
 .ProductDownloadableLink {
-    padding: 1.5rem 0 1rem;
-    border-bottom: 1px solid var(--expandable-content-divider-color);
+    padding-block-start: 15px;
+    padding-block-end: 10px;
+    padding-inline: 0;
+    border-block-end: 1px solid var(--expandable-content-divider-color);
 
     .Field {
         display: inline-block;
-        margin-right: 1rem;
-        margin-top: 0;
+        margin-inline-end: 10px;
+        margin-block-start: 0;
     }
 
     &-SampleTitle {
@@ -64,25 +71,30 @@
     }
 
     &-SampleLink {
-        float: right;
+        float: inline-end;
 
         @include mobile {
-            margin-right: 1.6rem;
+            margin-inline-end: 16px;
+        }
+
+        &:before {
+            content: ' '
         }
     }
 
     &-Required {
         color: var(--primary-error-color);
-        padding: 1rem 0 0 1.5rem;
+        padding-block-start: 10px;
+        padding-inline-start: 15px;
     }
 
     @include mobile {
         &:last-of-type {
-            border-bottom: none;
+            border-block-end: none;
         }
 
         &:first-of-type {
-            padding-top: 1rem;
+            padding-block-start: 10px;
         }
     }
 }

@@ -59,13 +59,14 @@ export class CartOverlay extends PureComponent {
 
     renderPriceLine(price) {
         const { currencyCode } = this.props;
+
         return formatPrice(price, currencyCode);
     }
 
     renderCartItems() {
-        const { totals: { items, quote_currency_code } } = this.props;
+        const { totals: { items = [], quote_currency_code } } = this.props;
 
-        if (!items || items.length < 1) {
+        if (items.length < 1) {
             return this.renderNoCartItems();
         }
 
@@ -76,7 +77,7 @@ export class CartOverlay extends PureComponent {
                       key={ item.item_id }
                       item={ item }
                       currency_code={ quote_currency_code }
-                      isEditing
+                      isCartOverlay
                     />
                 )) }
             </div>
@@ -100,7 +101,7 @@ export class CartOverlay extends PureComponent {
 
         return (
             <span>
-                { `${ __('Excl. tax:') } ${ this.renderPriceLine(cartTotalSubPrice) }` }
+                { __('Excl. tax: %s', this.renderPriceLine(cartTotalSubPrice)) }
             </span>
         );
     }
@@ -147,47 +148,6 @@ export class CartOverlay extends PureComponent {
         );
     }
 
-    renderEstimatedShippingSubPrice() {
-        const {
-            cartShippingSubPrice
-        } = this.props;
-
-        if (!cartShippingSubPrice) {
-            return null;
-        }
-
-        return (
-            <span>
-                { `${ __('Excl. tax:') } ${ this.renderPriceLine(cartShippingSubPrice) }` }
-            </span>
-        );
-    }
-
-    renderEstimatedShipping() {
-        const {
-            cartShippingPrice
-        } = this.props;
-
-        if (!cartShippingPrice) {
-            return null;
-        }
-
-        return (
-            <dl
-              block="CartOverlay"
-              elem="Shipping"
-            >
-                <dt>
-                    { __('Estimated Shipping: ') }
-                </dt>
-                <dd>
-                    { this.renderPriceLine(cartShippingPrice) }
-                    { this.renderEstimatedShippingSubPrice() }
-                </dd>
-            </dl>
-        );
-    }
-
     renderCouponCode = (code) => (
         <strong block="CartOverlay" elem="DiscountCoupon">{ code }</strong>
     );
@@ -205,17 +165,14 @@ export class CartOverlay extends PureComponent {
             return null;
         }
 
-        const label = coupon_code ? __('Discount/Coupon ') : __('Discount: ');
+        const label = coupon_code ? __('Coupon code discount: ') : __('Discount: ');
 
         return (
             <dl
               block="CartOverlay"
               elem="Discount"
             >
-                <dt>
-                    { label }
-                    { coupon_code && this.renderCouponCode(coupon_code) }
-                </dt>
+                <dt>{ label }</dt>
                 <dd>{ `-${this.renderPriceLine(Math.abs(discount_amount))}` }</dd>
             </dl>
         );
@@ -262,15 +219,14 @@ export class CartOverlay extends PureComponent {
     }
 
     renderCartAdditional() {
-        const { totals: { items } } = this.props;
+        const { totals: { items = [] } } = this.props;
 
-        if (!items || items.length < 1) {
+        if (items.length < 1) {
             return null;
         }
 
         return (
             <div block="CartOverlay" elem="Additional">
-                { this.renderEstimatedShipping() }
                 { this.renderDiscount() }
                 { this.renderTax() }
                 { this.renderTotals() }
@@ -306,7 +262,7 @@ export class CartOverlay extends PureComponent {
 
         return (
             <div block="CartOverlay" elem="OutOfStockProductsWarning">
-                { __('Remove out of stock products from cart') }
+                { __('Please, remove out of stock products from cart') }
             </div>
         );
     }
@@ -321,8 +277,10 @@ export class CartOverlay extends PureComponent {
               mix={ { block: 'CartOverlay' } }
             >
                 { this.renderPromo() }
-                { this.renderCartItems() }
-                { this.renderCartAdditional() }
+                <div block="CartOverlay" elem="ContentWrapper">
+                    { this.renderCartItems() }
+                    { this.renderCartAdditional() }
+                </div>
             </Overlay>
         );
     }

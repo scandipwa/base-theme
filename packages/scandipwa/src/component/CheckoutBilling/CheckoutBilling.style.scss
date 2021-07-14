@@ -10,38 +10,35 @@
  */
 
 .CheckoutBilling {
+    margin-block-start: 24px;
+
+    &-Button {
+        width: 294px;
+    }
+
     &-Checkbox {
         display: inline-block;
-        margin-bottom: 2.4rem;
-
-        @include mobile {
-            margin-bottom: 2.8rem;
-        }
-
-        + .CheckoutAddressBook {
-            margin-top: 0;
-        }
+        font-size: 14px;
+        margin-block-start: 10px;
     }
 
     &-TermsAndConditions {
-        font-weight: 700;
-        font-size: 1.26rem;
+        font-size: 14px;
         margin: 0;
-        margin-bottom: 2.4rem;
+        margin-block-end: 24px;
         display: flex;
         align-items: center;
 
         @include mobile {
-            font-size: 1.47rem;
-            margin-bottom: 2.8rem;
+            font-size: 15px;
+            margin-block-end: 28px;
         }
 
         &-Checkbox {
-            margin: 0;
-            margin-left: 1.2rem;
+            margin-block: 0;
 
             @include mobile {
-                margin-left: 1.4rem;
+                margin-inline-end: 14px;
             }
         }
     }
@@ -51,6 +48,8 @@
     }
 
     &-TACLink {
+        font-size: 14px;
+        font-weight: 700;
         color: var(--link-color);
         cursor: pointer;
 
@@ -66,8 +65,8 @@
     .Checkout{
         &-OrderTotal{
             dd {
-                text-align: right;
-    
+                text-align: end;
+
                 span {
                     display: block;
                     font-size: .6em;

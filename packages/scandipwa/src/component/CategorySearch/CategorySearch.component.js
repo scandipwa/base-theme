@@ -53,6 +53,7 @@ export class CategorySearch extends PureComponent {
 
     render() {
         const { value } = this.state;
+
         return (
             <input
               block="CategorySearch"

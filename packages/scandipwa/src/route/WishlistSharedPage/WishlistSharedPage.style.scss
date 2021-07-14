@@ -14,19 +14,19 @@
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-auto-rows: max-content;
-        grid-column-gap: 2.4rem;
+        grid-column-gap: 24px;
 
         @include tablet {
             grid-template-columns: repeat(4, 1fr);
         }
 
         @include mobile {
-            grid-column-gap: 2.8rem;
+            grid-column-gap: 28px;
             grid-template-columns: 1fr;
             border: 0;
         }
 
-        @include after-mobile {
+        @include desktop {
             grid-column: 2;
         }
     }
@@ -37,25 +37,27 @@
         justify-content: flex-end;
         z-index: 1;
 
-        @include after-mobile {
+        @include desktop {
             position: absolute;
-            top: -3px;
-            right: 0;
+            inset-block-start: -3px;
+            inset-inline-end: 0;
         }
 
         @include mobile {
-            margin-top: 1.4rem;
+            margin-block-start: 14px;
         }
     }
 
     &-CreatorsInfo {
-        margin: 2.4rem 0;
+        margin: 24px 0;
         font-weight: normal;
 
         @include mobile {
 
-            margin: 1.4rem 0 2.8rem;
-            font-size: 2.1rem;
+            margin-block-start: 14px;
+            margin-block-end: 28px;
+            margin-inline: 0;
+            font-size: 21px;
         }
     }
 }

@@ -84,6 +84,7 @@ export class ImageContainer extends PureComponent {
 
     _getStyle() {
         const { style } = this.props;
+
         return { ...this._getCorrectSize(), ...style };
     }
 

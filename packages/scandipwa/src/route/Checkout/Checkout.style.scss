@@ -14,19 +14,19 @@
 }
 
 .Checkout {
-    padding-bottom: var(--header-nav-height);
+    padding-block-end: var(--header-nav-height);
 
     @include desktop {
-        margin-top: var(--header-total-height);
+        margin-block-start: var(--header-total-height);
     }
 
-    @include before-desktop {
-        padding-bottom: calc(var(--navigation-tabs-height) + 113px);
-        padding-top: 2rem;
+    @include mobile {
+        padding-block-end: calc(var(--navigation-tabs-height) + 60px);
+        padding-block-start: 20px;
     }
 
     &::before {
-        @include after-mobile {
+        @include desktop {
             content: '';
             background: var(--breadcrumbs-background);
             min-height: var(--breadcrumbs-height);
@@ -35,20 +35,15 @@
     }
 
     &-StickyButtonWrapper {
-        @include before-desktop {
-            border-top: 1px solid var(--primary-divider-color);
-            background-color: #fff;
+        @include mobile {
+            border-block-start: 1px solid var(--primary-divider-color);
             position: fixed;
-            padding: 1.2rem 1.2rem calc(env(safe-area-inset-bottom) + 1.2rem);
-            bottom: 0;
-            left: 0;
+            inset-inline-start: 0;
             width: 100%;
             z-index: 85;
-        }
-
-        @include mobile {
-            background-color: var(--secondary-base-color);
-            padding: 1.4rem 1.4rem calc(env(safe-area-inset-bottom) + 1.4rem);
+            inset-block-end: var(--footer-total-height);
+            background-color: var(--color-white);
+            padding: 16px;
         }
 
         .Button {
@@ -59,56 +54,102 @@
     }
 
     &-Wrapper {
-        max-width: var(--checkout-max-width);
+        margin: auto;
+        padding: 0 16px;
 
-        @include after-mobile {
+        @include desktop {
             display: grid;
-            grid-template-columns: repeat(2, minmax(calc(50% - 1.2rem), 470px));
-            grid-gap: 2.4rem;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 7%;
+        }
+
+        @include wide-desktop {
+            grid-template-columns: 5fr 3fr;
+        }
+    }
+
+    &-ProgressSection {
+        @include mobile {
+            display: none;
         }
     }
 
     &-Heading {
         text-transform: none;
-        font-weight: 400;
-        font-size: 2rem;
-        margin: 0 0 1.2rem;
+        margin-block: 40px 12px;
+    }
 
-        @include mobile {
-            margin: 0 0 1.4rem;
+    &-Header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: 10px;
+    }
+
+    &-StepBarTotal {
+        background-color: var(--secondary-base-color);
+        width: 100%;
+        height: 4px;
+        border-radius: 2px;
+    }
+
+    &-StepBarActive {
+        position: relative;
+        inset-block-start: -4px;
+        background-color: var(--primary-base-color);
+        width: 50%;
+        height: 4px;
+        border-radius: 2px;
+        z-index: 2;
+
+        &_isSecond {
+            inset-inline-start: 50%;
         }
     }
 
     &-Title {
-        text-transform: capitalize;
-        margin: 2.4rem 0;
+        font-size: 36px;
+        font-weight: bold;
+    }
 
-        @include mobile {
-            margin: 2.8rem 0;
-            display: none;
-        }
+    &-SelectedStep {
+        font-size: 36px;
+    }
+
+    &-StepsBorder {
+        font-size: 26px;
+    }
+
+    &-TotalSteps {
+        font-size: 20px;
     }
 
     &-Coupon {
         @include desktop {
-            margin-top: 30px;
+            margin-block-start: 30px;
         }
     }
 
     &-OrderTotal {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        font-size: 1.8rem;
+        font-size: 16px;
         font-weight: bold;
-        padding-bottom: 1.4rem;
+        padding-block-end: 14px;
 
-        @include after-mobile {
+        @include desktop {
             display: none;
         }
     }
 
     .Checkout-ExpandableContentContent {
-        margin-top: 0;
+        margin-block-start: 0;
+        padding: 0 16px;
     }
+
+     .CheckoutOrderSummary-ButtonWrapper {
+         @include mobile {
+             display: none;
+         }
+     }
 }

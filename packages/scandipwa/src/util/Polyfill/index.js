@@ -204,6 +204,7 @@
           arguments[0].left || arguments[0],
           arguments[0].top || arguments[1]
         );
+
         return;
       }
 
@@ -225,6 +226,7 @@
           arguments[0].left || arguments[0],
           arguments[0].top || arguments[1]
         );
+
         return;
       }
 
@@ -246,6 +248,7 @@
             arguments[0].left || arguments[0],
             arguments[0].top || arguments[1]
         );
+
         return;
       }
 
@@ -281,6 +284,7 @@
       // avoid smooth behavior if not required
       if (shouldBailOut(arguments[0])) {
         original.scrollIntoView.call(this, arguments[0] || true);
+
         return;
       }
 

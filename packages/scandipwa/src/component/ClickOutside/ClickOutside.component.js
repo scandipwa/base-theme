@@ -56,6 +56,7 @@ export class ClickOutside extends PureComponent {
         if (this.childrenRefs.every(
             (ref) => {
                 const elementRef = ref.current?.overlayRef?.current || ref.current;
+
                 return !elementRef.contains(target);
             }
         )) {

@@ -26,7 +26,7 @@ import { addRecentlyViewedProduct } from 'Store/RecentlyViewedProducts/RecentlyV
 import { HistoryType, LocationType, MatchType } from 'Type/Common';
 import { ProductType } from 'Type/ProductList';
 import { withReducers } from 'Util/DynamicReducer';
-import { getVariantIndex } from 'Util/Product';
+import { getIsConfigurableParameterSelected, getNewParameters, getVariantIndex } from 'Util/Product';
 import { debounce } from 'Util/Request';
 import {
     convertQueryStringToKeyValuePairs,
@@ -443,26 +443,6 @@ export class ProductPageContainer extends PureComponent {
         }
     }
 
-    getIsConfigurableParameterSelected(parameters, key, value) {
-        return Object.hasOwnProperty.call(parameters, key) && parameters[key] === value;
-    }
-
-    getNewParameters(key, value) {
-        const { parameters } = this.state;
-
-        // If value is already selected, than we remove the key to achieve deselection
-        if (this.getIsConfigurableParameterSelected(parameters, key, value)) {
-            const { [key]: oldValue, ...newParameters } = parameters;
-
-            return newParameters;
-        }
-
-        return {
-            ...parameters,
-            [key]: value.toString()
-        };
-    }
-
     containerProps = () => ({
         productOrVariant: this.getProductOrVariant(),
         dataSource: this.getDataSource(),
@@ -472,7 +452,9 @@ export class ProductPageContainer extends PureComponent {
     });
 
     updateConfigurableVariant(key, value) {
-        const parameters = this.getNewParameters(key, value);
+        const { parameters: prevParameters } = this.state;
+
+        const parameters = getNewParameters(prevParameters, key, value);
         this.setState({ parameters });
 
         this.updateUrl(key, value, parameters);
@@ -482,7 +464,7 @@ export class ProductPageContainer extends PureComponent {
     updateUrl(key, value, parameters) {
         const { location, history } = this.props;
 
-        const isParameterSelected = this.getIsConfigurableParameterSelected(parameters, key, value);
+        const isParameterSelected = getIsConfigurableParameterSelected(parameters, key, value);
 
         if (isParameterSelected) {
             updateQueryParamWithoutHistory(key, value, history, location);
@@ -508,6 +490,7 @@ export class ProductPageContainer extends PureComponent {
     getAreDetailsLoaded() {
         const { product } = this.props;
         const dataSource = this.getDataSource();
+
         return dataSource === product;
     }
 
@@ -574,6 +557,7 @@ export class ProductPageContainer extends PureComponent {
 
     getProductRequestFilter() {
         const { productSKU } = this.props;
+
         return { productSKU };
     }
 

@@ -109,6 +109,7 @@ export class Form extends PureComponent {
 
                 if (message) {
                     invalidFields.push(id);
+
                     return cloneElement(child, {
                         message,
                         formRef: refMap[name]
@@ -136,6 +137,7 @@ export class Form extends PureComponent {
                 }
                 const validationRules = validationConfig[rule];
                 const isValid = validationRules.validate(inputNode, refMap);
+
                 return !isValid;
             });
 
@@ -216,6 +218,7 @@ export class Form extends PureComponent {
             (asyncDataList) => {
                 if (!invalidFields.length) {
                     onSubmitSuccess(inputValues, asyncDataList);
+
                     return;
                 }
 
@@ -249,6 +252,7 @@ export class Form extends PureComponent {
 
                 if (current.type === 'checkbox') {
                     const boolValue = checked;
+
                     return { ...inputValues, [name]: boolValue };
                 }
 

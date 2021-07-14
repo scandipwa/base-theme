@@ -19,13 +19,13 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         width: 100%;
-        padding-right: 40px;
+        padding-inline-end: 40px;
         display: block;
-        text-align: left;
+        text-align: start;
 
         @include desktop {
-            line-height: calc(var(--option-size) - 1.2rem);
-            font-size: 1.26rem;
+            line-height: calc(var(--option-size) - 12px);
+            font-size: 13px;
         }
 
         &::after {
@@ -34,11 +34,11 @@
             height: 7px;
             width: 7px;
             transform: rotate(45deg);
-            border-right: 1px solid var(--option-border-color);
-            border-top: 1px solid var(--option-border-color);
-            right: 12px;
-            top: 0;
-            bottom: 0;
+            border-inline-end: 1px solid var(--option-border-color);
+            border-block-start: 1px solid var(--option-border-color);
+            inset-inline-end: 12px;
+            inset-block-start: 0;
+            inset-block-end: 0;
             margin: auto;
 
             @include desktop {

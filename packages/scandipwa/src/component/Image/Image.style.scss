@@ -23,15 +23,15 @@
 
     &_ratio {
         &_16x9 {
-            padding-bottom: 56.25%;
+            padding-block-end: 56.25%;
         }
 
         &_4x3 {
-            padding-bottom: 75%;
+            padding-block-end: 75%;
         }
 
         &_square {
-            padding-bottom: 100%;
+            padding-block-end: 100%;
         }
     }
 
@@ -53,12 +53,12 @@
         width: 100%;
         text-align: center;
         margin: auto;
-        bottom: 0;
-        top: 0;
-        left: 0;
+        inset-block-end: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
 
         color: var(--image-content-color);
-        font-size: 1.4rem;
+        font-size: 14px;
 
         &_isOffline {
             width: 100%;
@@ -69,8 +69,8 @@
 
     &-Image {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
         width: 100%;
         height: 100%;
         object-position: 50% 50%;
@@ -80,8 +80,8 @@
             content: '';
             position: absolute;
             z-index: -1;
-            top: 0;
-            left: 0;
+            inset-block-start: 0;
+            inset-inline-start: 0;
             width: 100%;
             height: 100%;
             background: var(--image-default-background);

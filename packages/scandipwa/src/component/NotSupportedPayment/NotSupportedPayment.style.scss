@@ -1,7 +1,7 @@
 .NotSupportedPayment {
-    margin-top: 2.4rem;
+    margin-block-start: 24px;
 
     @include mobile {
-        margin-top: 2.8rem;
+        margin-block-start: 28px;
     }
 }

@@ -244,6 +244,7 @@ export class ProductList extends PureComponent {
         // if the "isInfiniteLoaderEnabled" is false
         const { key, ...restProps } = props;
         restProps.key = 0;
+
         return restProps;
     }
 
@@ -338,7 +339,6 @@ export class ProductList extends PureComponent {
               mods={ { isLoading } }
               mix={ mix }
             >
-                { this.renderPagination() }
                 { this.renderTitle() }
                 { this.renderLoadButton() }
                 { this.renderPages() }

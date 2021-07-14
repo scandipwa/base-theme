@@ -1,13 +1,13 @@
 .InstallPrompt {
     // prevent margin merging
-    border-top: 1px solid transparent;
+    border-block-start: 1px solid transparent;
 
-    @include before-desktop {
+    @include mobile {
         + .CmsPage {
-            margin-top: 0;
+            margin-block-start: 0;
 
             .CmsPage-Wrapper {
-                margin-top: 0;
+                margin-block-start: 0;
             }
         }
     }

@@ -12,6 +12,7 @@
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
+import Field from 'Component/Field/Field.container';
 import { shippingMethodType } from 'Type/Checkout';
 import { formatPrice } from 'Util/Price';
 
@@ -26,14 +27,12 @@ export class CheckoutDeliveryOption extends PureComponent {
         currency: PropTypes.string.isRequired,
         isSelected: PropTypes.bool,
         optionPrice: PropTypes.number,
-        optionSubPrice: PropTypes.number,
         onOptionClick: PropTypes.func.isRequired
     };
 
     static defaultProps = {
         isSelected: false,
-        optionPrice: 0,
-        optionSubPrice: null
+        optionPrice: 0
     };
 
     getOptionPrice() {
@@ -43,24 +42,6 @@ export class CheckoutDeliveryOption extends PureComponent {
         } = this.props;
 
         return formatPrice(optionPrice, currency);
-    }
-
-    renderOptionSubPrice() {
-        const {
-            currency,
-            optionSubPrice
-        } = this.props;
-
-        if (!optionSubPrice) {
-            return null;
-        }
-
-        return (
-            <span block="CheckoutDeliveryOption" elem="SubPrice">
-                { __('Excl. tax: ') }
-                { formatPrice(optionSubPrice, currency) }
-            </span>
-        );
     }
 
     renderPrice() {
@@ -77,7 +58,6 @@ export class CheckoutDeliveryOption extends PureComponent {
         return (
             <strong>
                 { ` - ${ this.getOptionPrice() }` }
-                { this.renderOptionSubPrice() }
             </strong>
         );
     }
@@ -146,22 +126,32 @@ export class CheckoutDeliveryOption extends PureComponent {
 
     render() {
         const {
-            isSelected,
-            onOptionClick,
             option: {
+                carrier_title,
                 available
-            } = {}
+            } = {},
+            onOptionClick,
+            isSelected
         } = this.props;
 
+        // disable checkbox in order to skip direct clicks on checkbox and handle clicks on entire button instead
         return (
             <li block="CheckoutDeliveryOption">
                 <button
                   block="CheckoutDeliveryOption"
-                  mods={ { isSelected, isDisabled: !available } }
+                  mods={ { isDisabled: !available } }
                   elem="Button"
-                  onClick={ onOptionClick }
                   type="button"
+                  onClick={ onOptionClick }
+                  disabled={ !available }
                 >
+                    <Field
+                      type="checkbox"
+                      id={ `option-${ carrier_title }` }
+                      name={ `option-${ carrier_title }` }
+                      checked={ isSelected }
+                      disabled
+                    />
                     { this.renderRow() }
                 </button>
             </li>

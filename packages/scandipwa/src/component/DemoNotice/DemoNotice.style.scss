@@ -15,29 +15,21 @@
 }
 
 .DemoNotice {
-    padding-top: env(safe-area-inset-top);
+    padding-block-start: env(safe-area-inset-top);
     align-items: center;
-    background-color: var(--primary-error-color);
+    background-color: var(--primary-base-color);
     color: $white;
     display: flex;
-    font-size: 1.4rem;
+    font-size: 14px;
     font-weight: bold;
     height: var(--demo-notice-height);
     justify-content: center;
     position: fixed;
-    top: 0;
+    inset-block-start: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 110;
 
     @at-root .isDemoVisible {
-        --demo-notice-height: calc((var(--header-height) / 2) + env(safe-area-inset-top));
-
-        @include mobile {
-            --demo-notice-height: calc((var(--header-nav-height) / 2) + env(safe-area-inset-top));
-        }
-    }
-
-    @include mobile {
-        height: var(--demo-notice-height);
+        --demo-notice-height: 48px;
     }
 }

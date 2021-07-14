@@ -24,6 +24,7 @@ export const updateEveryTime = [
 export const filterData = (data) => {
     const updated = updateEveryTime.reduce((acc, key) => {
         acc[key] = data[key];
+
         return acc;
     }, {});
 

@@ -9,26 +9,31 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-:root {
-    --new-products-per-page-count: 6;
-}
-
 .NewProducts {
     &-Products {
         display: grid;
-        grid-template-columns: repeat(var(--new-products-per-page-count), 1fr);
         grid-auto-rows: max-content;
-        grid-column-gap: 1.2rem;
+        grid-column-gap: 12px;
+
+        @include mobile {
+            grid-column-gap: 14px;
+            grid-template-columns: 1fr 1fr;
+            border: 0;
+        }
 
         @include tablet {
             --new-products-per-page-count: calc(var(--new-products-per-page-count) - 2);
             grid-template-columns: repeat(4, 1fr);
         }
 
-        @include mobile {
-            grid-column-gap: 1.4rem;
-            grid-template-columns: 1fr 1fr;
-            border: 0;
+        @include narrow-desktop {
+            --new-products-per-page-count: 4;
         }
+
+        @include wide-desktop {
+            --new-products-per-page-count: 6;
+        }
+
+        grid-template-columns: repeat(var(--new-products-per-page-count), 1fr);
     }
 }

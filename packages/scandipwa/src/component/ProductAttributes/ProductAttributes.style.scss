@@ -10,21 +10,19 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-:root {
-    --product-information-background: var(--secondary-base-color);
-}
-
 .ProductAttributes {
+    font-size: 14px;
+    line-height: 20px;
+
     &-Wrapper {
-        padding: 0;
 
         @include desktop {
-            padding: 3.6rem 1.2rem;
+            padding-block-end: 32px;
         }
     }
 
     &-ExpandableContentButton {
-        @include after-mobile {
+        @include desktop {
             display: none;
         }
     }
@@ -32,46 +30,42 @@
     &-ExpandableContentContent {
         &_isContentExpanded {
             @include mobile {
-                padding: 0 1.4rem;
+                padding-block: 0;
             }
         }
 
-        @include after-mobile {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 4.8rem;
-            justify-content: center;
-            align-items: flex-start;
+        @include desktop {
+            columns: 2;
+            column-gap: 60px;
         }
     }
 
+    &-AttributeBlock {
+        break-inside: avoid;
+        overflow: hidden;
+        width: 100%;
+    }
+
     &-Placeholder {
-        margin-top: 2.4rem;
+        margin-block-start: 24px;
 
         @include mobile {
-            margin-top: 2.8rem;
+            margin-block-start: 28px;
         }
 
         span {
             display: block;
-            margin-bottom: 1.2rem;
+            margin-block-end: 12px;
 
             @include mobile {
-                margin-bottom: 1.4rem;
+                margin-block-end: 14px;
             }
         }
     }
 
     &-Group {
-        font-size: 1.4rem;
-        display: inline-block;
-        margin-bottom: 1.4rem;
-        text-decoration: underline;
-    }
-
-    &-Description,
-    &-Attributes {
-        width: 100%;
+        margin: 0;
+        padding-block: 32px 16px;
     }
 
     &-Attributes {
@@ -83,39 +77,32 @@
 
     &-ValueLabel,
     &-AttributeLabel {
+        border-block-end: 1px solid var(--secondary-base-color);
         flex: 0 0 50%;
-        text-overflow: ellipsis;
         overflow: hidden;
-    }
+        padding-block: 16px;
+        text-overflow: ellipsis;
+        height: 100%;
 
-    &-ValueLabel {
-        padding-left: .6rem;
-        margin-bottom: 1.2rem;
-
-        @include mobile {
-            padding-left: .7rem;
-            margin-bottom: 1.4rem;
+        &:last-of-type {
+            border: none;
         }
     }
 
     &-AttributeLabel {
         font-weight: bold;
-
-        &::after {
-            content: ':';
-        }
     }
 
     &-Image {
-        padding-bottom: 40%;
+        padding-block-end: 40%;
         mix-blend-mode: multiply;
-        margin-right: 12rem;
-        min-width: 36rem;
+        margin-inline-end: 120px;
+        min-width: 360px;
         background: none;
 
         @include mobile {
-            margin-right: 14rem;
-            min-width: 42rem;
+            margin-inline-end: 140px;
+            min-width: 420px;
             display: none;
         }
     }

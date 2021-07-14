@@ -16,6 +16,8 @@ import { PureComponent } from 'react';
 import Field from 'Component/Field/Field.container';
 import FormPortal from 'Component/FormPortal/FormPortal.component';
 
+import './PurchaseOrder.style';
+
 /** @namespace Component/PurchaseOrder/Component */
 export class PurchaseOrder extends PureComponent {
     static propTypes = {

@@ -7,14 +7,27 @@
         z-index: -1;
         content: '';
         position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+        inset-block-start: 0;
+        inset-block-end: 0;
         background: var(--secondary-base-color);
 
-        @include after-mobile {
+        @include desktop {
             content: none;
+        }
+    }
+}
+
+@mixin default-list {
+    ul,
+    ol {
+        margin-inline-start: 20px;
+
+        li {
+            &::before {
+                inset-inline-start: -20px;
+            }
         }
     }
 }

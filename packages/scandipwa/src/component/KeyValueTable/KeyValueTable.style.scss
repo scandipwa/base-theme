@@ -10,33 +10,34 @@
  */
 
 .KeyValueTable {
-    margin: 0 0 1.2rem 0;
+    margin: 0;
+    margin-block-end: 12px;
     min-width: 100%;
+    font-size: 14px;
 
     @include mobile {
-        margin: 0 0 1.4rem 0;
+        margin-block-end: 14px;
     }
 
     &-Heading {
-        font-size: 1.4rem;
+        font-size: 14px;
     }
 
     &-Item {
         &-Name {
-            border-top: 1px solid rgba(10, 10, 10, .5);
+            border-block-start: 1px solid rgba(10, 10, 10, .5);
         }
     }
 
     &-Totals {
         &-Separated {
-            border-top: 1px solid rgba(10, 10, 10, .5);
+            border-block-start: 1px solid rgba(10, 10, 10, .5);
         }
     }
 
     &-Wrapper {
         @include mobile {
             overflow-x: scroll;
-            max-width: calc(100vw - 2.8rem);
         }
     }
 }

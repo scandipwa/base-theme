@@ -62,6 +62,8 @@ export class FieldInputContainer extends PureComponent {
             onKeyEnterDown,
             formRefMap,
             validationStatus,
+            subLabel,
+            fileExtensions,
             /* eslint-enable react/prop-types */
 
             // Props to be transformed

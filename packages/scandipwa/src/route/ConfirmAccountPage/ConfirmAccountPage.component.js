@@ -63,6 +63,7 @@ export class ConfirmAccountPage extends PureComponent {
                   label={ __('Password') }
                   id="password"
                   name="password"
+                  placeholder={ __('Enter your password') }
                   validation={ ['notEmpty', 'password'] }
                 />
                 <button

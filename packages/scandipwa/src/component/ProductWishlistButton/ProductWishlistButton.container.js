@@ -62,14 +62,15 @@ export class ProductWishlistButtonContainer extends PureComponent {
         onProductValidationError: PropTypes.func,
         removeProductFromWishlist: PropTypes.func.isRequired,
         productOptionsData: PropTypes.object,
-        groupedProductQuantity: PropTypes.objectOf(PropTypes.number).isRequired
+        groupedProductQuantity: PropTypes.objectOf(PropTypes.number)
     };
 
     static defaultProps = {
         quantity: 1,
         onProductValidationError: () => {},
         configurableVariantIndex: -2,
-        productOptionsData: {}
+        productOptionsData: {},
+        groupedProductQuantity: {}
     };
 
     state = {
@@ -124,6 +125,7 @@ export class ProductWishlistButtonContainer extends PureComponent {
         const product = this._getProductVariant();
         if (product === ERROR_CONFIGURABLE_NOT_PROVIDED) {
             onProductValidationError(type_id);
+
             return showNotification('info', __('Please, select desirable option first!'));
         }
 
@@ -161,6 +163,7 @@ export class ProductWishlistButtonContainer extends PureComponent {
         }
 
         const { sku: productSku } = product;
+
         return Object.values(productsInWishlist).findIndex(({ wishlist: { sku } }) => sku === productSku) >= 0;
     };
 
@@ -213,6 +216,7 @@ export class ProductWishlistButtonContainer extends PureComponent {
             } = this.props;
 
             const extension_attributes = getExtensionAttributes({ ...product, productOptions });
+
             return { ...product, product_option: { extension_attributes } };
         }
 
@@ -224,6 +228,7 @@ export class ProductWishlistButtonContainer extends PureComponent {
             } = this.props;
 
             const extension_attributes = getExtensionAttributes({ ...product, downloadableLinks });
+
             return { ...product, product_option: { extension_attributes } };
         }
 

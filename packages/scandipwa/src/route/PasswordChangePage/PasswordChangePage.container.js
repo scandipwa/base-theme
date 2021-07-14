@@ -116,6 +116,7 @@ export class PasswordChangePageContainer extends PureComponent {
 
     containerProps = () => {
         const { isLoading } = this.state;
+
         return { isLoading };
     };
 

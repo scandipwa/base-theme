@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 /**
  * ScandiPWA - Progressive Web App for Magento
  *
@@ -15,6 +14,7 @@ import {
     DISPLAY_SHIPPING_PRICES_EXCL_TAX
 } from 'Component/CheckoutDeliveryOption/CheckoutDeliveryOption.config';
 import { OUT_OF_STOCK } from 'Component/ProductCard/ProductCard.config';
+import { CONFIGURABLE } from 'Util/Product';
 
 export const DISPLAY_CART_TAX_IN_SUBTOTAL_INCL_TAX = 'DISPLAY_CART_TAX_IN_SUBTOTAL_INCL_TAX';
 export const DISPLAY_CART_TAX_IN_SUBTOTAL_EXL_TAX = 'DISPLAY_CART_TAX_IN_SUBTOTAL_EXL_TAX';
@@ -47,7 +47,7 @@ export const itemIsOutOfStock = (item) => {
         return true;
     }
 
-    if (type_id !== 'configurable') {
+    if (type_id !== CONFIGURABLE) {
         // item is not configurable => previous check is sufficient
         return false;
     }
@@ -267,3 +267,6 @@ export const getCartTotalSubPrice = (state) => {
 
     return null;
 };
+
+/** @namespace Util/Cart/getItemsCountLabel */
+export const getItemsCountLabel = (items_qty) => (items_qty === 1 ? __('1 item') : __('%s items', items_qty || 0));

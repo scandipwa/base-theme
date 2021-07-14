@@ -16,7 +16,7 @@
 
     &-Title {
         font-weight: bold;
-        margin-bottom: .5rem;
+        margin-block-end: 5px;
 
         @include mobile {
             display: none;
@@ -24,21 +24,26 @@
     }
 
     &-Link {
-        padding: .5rem 0;
+        padding: 5px 0;
     }
 
 
     &-ExpandableContent {
+
         &Button {
-            @include after-mobile {
+            @include desktop {
                 display: none;
             }
         }
 
         &Content_isContentExpanded {
             @include mobile {
-                padding: 0 1.4rem 1.4rem;
+                padding-block: 0 14px;
             }
+        }
+
+        &Heading {
+            text-transform: uppercase;
         }
     }
 }

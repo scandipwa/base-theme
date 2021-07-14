@@ -64,35 +64,12 @@ export class SearchOverlay extends PureComponent {
         );
     }
 
-    renderSearchCriteria() {
-        const { searchCriteria } = this.props;
-
-        return (
-            <p
-              block="SearchOverlay"
-              elem="Criteria"
-              mods={ { isVisible: !!searchCriteria.trim() } }
-            >
-                { __('Results for:') }
-                <strong>{ searchCriteria }</strong>
-            </p>
-        );
-    }
-
-    renderNoSearchCriteria() {
-        return <p>{ __('Start typing to see search results!') }</p>;
-    }
-
     renderNoResults() {
         return <p>{ __('No results found!') }</p>;
     }
 
     renderSearchResults() {
-        const { searchCriteria, searchResults, isLoading } = this.props;
-
-        if (!searchCriteria.trim()) {
-            return this.renderNoSearchCriteria();
-        }
+        const { searchResults, isLoading } = this.props;
 
         if (!searchResults.length && !isLoading && !this.timeout) {
             return this.renderNoResults();
@@ -108,7 +85,11 @@ export class SearchOverlay extends PureComponent {
     }
 
     render() {
-        const { isHideOverlay } = this.props;
+        const { isHideOverlay, searchCriteria } = this.props;
+
+        if (!searchCriteria.trim()) {
+            return null;
+        }
 
         if (isHideOverlay) {
             return (
@@ -127,7 +108,6 @@ export class SearchOverlay extends PureComponent {
               id="search"
               mix={ { block: 'SearchOverlay' } }
             >
-                { this.renderSearchCriteria() }
                 <article
                   block="SearchOverlay"
                   elem="Results"

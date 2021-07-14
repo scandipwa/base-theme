@@ -10,8 +10,16 @@
  */
 
 :root {
-    --notification-color: var(--secondary-info-color);
-    --notification-background: var(--primary-info-color);
+    --default-notification-height: 44px;
+    --notification-info-color: var(--imported_notificationInfo_color, var(--secondary-info-color));
+    --notification-info-background: var(--imported_notificationInfo_background_color, var(--primary-info-color));
+    --notification-info-height: var(--imported_notificationInfo_height, var(--default-notification-height));
+    --notification-error-color: var(--imported_notificationError_color, var(--secondary-error-color));
+    --notification-error-background: var(--imported_notificationError_background_color, var(--primary-error-color));
+    --notification-error-height: var(--imported_notificationError_height, var(--default-notification-height));
+    --notification-success-color: var(--imported_notificationSuccess_color, var(--secondary-success-color));
+    --notification-success-background: var(--imported_notificationSuccess_background_color, var(--primary-success-color));
+    --notification-success-height: var(--imported_notificationSuccess_height, var(--default-notification-height));
 }
 
 .Notification {
@@ -19,30 +27,38 @@
 
     will-change: max-height, opacity, transform, padding, margin;
 
-    overflow: hidden;
-    max-width: 100vw;
-    position: relative;
-    padding: 12px 1.2rem;
-    margin-bottom: 5px;
-    top: 0;
-    color: var(--notification-color);
+    align-items: center;
     background: var(--notification-background);
+    border-radius: 2px;
+    color: var(--notification-color);
+    display: inline-flex;
+    min-height: var(--notification-height);
+    margin-block-end: 5px;
+    max-width: 100vw;
+    overflow: hidden;
+    padding: 6px 26px;
+    position: relative;
+    inset-block-start: 0;
 
-    @include mobile {
-        padding: 12px 1.4rem;
+    p {
+        color: var(--notification-color);
     }
 
-    @include after-mobile {
-        display: inline-block;
+    @include mobile {
+        padding: 12px 14px;
+        width: 100%;
+    }
+
+    @include desktop {
         max-width: 550px;
-        margin-bottom: 20px;
+        margin-block-end: 20px;
     }
 
     &-Text {
-        margin-top: 0;
+        margin-block-start: 0;
         font-weight: bold;
-        margin-right: 40px;
-        margin-bottom: 0;
+        margin-inline-end: 40px;
+        margin-block-end: 0;
     }
 
     &-Debug {
@@ -60,17 +76,17 @@
         appearance: none;
         background: none;
         position: absolute;
-        right: 0;
-        top: 0;
+        inset-inline-end: 0;
+        inset-block-start: 0;
         padding: 10px;
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
         opacity: 1;
 
         @include mobile {
             margin: auto;
-            bottom: 0;
-            right: 1.4rem;
+            inset-block-end: 0;
+            inset-inline-end: 14px;
         }
 
         &:focus {
@@ -80,13 +96,13 @@
         &::before,
         &::after {
             position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
+            inset-block-start: 0;
+            inset-block-end: 0;
+            inset-inline-end: 0;
+            inset-inline-start: 0;
             margin: auto;
             content: ' ';
-            height: 15px;
+            height: 10px;
             width: 2px;
             background-color: var(--notification-color);
         }
@@ -102,32 +118,35 @@
 
     &_is {
         &_opening {
-            animation: fadeInLeft var(--animation-duration) cubic-bezier(.645, .045, .355, 1) forwards;
+            animation: fadeInStart var(--animation-duration) cubic-bezier(.645, .045, .355, 1) forwards;
         }
 
         &_closing {
-            animation: fadeOutLeft var(--animation-duration) cubic-bezier(.645, .045, .355, 1) forwards;
+            animation: fadeOutStart var(--animation-duration) cubic-bezier(.645, .045, .355, 1) forwards;
         }
     }
 
     &_type {
         &_error {
-            --notification-color: var(--secondary-error-color);
-            --notification-background: var(--primary-error-color);
+            --notification-color: var(--notification-error-color);
+            --notification-background: var(--notification-error-background);
+            --notification-height: var(--notification-error-height);
         }
 
         &_success {
-            --notification-color: var(--secondary-success-color);
-            --notification-background: var(--primary-success-color);
+            --notification-color: var(--notification-success-color);
+            --notification-background: var(--notification-success-background);
+            --notification-height: var(--notification-success-height);
         }
 
         &_info {
-            --notification-color: var(--secondary-info-color);
-            --notification-background: var(--primary-info-color);
+            --notification-color: var(--notification-info-color);
+            --notification-background: var(--notification-info-background);
+            --notification-height: var(--notification-info-height);
         }
     }
 
-    @keyframes fadeInLeft {
+    @keyframes fadeInStart {
         from {
             opacity: 0;
             transform: translateY(-300px);
@@ -139,15 +158,15 @@
         }
     }
 
-    @keyframes fadeOutLeft {
+    @keyframes fadeOutStart {
         from {
             opacity: 1;
             transform: translateY(0);
             max-height: 100px;
-            margin-bottom: 5px;
+            margin-block-end: 5px;
 
             @include mobile {
-                margin-bottom: 20px;
+                margin-block-end: 20px;
             }
         }
 

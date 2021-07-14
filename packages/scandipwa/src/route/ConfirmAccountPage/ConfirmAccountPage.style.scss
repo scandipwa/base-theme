@@ -13,25 +13,22 @@
     --content-wrapper-width: 600px;
 
     &-Wrapper {
-        @include before-desktop {
-            padding-top: .6rem;
-        }
 
         @include mobile {
-            padding-top: .7rem;
+            padding-block-start: 7px;
         }
     }
 
     &-Button {
-        margin-top: 1.2rem;
+        margin-block-start: 12px;
 
         @include mobile {
-            margin-top: 1.4rem;
+            margin-block-start: 14px;
             width: 100%;
         }
 
-        @include after-mobile {
-            margin-left: 1.2rem;
+        @include desktop {
+            margin-inline-start: 12px;
         }
     }
 
@@ -40,15 +37,15 @@
     }
 
     &-Heading {
-        font-size: 2.4rem;
-        margin-bottom: 1.2rem;
-        margin-top: 2.4rem;
+        font-size: 24px;
+        margin-block-end: 12px;
+        margin-block-start: 24px;
         text-align: center;
 
         @include mobile {
-            font-size: 2.8rem;
-            margin-bottom: 1.4rem;
-            margin-top: 2.8rem;
+            font-size: 28px;
+            margin-block-end: 14px;
+            margin-block-start: 28px;
             display: none;
         }
     }

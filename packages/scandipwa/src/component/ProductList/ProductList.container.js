@@ -221,6 +221,7 @@ export class ProductListContainer extends PureComponent {
 
     _getPageFromUrl() {
         const { location } = this.props;
+
         return +(getQueryParam('page', location) || 1);
     }
 
@@ -239,11 +240,13 @@ export class ProductListContainer extends PureComponent {
     _isShowLoading() {
         const { isLoading } = this.props;
         const { minPage } = this._getPagesBounds();
+
         return minPage > 1 && !isLoading;
     }
 
     _isVisible() {
         const { maxPage, totalPages } = this._getPagesBounds();
+
         return maxPage < totalPages;
     }
 

@@ -18,7 +18,6 @@ import Image from 'Component/Image';
 import Link from 'Component/Link';
 import NewsletterSubscription from 'Component/NewsletterSubscription';
 import { DeviceType } from 'Type/Device';
-import media from 'Util/Media';
 
 import { COLUMN_MAP, NEWSLETTER_COLUMN, RENDER_NEWSLETTER } from './Footer.config';
 
@@ -71,13 +70,10 @@ export class Footer extends Component {
             return title;
         }
 
-        const re = /^data:/i;
-        const imgSrc = re.test(src) ? src : media(src, '', false);
-
         return (
             <Image
               mix={ { block: 'Footer', elem: 'ColumnItemImage' } }
-              src={ imgSrc }
+              src={ src }
             />
         );
     }

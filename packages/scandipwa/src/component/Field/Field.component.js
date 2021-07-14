@@ -17,6 +17,8 @@ import FieldInput from 'Component/FieldInput';
 import FieldSelect from 'Component/FieldSelect';
 import FieldTextarea from 'Component/FieldTextarea';
 import Image from 'Component/Image';
+import add from 'Style/icons/add.svg';
+import minus from 'Style/icons/minus.svg';
 import { MixType } from 'Type/Common';
 
 import {
@@ -69,7 +71,9 @@ export class Field extends PureComponent {
         min: PropTypes.number,
         max: PropTypes.number,
         filename: PropTypes.string,
-        fileExtensions: PropTypes.string
+        fileExtensions: PropTypes.string,
+        subLabel: PropTypes.number,
+        disabled: PropTypes.bool
     };
 
     static defaultProps = {
@@ -82,7 +86,9 @@ export class Field extends PureComponent {
         message: '',
         validationStatus: null,
         filename: '',
-        fileExtensions: ''
+        fileExtensions: '',
+        subLabel: null,
+        disabled: false
     };
 
     renderTextarea() {
@@ -149,13 +155,17 @@ export class Field extends PureComponent {
                   // eslint-disable-next-line react/jsx-no-bind
                   onClick={ () => handleChange(+value + 1) }
                   aria-label={ __('Add') }
-                />
+                >
+                    <Image src={ add } alt="add" mix={ { block: 'AddButton' } } />
+                </button>
                 <button
                   disabled={ +value === min }
                   // eslint-disable-next-line react/jsx-no-bind
                   onClick={ () => handleChange(+value - 1) }
                   aria-label={ __('Subtract') }
-                />
+                >
+                    <Image src={ minus } alt="subtract" mix={ { block: 'SubtractButton' } } />
+                </button>
             </>
         );
     }
@@ -164,18 +174,28 @@ export class Field extends PureComponent {
         const {
             id,
             onChangeCheckbox,
-            label
+            label,
+            subLabel,
+            disabled
         } = this.props;
 
         return (
-            <label htmlFor={ id }>
-                { label }
+            <label htmlFor={ id } block="Field" elem="CheckboxLabel">
                 <FieldInput
                   { ...this.props }
                   type="checkbox"
                   onChange={ onChangeCheckbox }
+                  isDisabled={ disabled }
                 />
                 <div block="input-control" />
+                <span>
+                    { label }
+                    { subLabel && (
+                        <strong block="Field" elem="SubLabel">
+                        { ` (${subLabel})` }
+                        </strong>
+                    ) }
+                </span>
             </label>
         );
     }

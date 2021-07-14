@@ -87,6 +87,7 @@ export class CheckoutGuestFormContainer extends PureComponent {
 
     containerProps = () => {
         const { emailValue } = this.props;
+
         return ({
             formId: SHIPPING_STEP,
             emailValue

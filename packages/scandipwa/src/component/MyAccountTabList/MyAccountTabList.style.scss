@@ -10,40 +10,45 @@
  */
 
 :root {
-    @include after-mobile {
+    @include desktop {
         --my-account-tab-list-background: #{$white};
     }
 }
 
 .MyAccountTabList {
-    @include after-mobile {
-        padding: 1.2rem 0;
+    @include desktop {
         background-color: var(--my-account-tab-list-background);
+        border: var(--my-account-content-border);
+        padding: 12px 0;
     }
 
     &-ExpandableContentContent {
-        @include after-mobile {
-            margin-top: 0;
+        @include desktop {
+            margin-block-start: 0;
         }
 
         &_isContentExpanded {
             @include mobile {
-                padding: 0 1.4rem 1.4rem;
+                padding-block-start: 0;
+                padding-block-end: 14px;
+                padding-inline: 14px;
             }
         }
     }
 
     &-ExpandableContentButton {
-        @include after-mobile {
+        padding-inline: 16px;
+
+        @include desktop {
             display: none;
         }
 
         &::before,
         &::after {
-            right: 2.4rem;
+            inset-inline-end: 24px;
 
             @include mobile {
-                right: 2.8rem;
+                inset-inline-end: 28px;
             }
         }
     }

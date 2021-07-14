@@ -17,6 +17,7 @@ export class ContactFormQuery {
         const mutation = new Field('contactForm');
         this._addSendContactFormMutationArguments(mutation, options);
         mutation.addFieldList(this._getSendContactFormMutationResponse());
+
         return mutation;
     }
 

@@ -60,7 +60,7 @@ export class ProductWishlistButton extends PureComponent {
         return __('Add to Wishlist');
     };
 
-    onClick = () => {
+    onClick = (e) => {
         const {
             product,
             quantity,
@@ -68,6 +68,8 @@ export class ProductWishlistButton extends PureComponent {
             addToWishlist,
             removeFromWishlist
         } = this.props;
+
+        e.preventDefault();
 
         if (!isInWishlist) {
             return addToWishlist(product, quantity);

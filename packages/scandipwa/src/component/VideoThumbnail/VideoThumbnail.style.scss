@@ -30,21 +30,21 @@
     }
 
     &-Thumbnail {
-        padding-bottom: 75%;
+        padding-block-end: 75%;
     }
 
     &-PlayIcon {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-end: 0;
+        inset-block-end: 0;
+        inset-inline-start: 0;
         margin: auto;
         width: 0;
         height: 0;
-        border-top: 30px solid transparent;
-        border-left: 60px solid var(--video-play-icon-fill);
-        border-bottom: 30px solid transparent;
+        border-block-start: 30px solid transparent;
+        border-inline-start: 60px solid var(--video-play-icon-fill);
+        border-block-end: 30px solid transparent;
         transform: var(--video-play-icon-transform);
         transition: transform 150ms ease-in;
         overflow: hidden;

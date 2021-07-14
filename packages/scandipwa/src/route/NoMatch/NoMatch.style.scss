@@ -19,36 +19,39 @@
 
     @include mobile {
         min-height: calc(100vh - var(--header-height) - var(--breadcrumbs-height));
-        margin-bottom: 0;
-        margin-top: 0;
+        margin-block-end: 0;
+        margin-block-start: 0;
     }
 
     h1 {
-        font-size: 14.4rem;
+        font-size: 144px;
         font-weight: 400;
         color: var(--primary-base-color);
         line-height: 1;
 
         @include mobile {
-            font-size: 16.8rem;
+            font-size: 168px;
         }
     }
 
     &-Button {
-        margin-top: 2.4rem;
+        margin-block-start: 24px;
 
         @include mobile {
-            margin-top: 2.8rem;
+            margin-block-start: 28px;
         }
     }
 
     &-Subtitle {
-        font-size: 3.6rem;
+        font-size: 36px;
         font-weight: 700;
         margin: 0;
+        line-height: 48px;
 
         @include mobile {
-            font-size: 4.2rem;
+            font-size: 42px;
+            line-height: 64px;
+
         }
     }
 

@@ -12,17 +12,15 @@
 :root {
     --option-background-color: #{$white};
     --option-check-mark-background: #{$black};
-    --option-padding: 0 12px;
-    --option-margin: 0;
-    --option-size: 45px;
-    --option-text-color: #979797;
-    --option-border-color: #979797;
+    --option-size: 32px;
+    --option-text-color: #{$black}; // Move to root
+    --option-border-color: var(--color-dark-gray);
 
     @include mobile {
-        --option-border-color: #{$black};
-        --option-text-color: #{$black};
+        --option-border-color: var(--color-dark-gray);
     }
 }
+
 
 .ProductAttributeValue {
     --button-background: initial;
@@ -41,36 +39,33 @@
         display: inline-block;
         min-height: var(--option-size);
         width: var(--option-size);
-        margin: var(--option-margin);
-        padding: var(--option-padding);
+        margin-inline-end: 12px;
+    }
+
+    &-String {
+        padding: 0 10px;
+        margin-block-end: 6px;
     }
 
     &-Image {
-        padding: 0;
         border-radius: 50%;
-        position: relative;
         object-fit: cover;
+        padding: 0;
+        position: relative;
     }
 
     &-Image-Overlay {
-        --option-check-mark-background: white;
+        --option-check-mark-background: var(--color-white);
 
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        margin: 0;
         position: absolute;
-        top: 0;
-        left: 0;
-        margin-left: .6rem;
-
-        @include mobile {
-            margin-left: .7rem;
-        }
-
-        @include after-mobile {
-            margin: 0;
-        }
     }
 
     &-Color {
-        margin-bottom: 0;
+        box-shadow: inset 0 0 0 1px #979797;
+        box-shadow: inset 0 0 0 1px var(--option-border-color);
     }
 
     &-Color,
@@ -79,7 +74,6 @@
         font-size: 0;
         width: var(--option-size);
 
-        box-shadow: inset 0 0 0 1px var(--option-border-color);
         will-change: box-shadow, background-color;
 
         &::before,
@@ -89,7 +83,7 @@
 
             opacity: var(--option-is-selected);
             transition: opacity 200ms;
-            will-change: opacity, border-left, border-right;
+            will-change: opacity, border-inline-start, border-inline-end;
         }
 
         &::before {
@@ -97,30 +91,32 @@
             width: calc(var(--option-size) + 6px);
 
             border-radius: inherit;
-            box-shadow: inherit;
-            left: -3px;
-            top: -3px;
+            box-shadow: inset 0 0 0 1px var(--primary-base-color);
+            inset-inline-start: -3px;
+            inset-block-start: -3px;
         }
 
         &::after {
             height: calc(var(--option-size) / 5);
-            left: calc(var(--option-size) / 3.3);
-            top: calc(var(--option-size) / 3.3);
+            inset-inline-start: calc(var(--option-size) / 3.3);
+            inset-block-start: calc(var(--option-size) / 3.3);
             width: calc(var(--option-size) / 2.5);
 
             transform: rotate(-45deg);
 
-            border: {
-                left: 2px solid var(--option-check-mark-background);
-                bottom: 2px solid var(--option-check-mark-background);
+            [dir="rtl"] & {
+                transform: scale(-1, 1) rotate(45deg);
             }
+
+            border-inline-start: 2px solid var(--option-check-mark-background);
+            border-block-end: 2px solid var(--option-check-mark-background);
         }
 
         &:hover {
-            @include after-mobile {
+            @include desktop {
                 &::before,
                 &::after {
-                    --option-is-selected: .5;
+                    --option-is-selected: 1;
                 }
             }
         }
@@ -129,13 +125,25 @@
     &-String,
     &-Text {
         border-style: solid;
-        line-height: var(--option-size);
-        min-width: calc(1.25 * var(--option-size));
+        border-radius: var(--button-border-radius);
+        line-height: calc(var(--option-size) - 2px);
+        min-width: var(--option-size);
+        font-weight: 400;
         width: auto;
         text-align: center;
 
         &_isSelected {
             --option-border-color: var(--primary-base-color);
+            font-weight: 600;
+        }
+
+        span {
+            font-size: 14px;
+        }
+    }
+
+    &-String {
+        &_isSelected {
             --option-text-color: var(--primary-base-color);
         }
     }
@@ -145,12 +153,6 @@
         border: 0;
         align-items: baseline;
         margin: 0;
-        line-height: 1.4;
-        text-transform: uppercase;
-
-        &_isSelected {
-            color: var(--primary-base-color);
-        }
 
         label,
         .input-control {
@@ -161,34 +163,25 @@
 
         label {
             &:first-of-type {
-                padding-left: 3rem;
-                padding-bottom: 0;
+                padding-block-end: 0;
                 order: 1;
-                text-align: left;
-                line-height: 1.8;
+                text-align: start;
 
                 overflow: hidden;
                 text-overflow: ellipsis;
 
-                display: -webkit-box;
+                //display: -webkit-box;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 3;
 
-                @include mobile {
-                    padding-left: 3.2rem;
-                }
-
                 .input-control {
-                    position: absolute;
-                    left: 0;
+                    inset-inline-start: 0;
                     margin: 0;
-                    min-width: 1.8rem;
+                    width: 18px;
+                    height: 18px;
+                    min-width: 18px;
                     vertical-align: top;
-                    border-color: var(--option-border-color);
-
-                    @include mobile {
-                        min-width: 2.1rem;
-                    }
+                    border-color: var(--color-karaka);
                 }
             }
         }
@@ -196,37 +189,47 @@
         &:hover,
         &:focus {
             label {
-                @include after-mobile {
+                @include desktop {
                     border-color: var(--primary-base-color);
                 }
             }
 
             .input-control {
                 &::after {
-                    @include after-mobile {
+                    @include desktop {
                         --checkmark-color: var(--secondary-dark-color);
                     }
                 }
             }
         }
 
-        @include after-mobile {
-            padding: .6rem 0;
+        @include desktop {
+            padding-block-end: 6px;
+            padding-inline: 0;
         }
     }
 
-    &:hover,
-    &:focus {
+    &:hover {
         @include desktop {
-            --option-border-color: #{$black};
-            --option-text-color: #{$black};
+            --option-border-color: var(--primary-base-color);
+            --option-text-color: var(--primary-base-color);
         }
 
         text-decoration: none;
     }
 
     &_isNotAvailable {
-        opacity: .25;
+        opacity: .5;
+        cursor: default;
         pointer-events: none;
+
+        .ProductAttributeValue-Color {
+            &::before {
+                @include not-available;
+
+                background-color: var(--option-check-mark-background);
+            }
+        }
     }
 }
+

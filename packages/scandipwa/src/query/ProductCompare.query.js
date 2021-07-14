@@ -78,6 +78,8 @@ export class ProductCompareQuery extends ProductListQuery {
         return [
             'uid',
             'item_count',
+            // 'review_count',
+            // 'rating_summary',
             this._getCompareAttributeField(),
             this._getComparableItemField()
         ];
@@ -123,7 +125,9 @@ export class ProductCompareQuery extends ProductListQuery {
     _getProductField() {
         return new Field('product')
             .addFieldList(this._getProductInterfaceFields(true, false))
-            .addFieldList(['url']);
+            .addFieldList(['url'])
+            .addField(this._getReviewCountField())
+            .addField(this._getRatingSummaryField());
     }
 
     _getProductIdsField() {

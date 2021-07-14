@@ -57,7 +57,7 @@ export class ResetButton extends PureComponent {
                       mods: { isHollow: true }
                   } }
                 >
-                    { __('Reset') }
+                    { __('Reset all') }
                 </button>
             </div>
         );

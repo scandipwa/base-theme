@@ -83,6 +83,7 @@ export class Overlay extends PureComponent {
 
     getIsVisible(props = this.props) {
         const { id, activeOverlay, isStatic } = props;
+
         return isStatic || id === activeOverlay;
     }
 

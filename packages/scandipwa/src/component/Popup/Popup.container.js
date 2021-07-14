@@ -83,6 +83,7 @@ export class PopupContainer extends PureComponent {
     _getPopupTitle() {
         const { payload, activeOverlay } = this.props;
         const { title } = payload[activeOverlay] || {};
+
         return title;
     }
 

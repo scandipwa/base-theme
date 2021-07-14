@@ -35,7 +35,8 @@ import {
     BUNDLE,
     CONFIGURABLE,
     DOWNLOADABLE,
-    GROUPED
+    GROUPED,
+    showNewReviewPopup
 } from 'Util/Product';
 
 import './ProductActions.style';
@@ -59,7 +60,6 @@ export class ProductActions extends PureComponent {
         setQuantity: PropTypes.func.isRequired,
         updateConfigurableVariant: PropTypes.func.isRequired,
         parameters: PropTypes.objectOf(PropTypes.string).isRequired,
-        getIsConfigurableAttributeAvailable: PropTypes.func.isRequired,
         filterConfigurableOptions: PropTypes.func.isRequired,
         groupedProductQuantity: PropTypes.objectOf(PropTypes.number).isRequired,
         clearGroupedProductQuantity: PropTypes.func.isRequired,
@@ -78,7 +78,9 @@ export class ProductActions extends PureComponent {
         metaLink: PropTypes.string.isRequired,
         device: DeviceType.isRequired,
         isWishlistEnabled: PropTypes.bool.isRequired,
-        displayProductStockStatus: PropTypes.bool.isRequired
+        displayProductStockStatus: PropTypes.bool.isRequired,
+        setRefs: PropTypes.func.isRequired,
+        areReviewsEnabled: PropTypes.bool.isRequired
     };
 
     static defaultProps = {
@@ -91,6 +93,14 @@ export class ProductActions extends PureComponent {
 
     groupedProductsRef = createRef();
 
+    componentDidMount() {
+        const { setRefs } = this.props;
+        setRefs({
+            configurableOptionsRef: this.configurableOptionsRef,
+            groupedProductsRef: this.groupedProductsRef
+        });
+    }
+
     componentDidUpdate(prevProps) {
         const { product: { id: prevId } } = prevProps;
         const { product: { id }, minQuantity, setQuantity } = this.props;
@@ -101,8 +111,33 @@ export class ProductActions extends PureComponent {
     }
 
     renderStock(stockStatus) {
+        const { displayProductStockStatus } = this.props;
+
+        if (!displayProductStockStatus) {
+            return null;
+        }
+
         const stockStatusLabel = stockStatus === OUT_OF_STOCK ? __('Out of stock') : __('In stock');
+
         return <span block="ProductActions" elem="Stock">{ stockStatusLabel }</span>;
+    }
+
+    renderReviewButton() {
+        const { areReviewsEnabled } = this.props;
+
+        if (!areReviewsEnabled) {
+            return null;
+        }
+
+        return (
+            <button
+              block="ProductActions"
+              elem="Review"
+              onClick={ showNewReviewPopup }
+            >
+                { __('Write a review') }
+            </button>
+        );
     }
 
     renderSkuAndStock() {
@@ -110,8 +145,7 @@ export class ProductActions extends PureComponent {
             product,
             product: { variants },
             configurableVariantIndex,
-            showOnlyIfLoaded,
-            displayProductStockStatus
+            showOnlyIfLoaded
         } = this.props;
 
         const productOrVariant = variants && variants[configurableVariantIndex] !== undefined
@@ -131,13 +165,10 @@ export class ProductActions extends PureComponent {
                     sku,
                     (
                         <>
-                            <span block="ProductActions" elem="Sku">
-                                SKU:
-                            </span>
                             <span block="ProductActions" elem="Sku" itemProp="sku">
-                                { `${ sku }` }
+                                { __('SKU: %s', sku) }
                             </span>
-                            { displayProductStockStatus && this.renderStock(stock_status) }
+                            { this.renderStock(stock_status) }
                         </>
                     ),
                     <TextPlaceholder />
@@ -152,12 +183,11 @@ export class ProductActions extends PureComponent {
             updateConfigurableVariant,
             parameters,
             areDetailsLoaded,
-            product: { configurable_options, type_id },
-            getIsConfigurableAttributeAvailable,
+            product: { configurable_options, type_id, variants },
             filterConfigurableOptions
         } = this.props;
 
-        if (type_id !== 'configurable') {
+        if (type_id !== CONFIGURABLE) {
             return null;
         }
 
@@ -174,9 +204,9 @@ export class ProductActions extends PureComponent {
                   isReady={ areDetailsLoaded }
                   getLink={ getLink }
                   parameters={ parameters }
+                  variants={ variants }
                   updateConfigurableVariant={ updateConfigurableVariant }
                   configurable_options={ filterConfigurableOptions(configurable_options) }
-                  getIsConfigurableAttributeAvailable={ getIsConfigurableAttributeAvailable }
                   isContentExpanded
                 />
             </div>
@@ -248,37 +278,34 @@ export class ProductActions extends PureComponent {
         );
     }
 
-    renderNameAndBrand() {
+    renderName() {
+        const { product: { name } } = this.props;
+
+        return (
+            <h1 block="ProductActions" elem="Title" itemProp="name">
+                <TextPlaceholder content={ name } length="medium" />
+            </h1>
+        );
+    }
+
+    renderBrand() {
         const {
-            product:
-                {
-                    name,
-                    attributes: { brand: { attribute_value: brand } = {} } = {}
-                },
+            product: {
+                attributes: { brand: { attribute_value: brand } = {} } = {}
+            },
             showOnlyIfLoaded
         } = this.props;
 
-        return (
-            <section
-              block="ProductActions"
-              elem="Section"
-              mods={ { type: 'name' } }
-            >
-                { showOnlyIfLoaded(
-                    brand,
-                    (
-                        <>
-                            <meta itemProp="brand" content={ brand } />
-                            <h4 block="ProductActions" elem="Brand" itemProp="brand">
-                                <TextPlaceholder content={ brand } />
-                            </h4>
-                        </>
-                    )
-                ) }
-                <h2 block="ProductActions" elem="Title" itemProp="name">
-                    <TextPlaceholder content={ name } length="medium" />
-                </h2>
-            </section>
+        return showOnlyIfLoaded(
+            brand,
+            (
+                <>
+                    <meta itemProp="brand" content={ brand } />
+                    <h4 block="ProductActions" elem="Brand" itemProp="brand">
+                        <TextPlaceholder content={ brand } />
+                    </h4>
+                </>
+            )
         );
     }
 
@@ -291,10 +318,10 @@ export class ProductActions extends PureComponent {
             } = {},
             getSelectedCustomizableOptions,
             productOptionsData,
-            device
+            device: { isMobile }
         } = this.props;
 
-        if (device.isMobile) {
+        if (isMobile) {
             return null;
         }
 
@@ -365,6 +392,7 @@ export class ProductActions extends PureComponent {
               onProductValidationError={ onProductValidationError }
               productOptionsData={ productOptionsData }
               disabled={ stock_status === OUT_OF_STOCK }
+              isWithIcon
             />
         );
     }
@@ -398,7 +426,7 @@ export class ProductActions extends PureComponent {
                 <meta itemProp="url" content={ metaLink } />
                 <a
                   block="ProductActions"
-                  elem="Schema-Url"
+                  elem="SchemaUrl"
                   itemProp="url"
                   href={ metaLink }
                 >
@@ -408,7 +436,7 @@ export class ProductActions extends PureComponent {
         );
     }
 
-    renderConfigurablePriceBadge() {
+    getConfigurablePriceBadge() {
         const {
             configurableVariantIndex,
             product: { type_id }
@@ -421,16 +449,7 @@ export class ProductActions extends PureComponent {
             return null;
         }
 
-        return (
-            <p
-              mix={ {
-                  block: 'ProductActions',
-                  elem: 'ConfigurablePriceBadge'
-              } }
-            >
-                { __('As Low as') }
-            </p>
-        );
+        return __('As Low as');
     }
 
     renderPriceWithSchema() {
@@ -464,7 +483,6 @@ export class ProductActions extends PureComponent {
               block="ProductActions"
               elem="PriceWrapper"
             >
-                { this.renderConfigurablePriceBadge() }
                 { this.renderSchema() }
                 <meta
                   itemProp="highPrice"
@@ -475,6 +493,7 @@ export class ProductActions extends PureComponent {
                   variantsCount={ offerCount }
                   price={ productPrice }
                   mix={ { block: 'ProductActions', elem: 'Price' } }
+                  label={ this.getConfigurablePriceBadge() }
                 />
             </div>
         );
@@ -534,16 +553,27 @@ export class ProductActions extends PureComponent {
 
     renderProductCompareButton() {
         const {
-            product: { id } = {},
-            device: { isMobile } = {}
+            product: { id } = {}
         } = this.props;
 
-        if (!id || isMobile) {
+        if (!id) {
             return null;
         }
 
         return (
             <ProductCompareButton productId={ id } />
+        );
+    }
+
+    renderReviewSection() {
+        return (
+            <div
+              block="ProductActions"
+              elem="Reviews"
+            >
+                { this.renderReviews() }
+                { this.renderReviewButton() }
+            </div>
         );
     }
 
@@ -561,21 +591,7 @@ export class ProductActions extends PureComponent {
             return null;
         }
 
-        const ONE_FIFTH_OF_A_HUNDRED = 20;
-        const rating = parseFloat(rating_summary / ONE_FIFTH_OF_A_HUNDRED).toFixed(2);
-
-        return (
-            <div
-              block="ProductActions"
-              elem="Reviews"
-            >
-                <ProductReviewRating summary={ rating_summary || 0 } />
-                <p block="ProductActions" elem="ReviewLabel">
-                    { rating }
-                    <span>{ __('%s reviews', review_count) }</span>
-                </p>
-            </div>
-        );
+        return <ProductReviewRating summary={ rating_summary || 0 } count={ review_count } />;
     }
 
     renderGroupedItems() {
@@ -656,48 +672,102 @@ export class ProductActions extends PureComponent {
         const isRequired = links_purchased_separately === 1;
 
         return (
-            <section
+            <ProductDownloadableLinks
+              links={ downloadable_product_links }
+              setLinkedDownloadables={ setLinkedDownloadables }
+              setLinkedDownloadablesPrice={ setLinkedDownloadablesPrice }
+              title={ links_title }
+              isRequired={ isRequired }
+            />
+        );
+    }
+
+    renderAddToCartActionBlock() {
+        return (
+            <div
               block="ProductActions"
-              elem="SectionDownloadable"
-              mods={ { type: 'customizable_options' } }
+              elem="AddToCartWrapper"
+              mods={ { isPrerendered: isSSR() || isCrawler() } }
             >
-                <ProductDownloadableLinks
-                  links={ downloadable_product_links }
-                  setLinkedDownloadables={ setLinkedDownloadables }
-                  setLinkedDownloadablesPrice={ setLinkedDownloadablesPrice }
-                  title={ links_title }
-                  isRequired={ isRequired }
-                />
-            </section>
+                { this.renderQuantityInput() }
+                { this.renderAddToCart() }
+                <div block="ProductActions" elem="ActionButtons">
+                    { this.renderProductWishlistButton() }
+                    { this.renderProductCompareButton() }
+                </div>
+            </div>
+        );
+    }
+
+    renderAddToCartMobile() {
+        return (
+            <div
+              block="ProductActions"
+              elem="AddToCartFixed"
+              mods={ { isPrerendered: isSSR() || isCrawler() } }
+            >
+                { this.renderQuantityInput() }
+                { this.renderAddToCart() }
+                { this.renderProductWishlistButton() }
+            </div>
+        );
+    }
+
+    renderDesktop() {
+        return (
+            <>
+                { this.renderBrand() }
+                { this.renderName() }
+                { this.renderReviewSection() }
+                { this.renderSkuAndStock() }
+                { this.renderShortDescription() }
+                { this.renderConfigurableAttributes() }
+                { this.renderCustomizableOptions() }
+                { this.renderBundleItems() }
+                { this.renderGroupedItems() }
+                { this.renderDownloadableProductSample() }
+                { this.renderDownloadableProductLinks() }
+                { this.renderTierPrices() }
+                { this.renderPriceWithGlobalSchema() }
+                { this.renderAddToCartActionBlock() }
+            </>
+        );
+    }
+
+    renderMobile() {
+        const { product: { type_id } } = this.props;
+        const isWithoutPriceTotal = type_id === GROUPED;
+
+        return (
+            <>
+                { this.renderTierPrices() }
+                <div block="ProductActions" elem="ActionsWrapper" mods={ { isWithoutPriceTotal } }>
+                    { this.renderPriceWithGlobalSchema() }
+                    { this.renderSkuAndStock() }
+                </div>
+                <div block="ProductActions" elem="ActionsWrapper">
+                    { this.renderReviewSection() }
+                    { this.renderProductCompareButton() }
+                </div>
+                { this.renderBrand() }
+                { this.renderShortDescription() }
+                { this.renderConfigurableAttributes() }
+                { this.renderCustomizableOptions() }
+                { this.renderBundleItems() }
+                { this.renderGroupedItems() }
+                { this.renderDownloadableProductSample() }
+                { this.renderDownloadableProductLinks() }
+                { this.renderAddToCartMobile() }
+            </>
         );
     }
 
     render() {
+        const { device: { isMobile } = {} } = this.props;
+
         return (
             <article block="ProductActions">
-                    { this.renderPriceWithGlobalSchema() }
-                    { this.renderShortDescription() }
-                    { this.renderDownloadableProductSample() }
-                    { this.renderDownloadableProductLinks() }
-                    <div
-                      block="ProductActions"
-                      elem="AddToCartWrapper"
-                      mods={ { isPrerendered: isSSR() || isCrawler() } }
-                      mix={ { block: 'FixedElement', elem: 'Bottom' } }
-                    >
-                        { this.renderQuantityInput() }
-                        { this.renderAddToCart() }
-                        { this.renderProductCompareButton() }
-                        { this.renderProductWishlistButton() }
-                    </div>
-                    { this.renderReviews() }
-                    { this.renderNameAndBrand() }
-                    { this.renderSkuAndStock() }
-                    { this.renderConfigurableAttributes() }
-                    { this.renderCustomizableOptions() }
-                    { this.renderBundleItems() }
-                    { this.renderGroupedItems() }
-                    { this.renderTierPrices() }
+                { isMobile ? this.renderMobile() : this.renderDesktop() }
             </article>
         );
     }

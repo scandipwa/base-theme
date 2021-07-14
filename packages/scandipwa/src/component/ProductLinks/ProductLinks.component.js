@@ -77,9 +77,9 @@ export class ProductLinks extends PureComponent {
         const { title } = this.props;
 
         return (
-            <h3 block="ProductLinks" elem="Title">
+            <h2 block="ProductLinks" elem="Title">
                 { title }
-            </h3>
+            </h2>
         );
     }
 

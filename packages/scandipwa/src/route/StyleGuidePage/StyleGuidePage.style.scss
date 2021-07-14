@@ -1,0 +1,196 @@
+/**
+ * ScandiPWA - Progressive Web App for Magento
+ *
+ * Copyright © Scandiweb, Inc. All rights reserved.
+ * See LICENSE for license details.
+ *
+ * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
+ * @package scandipwa/base-theme
+ * @link https://github.com/scandipwa/base-theme
+ */
+
+:root {
+    --emperor: #555;
+    --mine-shaft: #373737;
+    --white: #fff;
+    --wild-sand: #f5f5f5;
+}
+
+.StyleGuidePage {
+    background: var(--wild-sand);
+    padding: 60px 0;
+
+    &-ActiveLink {
+        color: var(--link-hover);
+        border-block-end: 2px solid var(--link-hover);
+        margin-inline-start: 20px;
+        padding-block-end: 3px;
+    }
+
+    &-Buttons {
+        > div:first-of-type {
+            margin-block-end: 24px;
+        }
+    }
+
+    &-Icon {
+        margin-inline-end: 16px;
+        padding-block-end: 20px;
+        width: 16px;
+    }
+
+    &-Heading {
+        background: radial-gradient(100% 4385% at 84% 0%, var(--emperor) 0%, var(--mine-shaft) 100%);
+        color: var(--color-white);
+        line-height: 36px;
+        margin-block-start: 40px;
+        padding: 14px 20px;
+        text-transform: capitalize;
+    }
+
+    &-DesktopTextStyle {
+        h1 {
+            font-size: var(--h1-font-size);
+        }
+
+        h2 {
+            font-size: var(--h2-font-size);
+        }
+
+        h3 {
+            font-size: var(--h3-font-size);
+        }
+    }
+
+    &-Icons {
+        margin-block-start: 30px;
+
+        .Image {
+            margin-inline-end: 10px;
+            max-width: 20px;
+            padding-block-end: 20px;
+        }
+
+        > div {
+            &:not(.Image) {
+                margin-block-end: 20px;
+            }
+
+            .Image {
+                margin-inline-end: 30px;
+            }
+        }
+    }
+
+    &-LayeredNavigation {
+        display: flex;
+
+        > .CategorySort {
+            margin-inline-start: 0;
+        }
+
+        > .Image {
+            height: 20px;
+            margin: 0 10px;
+            max-width: 20px;
+            padding-block-end: 0;
+        }
+    }
+
+    &-MenuAndLinks {
+        > div:first-of-type {
+            margin-block-end: 20px;
+
+            .Menu {
+                &-ItemCaption {
+                    margin-inline-end: 20px;
+
+                    &_active {
+                        color: var(--menu-item-hover-color);
+                    }
+                }
+            }
+        }
+    }
+
+    &-MobileTextStyles {
+        h1 {
+            font-size: var(--h1-font-size-mobile);
+        }
+
+        h2 {
+            font-size: var(--h2-font-size-mobile);
+        }
+
+        h3 {
+            font-size: var(--h3-font-size-mobile);
+        }
+    }
+
+    &-ProductList {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        &Mobile {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 375px;
+        }
+
+        @include desktop {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    &-SubHeading {
+        border-block-end: 1px solid var(--placeholder-gradient-color);
+        font-weight: 700;
+        margin-block-start: 40px;
+        margin-block-end: 24px;
+        margin-inline: 0;
+        padding-block-end: 8px;
+    }
+
+    .Button {
+        margin-inline-end: 42px;
+
+        &_isHovered {
+            border-color: var(--button-hover-border);
+            background-color: var(--button-hover-background);
+            color: var(--button-hover-color);
+
+            &.Button_isHollow {
+                border-color: var(--button-hover-background);
+                background-color: transparent;
+                color: var(--button-hover-background);
+            }
+        }
+    }
+
+    .Field {
+        max-width: 400px;
+
+        > input {
+            width: 100%;
+        }
+    }
+
+    .Notification {
+        margin-inline-end: 20px;
+    }
+
+    .CategoryPagination {
+        margin: unset;
+    }
+
+    .CategoryConfigurableAttributes,
+    .ProductConfigurableAttributes {
+        display: flex;
+        --option-margin-block: 0 12px;
+        --option-margin-inline: 0 12px;
+
+        > * {
+            margin-inline-end: 60px;
+        }
+    }
+}

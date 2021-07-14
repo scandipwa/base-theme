@@ -14,6 +14,7 @@ import { PureComponent } from 'react';
 
 import GroupedProductsItem from 'Component/GroupedProductsItem';
 import { ProductType } from 'Type/ProductList';
+import { GROUPED } from 'Util/Product';
 
 /**
  * Product description
@@ -59,7 +60,7 @@ export class GroupedProductList extends PureComponent {
             product: { items, type_id }
         } = this.props;
 
-        if (type_id !== 'grouped') {
+        if (type_id !== GROUPED) {
             return null;
         }
         if (!items) {

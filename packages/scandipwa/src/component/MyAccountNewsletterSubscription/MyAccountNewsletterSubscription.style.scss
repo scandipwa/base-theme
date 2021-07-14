@@ -10,33 +10,17 @@
  */
 
 .MyAccountNewsletterSubscription {
-    @include after-mobile {
+    font-size: 14px;
+
+    @include desktop {
         display: inline-block;
     }
 
     &-Button {
-        @include after-mobile {
+        @include desktop {
             position: absolute;
-            top: -55px;
-            right: 0;
-        }
-    }
-
-    .Field {
-        @include mobile {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 0;
-        }
-
-        > label {
-            align-items: center;
-            display: flex;
-            flex-direction: row-reverse;
-
-            .input-control {
-                margin: 0 12px 0 0;
-            }
+            inset-block-start: -55px;
+            inset-inline-end: 0;
         }
     }
 }

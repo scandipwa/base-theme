@@ -44,6 +44,7 @@ export class MyAccountMyOrders extends Component {
 
     renderNoOrders() {
         const { device } = this.props;
+
         return (
             <tr block="MyAccountMyOrders" elem="NoOrders">
                 { /* eslint-disable-next-line no-magic-numbers */ }

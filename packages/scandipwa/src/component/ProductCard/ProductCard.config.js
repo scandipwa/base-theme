@@ -18,3 +18,5 @@ export const validOptionTypes = [OPTION_TYPE_TEXT, OPTION_TYPE_COLOR, OPTION_TYP
 
 export const IN_STOCK = 'IN_STOCK';
 export const OUT_OF_STOCK = 'OUT_OF_STOCK';
+
+export const TIER_PRICES = 'TIER_PRICES';

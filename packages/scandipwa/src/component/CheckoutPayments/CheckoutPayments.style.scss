@@ -10,9 +10,15 @@
  */
 
 .CheckoutPayments {
-    margin-bottom: 2.4rem;
+    margin-block-end: 24px;
 
     @include mobile {
-        margin-bottom: 2.8rem;
+        margin-block-end: 28px;
+    }
+
+    @include desktop {
+        &-Methods {
+            width: 50%;
+        }
     }
 }

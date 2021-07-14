@@ -9,19 +9,32 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
- .CheckoutShipping{
+.Checkout {
+  .CheckoutShipping {
+    &-Button {
 
-    .Checkout {
-        &-OrderTotal {
-            dt {
-                text-align: right;
-    
-                span {
-                    display: block;
-                    font-size: .6em;
-                    font-weight: 300;
-                }
-            }
-        }
+      span {
+        @include lock-button;
+      }
+
+      @include desktop {
+        width: 294px;
+      }
+
+      @include mobile {
+        width: 100%;
+      }
     }
+  }
+
+  &-TotalValue {
+    text-align: end;
+  }
+
+  &-SubPrice {
+    white-space: nowrap;
+    display: block;
+    font-weight: 400;
+    font-size: 12px;
+  }
 }

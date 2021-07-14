@@ -12,6 +12,7 @@
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
+import Field from 'Component/Field/Field.container';
 import { paymentMethodType } from 'Type/Checkout';
 
 import './CheckoutPayment.style';
@@ -43,15 +44,23 @@ export class CheckoutPayment extends PureComponent {
             method: { title }
         } = this.props;
 
+        // disable checkbox in order to skip direct clicks on checkbox and handle clicks on entire button instead
         return (
             <li block="CheckoutPayment">
                 <button
                   block="CheckoutPayment"
                   mods={ { isSelected } }
                   elem="Button"
-                  onClick={ this.onClick }
                   type="button"
+                  onClick={ this.onClick }
                 >
+                    <Field
+                      type="checkbox"
+                      id={ `option-${ title }` }
+                      name={ `option-${ title }` }
+                      checked={ isSelected }
+                      disabled
+                    />
                     { title }
                 </button>
             </li>

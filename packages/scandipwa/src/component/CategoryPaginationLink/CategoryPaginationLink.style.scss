@@ -10,16 +10,28 @@
  */
 
 :root {
-    --color-pagination-link-text: #{$black};
+    --color-pagination-link-text: var(--imported_pagination_color, #{$black});
     --color-pagination-link-active-text: var(--primary-base-color);
+    --pagination-line-height: var(--imported_pagination_line_height, 20px);
+    --pagination-font-size: var(--imported_pagination_font_size, 14px);
+    --pagination-font-style: var(--imported_pagination_font_style, normal);
 }
 
 .CategoryPaginationLink {
-    min-width: 35px;
-    display: block;
-    text-align: center;
-    line-height: 35px;
+    border: 1px solid var(--color-dark-gray);
+    border-radius: 2px;
     color: var(--color-pagination-link-text);
+    font-size: var(--pagination-font-size);
+    font-style: var(--pagination-font-style);
+    display: block;
+    line-height: var(--pagination-line-height);
+    margin-inline-end: 15px;
+    padding: 7px 13px;
+    text-align: center;
+
+    &_isArrow {
+        padding: 7px 11px;
+    }
 
     &:hover,
     &:focus {
@@ -30,5 +42,6 @@
 
     &_isCurrent {
         --color-pagination-link-text: var(--color-pagination-link-active-text);
+        border-color: var(--color-pagination-link-active-text);
     }
 }

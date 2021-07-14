@@ -36,6 +36,7 @@ export const getElementHeight = (id) => Array.from(
     document.getElementsByClassName(id)
 ).reduce((acc, item) => {
     const { offsetHeight } = item;
+
     return acc + offsetHeight;
 }, 0);
 
@@ -50,5 +51,8 @@ export const getFixedElementHeight = () => {
         bottom
     };
 };
+
+/** @namespace Util/CSS/isRtl */
+export const isRtl = () => document.documentElement.getAttribute('dir') === 'rtl';
 
 export default CSS;

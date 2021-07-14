@@ -5,10 +5,13 @@
     "scripts": {
         "start": "scandipwa-scripts start",
         "start:magento": "BUILD_MODE=magento scandipwa-scripts start",
-        "build": "scandipwa-scripts build"
+        "build": "scandipwa-scripts build",
+        "postinstall": "scandipwa-scripts link",
+        "postupdate": "scandipwa-scripts link"
     },
     "dependencies": {
-        "@scandipwa/m2-theme": "^0.1.6",
+        "@scandipwa/m2-theme": "file:../m2-theme",
+        "@scandipwa/postcss-config": "^0.0.0",
         "@scandipwa/scandipwa-scripts": "^2.4.9",
         "@scandipwa/service-worker": "^0.0.10",
         "@scandipwa/webpack-i18n-runtime": "^0.0.21",
@@ -35,12 +38,29 @@
         "themeAlias": "Source",
         "type": "theme",
         "locales": {
-            "en_US": true
+            "en_US": true,
+            "da_DK": true,
+            "de_DE": true,
+            "es_ES": true,
+            "fa_IR": true,
+            "fr_FR": true,
+            "it_IT": true,
+            "lv_LV": true,
+            "nb_NO": true,
+            "nl_NL": true,
+            "pl_PL": true,
+            "pt_BR": true,
+            "ru_RU": true,
+            "sl_SI": true,
+            "sv_SE": true,
+            "tr_TR": true,
+            "zh_TW": true
         },
         "extensions": {
             "@scandipwa/m2-theme": true,
             "@scandipwa/webpack-i18n-runtime": true,
-            "@scandipwa/service-worker": true
+            "@scandipwa/service-worker": true,
+            "@scandipwa/postcss-config": true
         },
         "composer": {
             "magento/framework": "*",

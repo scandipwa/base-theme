@@ -1,83 +1,39 @@
 :root {
-    --wishlist-heart-size: 12px;
-    --wishlist-heart-background: var(--primary-base-color);
+    --wishlist-heart-size: 23px;
 }
 
 .ProductWishlistButton {
-    --loader-scale: .6;
-
-    margin-left: 1.08rem;
-    vertical-align: middle;
     display: inline-block;
+    height: var(--wishlist-heart-size);
+    width: var(--wishlist-heart-size);
 
-    @include mobile {
-        margin-left: 1.26rem;
-    }
+    &-Button_isInWishlist {
 
-    @include tablet-portrait {
-        margin-top: 1.2rem;
-    }
+        .ProductWishlistButton-Heart {
+            @include heart-icon-full;
 
-    &-Button {
-        --button-padding: 0;
-        --button-hover-background: transparent;
-        --button-hover-border: var(--primary-dark-color);
-
-        height: 47px;
-        width: 47px;
-
-        &_isInWishlist {
-            --wishlist-heart-background: #fff;
-            --button-hover-background: var(--primary-dark-color);
-            --button-hover-border: var(--primary-dark-color);
-
-            &:hover {
-                @include after-mobile {
-                    --wishlist-heart-background: #fff;
-                }
-            }
-        }
-
-        &.Button {
-            border-radius: 50%;
+            filter: var(--primary-base-filter);
         }
     }
 
-    &:hover {
-        @include after-mobile {
-            --wishlist-heart-background: var(--primary-dark-color);
+    &-Button.Button {
+        background-color: unset;
+        border: none;
+        height: var(--wishlist-heart-size);
+        padding: 0;
+
+        &:hover,
+        &:focus {
+            background-color: unset;
+            height: var(--wishlist-heart-size);
+            padding: 0;
         }
     }
 
     &-Heart {
-        transform: rotate(-45deg);
-        bottom: 0;
-        top: 1px;
-        margin: auto;
+        @include heart-icon;
 
-        &,
-        &::after,
-        &::before {
-            height: var(--wishlist-heart-size);
-            width: var(--wishlist-heart-size);
-            background-color: var(--wishlist-heart-background);
-        }
-
-        &::after,
-        &::before {
-            content: '';
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        &::before {
-            top: calc(var(--wishlist-heart-size) / -2);
-            right: 0;
-        }
-
-        &::after {
-            right: calc(var(--wishlist-heart-size) / -2);
-            top: 0;
-        }
+        height: var(--wishlist-heart-size);
+        min-width: var(--wishlist-heart-size);
     }
 }

@@ -10,173 +10,141 @@
  */
 
 :root {
-    --cart-item-heading-color: #000;
     --cart-item-subheading-color: #888;
-    --cart-item-option-color: #adadad;
-    --cart-item-background: #fff;
-    --cart-item-actions-background: var(--secondary-base-color);
-    --cart-item-actions-color: #000;
-    --cart-item-divider-color: var(--expandable-content-divider-color);
-    --cart-item-action-border: var(--cart-item-divider-color);
-    --cart-swipe-to-delete-color: #fff;
 }
 
 .CartItem {
-    --header-color: var(--cart-item-actions-color);
-
-    border-bottom: 1px solid var(--cart-item-divider-color);
+    --header-color: var(--color-black);
+    border-block-end: 1px solid var(--primary-divider-color);
 
     &-OutOfStock {
         font-weight: bold;
-        margin-bottom: .5rem;
+        margin-block-end: 5px;
     }
 
     &-Link {
         color: inherit;
+        font-weight: 400;
+        align-self: start;
 
         &:hover {
             text-decoration: none;
         }
     }
 
-    &-Option,
-    & {
-        padding-left: 0;
-        margin-bottom: 0;
-
-        &::before {
-            content: none;
-        }
-
-        &:last-child {
-            margin-bottom: 0;
-        }
+    &_isCartOverlay:last-of-type {
+        border-block-end: none;
     }
 
     &-Content {
         display: flex;
         flex-direction: column;
-
-        .CartItem_isEditing &:not(.CartItem-Content_isLikeTable) {
-            @include after-mobile {
-                padding-bottom: 4.8rem;
-            }
-        }
-
-        &_isLikeTable {
-            @include after-mobile {
-                padding-bottom: 0;
-                min-height: 6rem;
-                align-self: center;
-            }
-        }
+        justify-content: space-between;
+        min-width: 0;
     }
 
     &-Wrapper {
         display: grid;
-        grid-template-columns: 7.2rem auto;
-        grid-gap: 1.2rem;
-        padding: 1.2rem;
-        background: var(--cart-item-background);
+        grid-gap: 12px;
+        padding: 12px;
+        background: var(--color-white);
+        align-items: center;
+        grid-template-columns: minmax(100px, 3fr) 2fr 1fr;
 
-        @include mobile {
-            grid-template-columns: 100px auto;
-            grid-gap: 1.4rem;
-            padding: 1.4rem;
+        &_isMobileLayout {
+            grid-template-columns: 64px auto;
+            grid-gap: 14px;
+            padding: 14px 0;
             min-height: 130px;
         }
 
-        @include after-mobile {
-            grid-template-columns: 100px auto;
+        &_isSummary {
+            grid-template-columns: 96px auto;
+
+            & .CartItem-ProductInfo {
+                justify-content: space-between;
+            }
+        }
+
+        &_isCart {
+            & .CartItem-Title {
+                @include desktop {
+                    padding-inline-start: 20px;
+                }
+            }
+        }
+
+        &_isProductOutOfStock {
+            .CartItem-ProductActions_isMobileLayout {
+                align-self: flex-end;
+            }
+        }
+    }
+
+    &-ProductInfo {
+        display: flex;
+
+        &_isMobileLayout {
+            align-items: flex-start;
+            justify-content: space-between;
         }
     }
 
     &-Options {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-
-        &_isLikeTable {
-            @include after-mobile {
-                flex-grow: 1;
-            }
-        }
+        color: var(--secondary-dark-color);
+        font-size: 12px;
 
         @include mobile {
-            margin-bottom: .7rem;
+            padding-block-end: 12px;
         }
     }
 
     &-Option {
-        font-size: 1rem;
-        text-transform: uppercase;
-        border: 1px solid var(--cart-item-option-color);
-        color: var(--cart-item-option-color);
-        padding: 3px 5px;
-        margin: 5px 7px 0 0;
-    }
-
-    &-ItemOptionsWrapper {
-        @include mobile {
-            margin-top: .7rem;
-        }
-
-        &_isLikeTable {
-            @include desktop {
-                max-width: 45%;
-            }
-        }
-    }
-
-    &-ItemOption {
-        display: flex;
-        margin-bottom: .6rem;
-        margin-right: .6rem;
-
-        @include mobile {
-            margin-bottom: .7rem;
-            margin-right: .7rem;
-        }
-    }
-
-    &-ItemOptionLabel {
-        align-self: center;
-        font-weight: bold;
-        margin-right: .6rem;
-
-        @include mobile {
-            margin-right: .7rem;
-        }
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &-ItemLinks {
         &Wrapper {
             display: flex;
-            gap: 1rem;
+            flex-direction: column;
+            color: var(--secondary-dark-color);
+            font-size: 12px;
         }
+    }
 
-        @include mobile {
-            margin-top: .7rem;
+    &-Title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 65%;
+        overflow: hidden;
+
+        &_isMobileLayout {
+            width: 90%;
         }
     }
 
     &-Heading,
     &-SubHeading {
-        font-size: 1.4rem;
+        font-size: 14px;
         line-height: 1.2;
-        flex-grow: 2;
         width: 100%;
-        margin-bottom: .6rem;
+        margin-block-end: 6px;
 
         @include mobile {
             max-width: 95%;
-            margin-bottom: .2rem;
-            margin-top: .2rem;
+            margin-block-end: 2px;
+            margin-block-start: 2px;
         }
     }
 
     &-Heading {
-        color: var(--cart-item-heading-color);
+        color: var(--color-black);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &-SubHeading {
@@ -184,248 +152,141 @@
     }
 
     &-Picture {
-        align-self: center;
-        padding-bottom: 130%;
+        width: 96px;
+        height: 96px;
+        align-self: flex-start;
 
-        @include mobile {
-            height: 100%;
+        img {
+            object-position: top;
+        }
+
+        &_isMobileLayout {
+            width: 64px;
+            height: 64px;
         }
     }
 
     &-Price {
-        flex-grow: 1;
-        text-align: right;
-        margin-bottom: 0;
+        text-align: end;
+        font-size: 18px;
 
-        @include after-mobile {
-            font-size: 1.6rem;
+        &_isMobileLayout {
+            text-align: start;
             display: flex;
+            flex-direction: column;
             justify-content: flex-end;
             align-items: flex-end;
-            flex-direction: column;
+            font-weight: 700;
+            font-size: 16px;
         }
 
-        &_isLikeTable {
-            top: 0;
-
-            @include after-mobile {
-                width: 24rem;
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                margin: auto;
-                right: 0;
-                height: max-content;
-            }
-
-            &:last-of-type {
-                @include after-mobile {
-                    margin: auto;
-                }
-            }
-        }
-
-        @include mobile {
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-start;
+        &_isCartOverlay data {
+            font-size: 14px;
         }
     }
 
-    &-Actions {
-        opacity: 0;
-        padding: 0 1.2rem;
-        max-height: 0;
-        pointer-events: none;
-
+    &-ProductActions {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        flex-direction: row-reverse;
 
-        will-change: max-height, opacity, padding;
-        transition-property: padding, max-height;
-        transition-duration: 200ms;
-
-        @include after-mobile {
-            position: absolute;
-            bottom: 1.2rem;
-            right: 0;
-            width: calc(100% - 11.3rem);
-            height: 3.6rem;
+        &_isMobileLayout {
+            justify-content: space-between;
+            align-items: flex-end;
         }
+    }
 
-        &_isLikeTable {
-            @include after-mobile {
-                width: 20%;
-                bottom: 0;
-                right: 20%;
-                top: -5px;
-                margin: auto;
-                justify-content: center;
-            }
-
-            > * {
-                margin: 0 5px;
-
-                @include tablet-portrait {
-                    margin: unset;
-                }
-            }
-        }
-
-        &_isEditing {
-            transition-property: padding, max-height, opacity;
-            padding: .6rem 1.2rem;
-            opacity: 1;
-            max-height: 6rem;
-            pointer-events: all;
-        }
-
-        &::before {
-            top: 0;
-            z-index: 1;
-            border-color: var(--cart-item-action-border) transparent transparent transparent;
-        }
+    &-CartItemRows {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-width: 0;
     }
 
     &-Delete {
-        @include desktop {
-            @include clear-button;
-        }
+        @include close-button;
 
-        @include after-mobile {
-            top: 1px;
-        }
-
-        @include mobile {
-            @include close-button;
-
-            position: absolute;
-            right: 0;
-            height: 30px;
-            max-width: 5%;
-            padding-left: 0;
-            flex-grow: 1;
-
-            &::before {
-                height: 15px;
-                top: 0;
-            }
-
-            &::after {
-                height: 15px;
-                top: 0;
-            }
-        }
-
+        background-size: auto;
+        width: 12px;
+        z-index: 5;
         height: 35px;
-        padding-left: 35px;
-        font-size: 1.4rem;
-        color: var(--cart-item-actions-color);
+        font-size: 14px;
+        color: var(--color-black);
+        padding-inline-start: 35px;
+
+        &_isMobileLayout {
+            height: 12px;
+            padding-inline-start: 0;
+        }
     }
 
     &-DeleteButtonText {
-        @include mobile {
+        &_isMobileLayout {
+            display: none;
+        }
+
+        @include tablet; @include narrow-desktop {
             display: none;
         }
     }
 
     & &-Qty { // hack to obtain required specificity
-        margin-top: 0;
+        margin-block-start: 0;
         display: flex;
 
         @include mobile {
             align-items: center;
+            font-size: 14px;
         }
 
         input {
-            background: transparent;
-            border: 0;
-            color: var(--cart-item-actions-color);
-            height: 28px;
-            font-weight: 400;
-            text-align: center;
-            padding: 0;
-            order: 2;
-            width: 44px;
-            min-width: 44px;
-            font-size: 1.6rem;
-            top: 1px;
-
             @include mobile {
-                width: 24px;
-                min-width: 24px;
+                width: 32px;
+                min-width: 32px;
+                background-color: transparent;
             }
         }
 
         button {
-            position: relative;
-            order: 1;
-            border: 1px solid var(--cart-item-actions-color);
-            width: 28px;
-            height: 28px;
-            top: 0;
-            left: 0;
-            color: var(--cart-item-actions-color);
-            background: transparent;
-
-            &:first-of-type {
-                left: 0;
-                order: 3;
-            }
-
-            &:last-of-type {
-                right: 0;
-                order: 1;
-            }
-
-            span {
-                @include mobile {
-                    top: -2.2px;
-                }
-            }
-
-            @include mobile {
-                width: 18px;
-                height: 18px;
-            }
+            cursor: pointer;
+            //
+            //@include mobile {
+            //    width: 36px;
+            //    height: 36px;
+            //}
         }
     }
 
     &-SwipeToDeleteRightSide {
         height: 100%;
         font-weight: 600;
-        color: var(--cart-swipe-to-delete-color);
+        color: var(--color-white);
     }
 
-    &-QuantityWrapper {
-        display: flex;
-        align-items: center;
+    .ProductPrice {
+        @include desktop {
+            min-height: auto;
+        }
 
-        @include mobile {
-            margin-bottom: .7rem;
+        &-SubPrice {
+            font-size: 12px;
+            font-weight: 400;
         }
     }
 
-    &-QuantityText {
-        margin-right: 10px;
-
-        @include after-mobile {
-            display: none;
+    .CartItem-QuantityWrapper_isCartOverlay {
+        & button {
+            width: 36px;
+            height: 36px;
         }
-    }
 
-    &-HeadingWrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-    }
+        .CartItem-Qty {
+            font-size: 14px;
 
-    .ProductPrice-SubPrice {
-        font-size: .6em;
-        font-weight: 300;
+            input {
+                width: 32px;
+                min-width: 32px;
+            }
+        }
     }
 }

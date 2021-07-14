@@ -12,7 +12,11 @@
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
+import Image from 'Component/Image/Image.container';
+import { GRID_LAYOUT } from 'Route/CategoryPage/CategoryPage.config';
+import bag from 'Style/icons/bag.svg';
 import { MixType } from 'Type/Common';
+import { LayoutType } from 'Type/Layout';
 import { ProductType } from 'Type/ProductList';
 
 import './AddToCart.style';
@@ -28,6 +32,8 @@ export class AddToCart extends PureComponent {
         product: ProductType,
         mix: MixType,
         buttonClick: PropTypes.func.isRequired,
+        layout: LayoutType,
+        isWithIcon: PropTypes.bool,
         disabled: PropTypes.bool
     };
 
@@ -35,6 +41,8 @@ export class AddToCart extends PureComponent {
         product: {},
         mix: {},
         isLoading: false,
+        layout: GRID_LAYOUT,
+        isWithIcon: false,
         disabled: false
     };
 
@@ -50,12 +58,23 @@ export class AddToCart extends PureComponent {
         );
     }
 
+    renderCartIcon() {
+        const { isWithIcon } = this.props;
+
+        if (!isWithIcon) {
+            return null;
+        }
+
+        return <Image src={ bag } alt="cart" mix={ { block: 'AddToCart', elem: 'Icon' } } />;
+    }
+
     render() {
         const {
             mix,
             product: { type_id },
             isLoading,
             buttonClick,
+            layout,
             disabled
         } = this.props;
 
@@ -68,11 +87,11 @@ export class AddToCart extends PureComponent {
               onClick={ buttonClick }
               block="Button AddToCart"
               mix={ mix }
-              mods={ { isLoading } }
+              mods={ { isLoading, layout } }
               disabled={ isLoading || disabled }
             >
-                <span>{ __('Add to cart') }</span>
-                <span>{ __('Adding...') }</span>
+                { this.renderCartIcon() }
+                <span>{ isLoading ? __('Adding...') : __('Add to cart') }</span>
             </button>
         );
     }

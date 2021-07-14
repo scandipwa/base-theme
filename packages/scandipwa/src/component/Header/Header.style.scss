@@ -10,14 +10,11 @@
  */
 
 :root {
-    --header-background: #fff;
-    --header-color: #000;
-    --header-contacts-color: #414141;
-    --header-icon-stroke-width: 1px;
-    --header-search-clear-background: #838383;
-    --header-desktop-button-color: var(--primary-base-color);
-    --header-height: 50px;
-    --header-nav-height: 50px;
+    --header-logo-width: 194px;
+    --header-logo-height: 24px;
+
+    --header-height: 60px;
+    --header-nav-height: 60px;
     --header-total-height:
         calc(
             var(--header-height)
@@ -27,36 +24,36 @@
         );
 
     @include desktop {
-        --header-dots-color: #000;
-    }
-
-    @include after-mobile {
-        --header-nav-height: 60px;
-        --header-top-menu-height: 30px;
-        --header-height: calc(var(--header-nav-height) + var(--header-top-menu-height));
-    }
-}
-
-@supports not (height: env(safe-area-inset-top)) {
-    :root {
-        --header-total-height: calc(var(--header-height) + var(--offline-notice-height) + var(--demo-notice-height));
+        --header-top-menu-height: 32px;
+        --header-height: calc(var(--header-nav-height) + var(--header-top-menu-height) + var(--menu-total-height));
     }
 }
 
 @mixin button-invisible {
+    margin: 0;
     opacity: 0;
-    padding: 0;
-    width: 0;
-    pointer-events: none;
     overflow: hidden;
+    padding: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
 }
 
 @mixin button-visible {
     opacity: 1;
-    padding: 7.5px;
-    width: 35px;
+    height: 25px;
+    width: 25px;
     pointer-events: all;
     overflow: visible;
+    cursor: pointer;
+}
+
+@mixin visible-on-mobile {
+    @include button-visible;
+
+    @include desktop {
+        @include button-invisible;
+    }
 }
 
 @mixin logo-visible {
@@ -65,30 +62,334 @@
 }
 
 .Header {
-    --header-logo-width: 0;
-    --header-logo-height: 0;
-
-    position: fixed;
-    top: var(--demo-notice-height);
-    left: 0;
+    align-items: center;
+    background: var(--color-white);
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-block-start: env(safe-area-inset-top, 0);
     width: 100%;
+    position: fixed;
     z-index: 100;
-    background-color: var(--header-background);
-    padding-top: env(safe-area-inset-top, 0);
+    border-block-end: 1px solid var(--primary-divider-color);
+    inset-block-start: var(--demo-notice-height);
 
-    @include desktop {
-        border-bottom: 1px solid var(--primary-divider-color);
+    > * {
+        max-width: var(--content-wrapper-width);
+        width: 100%;
     }
 
-    @at-root .hiddenHeader {
-        @include before-desktop {
-            /* stylelint-disable-next-line length-zero-no-unit */
-            --header-height: 0px;
+    &_menu,
+    &_menu_subcategory {
+        .Header-Button_type {
+            &_close {
+                @include desktop {
+                    @include button-visible;
+                }
+            }
+
+            &_menu {
+                @include desktop {
+                    @include button-invisible;
+                }
+            }
+        }
+    }
+
+    &_name {
+        &_menu,
+        &_menu_subcategory {
+            border-block-end: none;
+        }
+
+        &_category {
+            position: fixed;
+
+            @include mobile {
+                border-block-end: none;
+            }
+        }
+    }
+
+    &-Button {
+        @include button-invisible;
+
+        &_isVisible {
+            @include mobile {
+                @include button-visible;
+            }
+        }
+
+        &_isDisabled {
+            pointer-events: none;
+            opacity: .1;
+        }
+
+        &_type {
+            &_menu,
+            &_minicart {
+                @include button-visible;
+
+                @include desktop {
+                    margin-inline-start: 35px;
+                }
+            }
+
+            &_account {
+                @include button-visible;
+                @include account-button;
+            }
+
+            &_home {
+                @include visible-on-mobile;
+                @include home-icon;
+            }
+
+            &_menu {
+                @include menu-button;
+            }
+
+            &_minicart {
+
+                @include desktop {
+                    margin-inline-start: 35px;
+                }
+            }
+
+            &_back {
+                @include back-button;
+
+                width: 18px;
+                height: 20px;
+
+                [dir="rtl"] & {
+                    transform: none;
+                }
+            }
+
+            &_close {
+                @include close-button;
+
+                width: 27px;
+                height: 27px;
+            }
+
+            &_share {
+                @include share-icon;
+            }
+
+            &_compare {
+                @include button-visible;
+            }
+        }
+
+        &[aria-hidden="true"] {
+            display: none;
+        }
+    }
+
+    &-MinicartButtonWrapper {
+        cursor: pointer;
+    }
+
+    &-CompareButtonWrapper {
+        margin-inline-start: 35px;
+    }
+
+    &-CompareIcon {
+        @include compare-icon;
+    }
+
+    &-LogoWrapper {
+        inset-block-end: 0;
+        height: var(--header-logo-height);
+        inset-inline-start: 0;
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+        inset-inline-end: 0;
+        inset-block-start: 0;
+        width: var(--header-logo-width);
+
+        @include mobile {
+            margin: auto;
+        }
+
+        @include desktop {
+            @include logo-visible;
+        }
+
+        &_isVisible {
+            @include logo-visible;
+        }
+    }
+
+    &-Minicart {
+        &ButtonWrapper {
+            height: 100%;
+            width: 100%;
+        }
+
+        &ItemCount {
+            background: var(--primary-base-color);
+            border-radius: 50%;
+            color: var(--color-white);
+            height: 17px;
+            padding: 2px;
+            position: absolute;
+            width: 17px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80%;
+            font-weight: 700;
+
+            @include mobile {
+                inset-block-start: -7px;
+                inset-inline-end: -11px;
+            }
+
+            @include desktop {
+                inset-block-start: -10px;
+                inset-inline-end: -12px;
+            }
+        }
+    }
+
+    &-Nav {
+        align-items: center;
+        display: flex;
+        height: var(--header-nav-height);
+        padding-inline: 14px;
+
+        @include desktop {
+            justify-content: unset;
+            padding-inline: 32px;
+        }
+    }
+
+    &-News {
+        align-items: center;
+        display: flex;
+
+        &Button {
+            font-size: 12px;
+            margin-inline-start: 5px;
+        }
+
+        &Icon {
+            @include exclamation-icon;
+
+            inset-block-end: 1px;
+            height: 16px;
+            margin-inline-end: 10px;
+            width: 16px;
+        }
+    }
+
+    &-Title {
+        color: var(--header-color);
+        margin: auto;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+        position: absolute;
+        inset-inline-end: 0;
+        text-align: center;
+        text-overflow: ellipsis;
+        inset-block-start: -1px;
+        inset-inline-start: 0;
+        inset-block-end: 0;
+        transition-duration: 200ms;
+        transition-property: opacity;
+        white-space: nowrap;
+        width: 100%;
+        text-transform: inherit;
+        line-height: 30px;
+        height: 30px;
+
+        &_isVisible {
+            @include mobile {
+                opacity: 1;
+                max-width: calc(100% - 80px);
+            }
+        }
+    }
+
+    &-Welcome {
+        display: none;
+        font-size: 14px;
+        margin-inline-end: 16px;
+        text-align: end;
+
+        @include narrow-desktop {
+            display: block;
+        }
+
+        &_isVisible {
+            display: block;
+        }
+    }
+
+    &-TopMenu,
+    &-Nav {
+        display: flex;
+        margin: auto;
+        max-width: var(--content-wrapper-width);
+    }
+
+    &-TopMenu {
+        justify-content: space-between;
+        height: var(--header-top-menu-height);
+        padding-inline: 32px;
+        padding-block-start: 16px;
+    }
+
+    &-Switcher {
+        align-items: center;
+        display: flex;
+    }
+
+    &_isCheckout {
+        .Header {
+            &-Button_type_account {
+                display: block;
+            }
+
+            &-Button_type_close,
+            &-Button_type_back {
+                @include desktop {
+                    display: none;
+                }
+            }
+
+            &-MyAccount {
+                @include desktop {
+                    margin-inline-start: auto;
+                }
+
+                @include mobile {
+                    position: absolute;
+                    inset-inline-end: 10px;
+                    width: auto;
+                }
+            }
+        }
+
+        .MyAccountOverlay {
+            @include mobile {
+                inset-block-start: var(--header-total-height);
+                height: calc(100vh - var(--header-total-height));
+                position: fixed;
+                width: 100vw;
+            }
         }
     }
 
     &-Wrapper {
-        margin-bottom: var(--header-total-height);
+        display: flex;
+        justify-content: center;
+        margin-block-end: var(--header-total-height);
 
         &_isPrerendered {
             @include mobile {
@@ -116,454 +417,11 @@
         }
     }
 
-    &_isHiddenOnMobile {
-        @include before-desktop {
-            pointer-events: none;
-            opacity: 0;
-        }
-    }
-
-    &_name {
-        &_cart {
-            .Header-Button_type_minicart {
-                @include desktop {
-                    --header-color: var(--primary-base-color);
-                }
-            }
-        }
-
-        &_cart_overlay {
-            .Header-Button_type_minicart,
-            .Header-MinicartTitle {
-                @include after-mobile {
-                    --header-color: var(--primary-base-color);
-                }
-            }
-        }
-
-        &_menu,
-        &_menu_subcategory {
-            .Header-Button_type {
-                &_close {
-                    @include desktop {
-                        @include button-visible;
-                    }
-                }
-
-                &_menu {
-                    @include desktop {
-                        @include button-invisible;
-                    }
-                }
-            }
-        }
-
-        &_customer_account,
-        &_customer_sub_account {
-            .Header-Button_type_account,
-            .Header-MyAccountTitle {
-                @include desktop {
-                    --header-color: var(--header-desktop-button-color);
-                }
-                margin: auto;
-            }
-        }
-
-        &_checkout {
-            .Header-Button,
-            .Header-SearchWrapper,
-            .SearchField {
-                @include desktop {
-                    display: none;
-                }
-            }
-        }
-    }
-
-    &_isCheckout {
-        .Header {
-            &-Button_type_account {
-                display: block;
-            }
-
-            &-Nav {
-                @include desktop {
-                    justify-content: flex-end;
-                }
-            }
-
-            &-MyAccount {
-                @include before-desktop {
-                    position: absolute;
-                    right: 10px;
-                    width: auto;
-                }
-            }
-        }
-
-        .MyAccountOverlay {
-            @include before-desktop {
-                top: var(--header-total-height);
-                height: calc(100vh - var(--header-total-height));
-                position: fixed;
-                width: 100vw;
-            }
-        }
-    }
-
-    &-Banner {
-        background: var(--primary-base-color);
-        color: $white;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        display: block;
-        z-index: 100;
-
-        strong {
-            margin-left: 3px;
-        }
-    }
-
-    &-TopMenu,
-    &-Nav {
-        display: flex;
-        margin: auto;
-        max-width: var(--content-wrapper-width);
-    }
-
-    &-TopMenu {
-        height: var(--header-top-menu-height);
-        justify-content: space-between;
-        z-index: 21;
-        padding: {
-            left: 1.2rem;
-            right: 2.4rem;
-            top: 1.2rem;
-        };
-
-        @include mobile {
-            padding: {
-                left: 1.4rem;
-                right: 2.8rem;
-                top: 1.4rem;
-            }
-        }
-    }
-
-    &-Contacts {
-        font-size: 1.2rem;
-        color: var(--header-contacts-color);
-
-        span:first-child {
-            margin-right: 20px;
-        }
-    }
-
-    &-Nav {
-        align-items: center;
-        height: var(--header-nav-height);
-        padding: 0 1.2rem;
-        z-index: 20;
-
-        @include mobile {
-            padding: 0 1.4rem;
-        }
-
-        @include desktop {
-            justify-content: flex-end;
-        }
-    }
-
-    &-Button {
-        @include button-invisible;
-
-        cursor: pointer;
-        margin: 0;
-        height: 35px;
-
-        &_isVisible {
-            @include before-desktop {
-                @include button-visible;
-            }
-        }
-
-        &_isDisabled {
-            pointer-events: none;
-            opacity: .1;
-        }
-
-        &_type {
-            &_menu,
-            &_account,
-            &_minicart {
-                @include desktop {
-                    @include button-visible;
-                }
-            }
-
-            &_close {
-                @include close-button;
-            }
-
-            &_back {
-                @include back-button;
-            }
-
-            &_menu {
-                @include menu-button;
-
-                @include desktop {
-                    width: 100px;
-                }
-            }
-
-            &_account {
-                @include account-button;
-
-                &.Header-Button_isVisible {
-                    overflow: hidden;
-                }
-            }
-
-            &_minicart {
-                @include before-desktop {
-                    @include minicart-button;
-                }
-
-                @include desktop {
-                    cursor: default;
-                    height: auto;
-                    width: auto;
-                }
-            }
-
-            &_searchClear {
-                @include clear-search-button;
-            }
-
-            &_clear {
-                @include clear-button;
-            }
-
-            &_edit {
-                text-transform: uppercase;
-
-                &.Header-Button_isVisible {
-                    width: 70px;
-                    opacity: .5;
-                }
-            }
-
-            &_share {
-                @include share-button;
-
-                &.Header-Button_isVisible {
-                    height: 0;
-                    width: 0;
-                    margin-left: 1rem;
-                    opacity: .5;
-                }
-            }
-
-            &_home {
-                @include home-icon;
-            }
-
-            &_ok,
-            &_cancel {
-                font-size: 1.4rem;
-                opacity: .5;
-
-                &.Header-Button_isVisible {
-                    width: 70px;
-                }
-            }
-
-            &_compare {
-                @include button-visible;
-
-                padding: 0;
-                margin: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-        }
-
-        &[aria-hidden="true"] {
-            display: none;
-        }
-    }
-
-    &-CompareButtonWrapper {
-        border-right: 2px dotted var(--header-dots-color);
-        margin: 0 20px 0 7px;
-        padding-right: 20px;
-    }
-
-    &-CompareIcon {
-        @include compare-icon(var(--header-color));
-    }
-
-    &-MyAccount {
-        &Wrapper {
-            align-items: center;
-            display: flex;
-        }
-
-        &Title {
-            cursor: pointer;
-            padding-right: .48rem;
-            text-transform: uppercase;
-            color: var(--header-color);
-            margin: auto;
-
-            @include mobile {
-                padding-right: .56rem;
-                display: none;
-            }
-        }
-    }
-
-    &-Minicart {
-        &ButtonWrapper {
-            align-items: center;
-            cursor: pointer;
-            display: flex;
-            height: 26px;
-            margin-left: 2.4rem;
-            padding-right: 2.16rem;
-
-            @include mobile {
-                margin-left: 2.8rem;
-                padding-right: 2.52rem;
-            }
-
-            @include tablet-portrait {
-                margin-left: 0;
-            }
-        }
-
-        &Title {
-            color: var(--header-color);
-            margin-right: .84rem;
-            text-transform: uppercase;
-
-            @include mobile {
-                margin-right: .98rem;
-            }
-        }
-
-        &Icon {
-            @include minicart-button;
-
-            @include desktop {
-                height: 20px;
-                width: 20px;
-                top: 1px;
-            }
-        }
-
-        &ItemCount {
-            line-height: 13px;
-            min-width: 14px;
-            padding-left: 5px;
-            background: var(--primary-base-color);
-            border-radius: 10px;
-            color: var(--header-background);
-            display: inline-block;
-            font-size: 1.2rem;
-            padding: 3px 5px 1px;
-            position: absolute;
-            transform: translateX(3px);
-            z-index: 2;
-
-            @include after-mobile {
-                left: 100%;
-                transform: translateX(-30px);
-                top: 12px;
-            }
-
-            @include mobile {
-                left: 50%;
-                top: 18px;
-            }
-        }
-    }
-
-    &-LogoWrapper {
-        position: absolute;
-        height: var(--header-logo-height);
-        width: var(--header-logo-width);
-        max-width: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        top: 0;
-        bottom: 0;
-        opacity: 0;
-        overflow: hidden;
-
-        transition-property: opacity;
-        transition-duration: 200ms;
-
-        @include desktop {
-            @include logo-visible;
-        }
-
-        &_isVisible {
-            @include logo-visible;
-        }
-    }
-
-    &-Title {
-        opacity: 0;
-        max-width: 0;
-        transition-property: opacity;
-        transition-duration: 200ms;
-
-        text-align: center;
-        font-size: 1.56rem;
-        color: var(--header-color);
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        pointer-events: none;
-
-        position: absolute;
-        margin: auto;
-        width: 100%;
-        height: 1.8rem;
-        line-height: 1.8rem;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-
-        @include mobile {
-            text-transform: uppercase;
-            font-size: 1.82rem;
-            height: 2.1rem;
-            line-height: 2.1rem;
-        }
-
-        &_isVisible {
-            @include before-desktop {
-                opacity: 1;
-                max-width: calc(100% - 100px);
-            }
-        }
-    }
-
-    a {
-        &:hover,
-        &:focus {
-            @include before-desktop {
-                text-decoration: none;
-            }
-        }
+    &-MinicartIcon {
+        @include minicart-button;
+
+        display: inline-block;
+        height: 24px;
+        width: 24px;
     }
 }

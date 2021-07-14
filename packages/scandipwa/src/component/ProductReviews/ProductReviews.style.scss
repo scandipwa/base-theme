@@ -18,18 +18,22 @@
         padding: 0;
 
         @include desktop {
-            padding: 3.6rem 1.2rem;
+            padding: 36px 12px;
         }
     }
 
-    @include desktop {
-        &-Summary {
-            align-self: stretch;
-        }
+    &-Summary {
+        align-self: stretch;
+        display: flex;
+        flex-wrap: wrap;
     }
 
     &-SummaryRating {
-        font-size: 3rem;
+        --star-size: 27px;
+
+        .ProductReviewRating-Counter {
+            display: none;
+        }
     }
 
     &-ExpandableContentHeading,
@@ -41,47 +45,40 @@
 
     &-ExpandableContentContent {
         @include desktop {
-            margin-top: 0;
+            margin-block-start: 0;
         }
 
         &_isContentExpanded {
-            padding-top: 0;
+            padding-block-start: 0;
         }
     }
 
     & &-Button {
         position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        height: max-content;
+        inset-inline-end: 0;
+        inset-block-start: 0;
+        inset-block-end: 0;
         margin: auto;
 
-        @include before-desktop {
-            position: relative;
-            height: auto;
-            width: 100%;
-            margin-top: 1.2rem;
-        }
-
         @include mobile {
-            margin-top: 1.4rem;
+            position: relative;
+            width: 100%;
+            margin-block-start: 18px;
         }
     }
 
     &-SummaryDetails {
         display: inline-block;
-        margin-left: 1.2rem;
-        font-size: 2rem;
+        margin-inline-start: 12px;
+        margin-block: auto;
+        font-size: 24px;
+        font-weight: 700;
 
         @include mobile {
-            margin-left: 1.4rem;
+            margin-inline-start: 14px;
         }
 
         span {
-            font-size: 1.6rem;
-            font-weight: normal;
-
             &::before {
                 content: ' / ';
             }

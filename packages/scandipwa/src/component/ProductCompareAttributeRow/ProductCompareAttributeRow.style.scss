@@ -11,23 +11,26 @@
 
 .ProductCompareAttributeRow {
     display: flex;
-    margin-top: 1rem;
-    font-size: 1.4rem;
+    padding-block: 24px;
+    font-size: 14px;
+    border-block-start: 1px solid var(--secondary-base-color);
 
     @include mobile {
         display: block;
-        margin: 1rem 0;
+        margin: 10px 0;
     }
 
     &-Title {
         flex: 0 0 auto;
         width: var(--product-compare-sidebar-width);
         position: sticky;
-        left: 0;
+        inset-inline-start: 0;
         font-weight: 700;
+        font-size: 14px;
 
         @include mobile {
-            padding: 1rem;
+            padding-inline: 15px;
+            padding-block-end: 10px;
             white-space: nowrap;
         }
 
@@ -41,13 +44,18 @@
         display: flex;
     }
 
+    // make attribute value cell content narrower than table header
     &-Value {
+        @include default-list;
+
         flex: 0 0 auto;
-        padding: 0 var(--product-compare-item-gap);
+        padding-block: 0;
+        padding-inline: var(--product-compare-item-gap) calc(var(--product-compare-item-gap) + var(--prouduct-compare-additional-gap));
         width: var(--product-compare-column-width);
+        text-align: justify;
 
         &:last-child {
-            padding-right: 0;
+            padding-inline-end: 0;
         }
     }
 }

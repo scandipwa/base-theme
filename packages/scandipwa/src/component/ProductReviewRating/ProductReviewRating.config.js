@@ -8,9 +8,6 @@
  * @package scandipwa/base-theme
  * @link https://github.com/scandipwa/base-theme
  */
-
-@font-face {
-  font-family: 'Muli';
-  src: local('Arial'), local('OpenSans'), url(https://use.typekit.net/gbk7rfi.css);
-  font-display: swap;
-}
+export const STARS_GRANULARITY_PERCENT = 10;
+export const ONE_STAR_SHARE = 20;
+export const STARS_COUNT = 5;

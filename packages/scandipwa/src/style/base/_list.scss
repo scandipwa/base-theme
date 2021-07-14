@@ -18,17 +18,11 @@ ol {
 }
 
 li {
-    padding-left: 3.9rem;
-
-    @include mobile {
-        padding-left: 4.55rem;
-    }
-
     &::before {
         position: absolute;
-        left: 1em;
-        top: .07em;
-        padding-right: 1.1225em;
+        inset-inline-start: 1em;
+        inset-block-start: .07em;
+        padding-inline-end: 1.1225em;
 
         ol > & {
             content: counter(list) '.';

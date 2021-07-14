@@ -22,20 +22,20 @@
         height: calc(100vh - 40px);
         background: black;
 
-        @include after-mobile {
+        @include desktop {
             width: calc(100vw - 130px);
             height: 0;
-            padding-top: 56.3%; // 16x9 proportion
+            padding-block-start: 56.3%; // 16x9 proportion
             max-width: calc((100vh - 300px) / .563);
         }
     }
 
     &-PlayerContent {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-end: 0;
+        inset-block-end: 0;
+        inset-inline-start: 0;
 
         .vimeo {
             height: 100%;

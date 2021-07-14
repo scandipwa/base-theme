@@ -15,10 +15,15 @@
     }
 }
 
-// should be removed in future releases
-// kept as legacy support
-@mixin before-desktop {
-    @include mobile {
+@mixin narrow-desktop {
+    @media (min-width: 1024px)
+        and (max-width: 1280px) {
+        @content;
+    }
+}
+
+@mixin wide-desktop {
+    @media (min-width: 1280px) {
         @content;
     }
 }
@@ -45,14 +50,6 @@
         and (max-width: 1023px)
         and (-webkit-min-device-pixel-ratio: 1)
         and (orientation: landscape) {
-        @content;
-    }
-}
-
-// should be removed in future releases
-// kept as legacy support
-@mixin after-mobile {
-    @include desktop {
         @content;
     }
 }
