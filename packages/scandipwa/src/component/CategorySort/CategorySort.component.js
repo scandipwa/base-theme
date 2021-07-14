@@ -19,7 +19,7 @@ import './CategorySort.style';
 
 /**
  * Product Sort
- * @class ProductSort
+ * @class CategorySort
  * @namespace Component/CategorySort/Component
  */
 export class CategorySort extends PureComponent {

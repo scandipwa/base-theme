@@ -9,6 +9,7 @@
  * @link https://github.com/scandipwa/base-theme
  */
 import {
+    SET_AGREEMENTS_STATUS,
     UPDATE_EMAIL,
     UPDATE_EMAIL_AVAILABLE,
     UPDATE_SHIPPING_FIELDS
@@ -18,7 +19,8 @@ import {
 export const getInitialState = () => ({
     shippingFields: {},
     email: '',
-    isEmailAvailable: true
+    isEmailAvailable: true,
+    isAllRequiredAgreementsSelected: false
 });
 
 /** @namespace Store/Checkout/Reducer/checkoutReducer */
@@ -44,6 +46,12 @@ export const CheckoutReducer = (state = getInitialState(), action) => {
         return {
             ...state,
             isEmailAvailable
+        };
+
+    case SET_AGREEMENTS_STATUS:
+        return {
+            ...state,
+            isAllRequiredAgreementsSelected: action.isAllRequiredAgreementsSelected
         };
 
     default:

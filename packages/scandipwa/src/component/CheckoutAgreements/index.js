@@ -9,17 +9,4 @@
  * @link https://github.com/scandipwa/base-theme
  */
 
-.CheckoutBilling {
-    &-Checkbox {
-        display: inline-block;
-        margin-bottom: 2.4rem;
-
-        @include mobile {
-            margin-bottom: 2.8rem;
-        }
-
-        + .CheckoutAddressBook {
-            margin-top: 0;
-        }
-    }
-}
+export { default } from './CheckoutAgreements.container';
