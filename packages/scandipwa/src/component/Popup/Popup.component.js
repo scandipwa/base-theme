@@ -71,7 +71,7 @@ export class Popup extends Overlay {
                 popupOpen: true
             },
             '',
-            location.pathname
+            `${location.pathname}${location.search}${location.hash}`
         );
 
         onVisible();
