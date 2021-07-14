@@ -18,6 +18,7 @@ import { showNotification } from 'Store/Notification/Notification.action';
 import { showPopup } from 'Store/Popup/Popup.action';
 import { ProductType } from 'Type/ProductList';
 import { isSignedIn } from 'Util/Auth';
+import { getErrorMessage } from 'Util/Request';
 
 import MyAccountMyWishlist from './MyAccountMyWishlist.component';
 
@@ -101,7 +102,7 @@ export class MyAccountMyWishlistContainer extends PureComponent {
             /** @namespace Component/MyAccountMyWishlist/Container/moveWishlistToCartThen */
             () => this.showNotificationAndRemoveLoading('Available items moved to cart'),
             /** @namespace Component/MyAccountMyWishlist/Container/moveWishlistToCartCatch */
-            () => this.showErrorAndRemoveLoading('Failed to add items to cart')
+            (error) => this.showErrorAndRemoveLoading(getErrorMessage(error))
         );
     };
 
