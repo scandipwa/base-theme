@@ -100,7 +100,7 @@ export class MyAccountCreateAccount extends PureComponent {
             <fieldset block="MyAccountOverlay" elem="Legend">
                 <legend>{ __('Sign-Up Information') }</legend>
                 <Field
-                  type="text"
+                  type="email"
                   label={ __('Email') }
                   id="email"
                   name="email"

@@ -88,6 +88,7 @@ export class CheckoutGuestForm extends FieldForm {
             guest_email: {
                 form: formId,
                 label: __('Email'),
+                type: 'email',
                 validation: ['notEmpty', 'email'],
                 onChange: handleEmailInput,
                 skipValue: true,

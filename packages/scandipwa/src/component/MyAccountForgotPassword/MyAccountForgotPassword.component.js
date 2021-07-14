@@ -38,7 +38,7 @@ export class MyAccountForgotPassword extends PureComponent {
               onSubmitError={ onFormError }
             >
                 <Field
-                  type="text"
+                  type="email"
                   id="email"
                   name="email"
                   label={ __('Email') }

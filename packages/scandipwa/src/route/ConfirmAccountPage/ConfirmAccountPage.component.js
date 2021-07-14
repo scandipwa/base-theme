@@ -52,7 +52,7 @@ export class ConfirmAccountPage extends PureComponent {
                     `Password forms should have (optionally hidden) username fields for accessibility`
                 */ }
                 <Field
-                  type="text"
+                  type="email"
                   label={ __('Email') }
                   id="email"
                   name="email"
