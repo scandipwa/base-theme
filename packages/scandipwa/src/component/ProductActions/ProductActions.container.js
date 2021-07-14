@@ -31,6 +31,8 @@ import { DEFAULT_MAX_PRODUCTS, ONE_HUNDRED_PERCENT } from './ProductActions.conf
 export const mapStateToProps = (state) => ({
     groupedProductQuantity: state.ProductReducer.groupedProductQuantity,
     device: state.ConfigReducer.device,
+    isPriceAlertEnabled: state.ConfigReducer.product_alert_allow_price,
+    isInStockAlertEnabled: state.ConfigReducer.product_alert_allow_stock,
     displayProductStockStatus: state.ConfigReducer.display_product_stock_status,
     isWishlistEnabled: state.ConfigReducer.wishlist_general_active
 });

@@ -16,6 +16,7 @@ import AddToCart from 'Component/AddToCart';
 import Field from 'Component/Field';
 import GroupedProductList from 'Component/GroupedProductList';
 import Html from 'Component/Html';
+import ProductAlerts from 'Component/ProductAlerts';
 import ProductBundleItems from 'Component/ProductBundleItems';
 import { OUT_OF_STOCK } from 'Component/ProductCard/ProductCard.config';
 import ProductCompareButton from 'Component/ProductCompareButton';
@@ -77,6 +78,8 @@ export class ProductActions extends PureComponent {
         stockMeta: PropTypes.string.isRequired,
         metaLink: PropTypes.string.isRequired,
         device: DeviceType.isRequired,
+        isPriceAlertEnabled: PropTypes.bool.isRequired,
+        isInStockAlertEnabled: PropTypes.bool.isRequired,
         isWishlistEnabled: PropTypes.bool.isRequired,
         displayProductStockStatus: PropTypes.bool.isRequired
     };
@@ -672,6 +675,43 @@ export class ProductActions extends PureComponent {
         );
     }
 
+    renderProductAlerts() {
+        const {
+            areDetailsLoaded,
+            configurableVariantIndex,
+            isInStockAlertEnabled,
+            isPriceAlertEnabled,
+            product,
+            product: { variants }
+        } = this.props;
+
+        if (
+            (!isInStockAlertEnabled && !isPriceAlertEnabled)
+            || !areDetailsLoaded
+        ) {
+            return null;
+        }
+
+        const productOrVariant = variants && variants[configurableVariantIndex] !== undefined
+            ? variants[configurableVariantIndex]
+            : product;
+
+        const { id, stock_status } = productOrVariant;
+
+        return (
+            <section
+              block="ProductActions"
+              elem="Section"
+              mods={ { type: 'alerts' } }
+            >
+                <ProductAlerts
+                  productId={ id }
+                  stockStatus={ stock_status }
+                />
+            </section>
+        );
+    }
+
     render() {
         return (
             <article block="ProductActions">
@@ -698,6 +738,7 @@ export class ProductActions extends PureComponent {
                     { this.renderBundleItems() }
                     { this.renderGroupedItems() }
                     { this.renderTierPrices() }
+                    { this.renderProductAlerts() }
             </article>
         );
     }

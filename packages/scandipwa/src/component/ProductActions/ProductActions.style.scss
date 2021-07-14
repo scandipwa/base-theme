@@ -324,6 +324,16 @@
         }
 
         &_type {
+            &_alerts {
+                order: -2;
+                padding-left: 1rem;
+
+                @include after-mobile {
+                    order: 24;
+                    padding-left: 0;
+                }
+            }
+
             &_related {
                 border-top: 0;
                 padding: 1.8rem 0;
