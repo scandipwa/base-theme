@@ -172,6 +172,11 @@
         display: grid;
         grid-template-rows: max-content 1fr;
 
+        @include desktop {
+            overflow-y: scroll;
+            max-height: calc(100vh - var(--header-nav-height) - 40px);
+        }
+
         &_state {
             &_createAccount {
                 h4 {
