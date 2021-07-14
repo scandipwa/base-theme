@@ -156,8 +156,15 @@ export class Html extends PureComponent {
      */
     replaceImages({ attribs }) {
         const attributes = attributesToProps(attribs);
+        const { src, style, width } = attributes;
 
-        if (attribs.src) {
+        if (src && style) {
+            style.width = (width === undefined) ? 'auto' : `${width}px`;
+
+            return <img { ...attributes } alt="" />;
+        }
+
+        if (src) {
             return <Image { ...attributes } />;
         }
     }
