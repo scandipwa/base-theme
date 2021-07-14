@@ -177,6 +177,11 @@
         }
     }
 
+    &-ReviewButton {
+        margin-bottom: 10px;
+        color: var(--primary-base-color);
+    }
+
     &-Brand {
         text-transform: uppercase;
         color: var(--product-actions-option-border-color);

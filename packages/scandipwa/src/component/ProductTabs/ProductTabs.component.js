@@ -25,11 +25,7 @@ export class ProductTabs extends PureComponent {
             name: PropTypes.string.isRequired,
             render: PropTypes.func.isRequired
         })).isRequired,
-        defaultTab: PropTypes.number
-    };
-
-    static defaultProps = {
-        defaultTab: 0
+        defaultTab: PropTypes.number.isRequired
     };
 
     __construct(props) {
@@ -42,6 +38,14 @@ export class ProductTabs extends PureComponent {
         };
     }
 
+    componentDidUpdate(prevProps) {
+        const { defaultTab } = this.props;
+
+        if (defaultTab !== prevProps.defaultTab) {
+            this.handleChangeTab(defaultTab);
+        }
+    }
+
     onTabClick = (tab) => {
         const { tabs } = this.props;
         const { activeTab } = this.state;
@@ -49,11 +53,15 @@ export class ProductTabs extends PureComponent {
         const currentTab = tabs.findIndex(({ name }) => name === tab);
 
         if (activeTab !== currentTab) {
-            this.setState({
-                activeTab: currentTab
-            });
+            this.handleChangeTab(currentTab);
         }
     };
+
+    handleChangeTab(tab) {
+        this.setState({
+            activeTab: tab
+        });
+    }
 
     renderActiveTab() {
         const { tabs } = this.props;

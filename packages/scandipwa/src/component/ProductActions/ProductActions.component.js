@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+
 /**
  * ScandiPWA - Progressive Web App for Magento
  *
@@ -70,6 +72,7 @@ export class ProductActions extends PureComponent {
         getSelectedCustomizableOptions: PropTypes.func.isRequired,
         productOptionsData: PropTypes.object.isRequired,
         setBundlePrice: PropTypes.func.isRequired,
+        setProductTab: PropTypes.func.isRequired,
         productPrice: PriceType,
         productName: PropTypes.string,
         offerCount: PropTypes.number.isRequired,
@@ -278,7 +281,32 @@ export class ProductActions extends PureComponent {
                 <h2 block="ProductActions" elem="Title" itemProp="name">
                     <TextPlaceholder content={ name } length="medium" />
                 </h2>
+                { this.renderReviewButton() }
             </section>
+        );
+    }
+
+    renderReviewButton() {
+        const {
+            setProductTab,
+            product: {
+                review_count
+            }
+        } = this.props;
+
+        if (review_count !== 0) {
+            return null;
+        }
+
+        return (
+            <button
+              block="ProductActions"
+              elem="ReviewButton"
+              itemProp="button"
+              onClick={ () => setProductTab(2) }
+            >
+                { __('Be the first to review this product') }
+            </button>
         );
     }
 
