@@ -26,6 +26,7 @@ import TierPrices from 'Component/TierPrices';
 import { GRID_LAYOUT, LIST_LAYOUT } from 'Route/CategoryPage/CategoryPage.config';
 import { DeviceType } from 'Type/Device';
 import { ProductType } from 'Type/ProductList';
+import { formatPrice, roundPrice } from 'Util/Price';
 import { BUNDLE, CONFIGURABLE, GROUPED } from 'Util/Product';
 
 import {
@@ -162,6 +163,92 @@ export class ProductCard extends Component {
         );
     }
 
+    renderBundlePriceBadge(bounds) {
+        const {
+            product: { type_id, price_view }
+        } = this.props;
+
+        if (type_id !== BUNDLE) {
+            return null;
+        }
+
+        // eslint-disable-next-line
+        let bundleBadgeLabel;
+
+        if (bounds === 'bottom') {
+            bundleBadgeLabel = 'From';
+
+            if (price_view !== 'PRICE_RANGE') {
+                bundleBadgeLabel = 'As low as';
+            }
+        }
+
+        if (bounds === 'top') {
+            bundleBadgeLabel = 'To';
+        }
+
+        return (
+            <p
+              mix={ {
+                  block: 'ProductCard',
+                  elem: 'PriceBadge'
+              } }
+            >
+                { __(bundleBadgeLabel) }
+            </p>
+        );
+    }
+
+    renderOldMaxBundlePrice() {
+        const {
+            product: { price_range }
+        } = this.props;
+
+        const oldMaxBundlePrice = `${ price_range.maximum_price.regular_price.value }`;
+        const finalMaxBundlePrice = `${ price_range.maximum_price.final_price.value }`;
+
+        if (finalMaxBundlePrice === oldMaxBundlePrice) {
+            return null;
+        }
+
+        return (
+            <del
+              block="ProductPrice"
+              elem="HighPrice"
+              aria-label={ __('Old product price') }
+            >
+                { roundPrice(`${ oldMaxBundlePrice }`) }
+            </del>
+        );
+    }
+
+    renderMaxBundlePrice() {
+        const {
+            product: { price_range }
+        } = this.props;
+
+        const oldMaxBundlePrice = `${ price_range.maximum_price.regular_price.value }`;
+        const finalMaxBundlePrice = `${ price_range.maximum_price.final_price.value }`;
+
+        return (
+            <p
+              aria-label={ __(`'Maximal product price: ${ finalMaxBundlePrice }'`) }
+                // eslint-disable-next-line react/forbid-component-props
+              className="ProductPrice"
+              mods={ { hasDiscount: finalMaxBundlePrice !== oldMaxBundlePrice } }
+              block="ProductCard"
+              elem="Price"
+            >
+                <ins>
+                   <span>
+                        { formatPrice(`${ finalMaxBundlePrice }`) }
+                   </span>
+                </ins>
+                { this.renderOldMaxBundlePrice() }
+            </p>
+        );
+    }
+
     renderEmptyProductPrice() {
         return (
             <div
@@ -174,7 +261,12 @@ export class ProductCard extends Component {
 
     renderProductPrice() {
         const {
-            product: { price_range, type_id },
+            product: {
+                price_range,
+                type_id,
+                price_view,
+                dynamic_price
+            },
             isConfigurableProductOutOfStock,
             isBundleProductOutOfStock
         } = this.props;
@@ -196,6 +288,34 @@ export class ProductCard extends Component {
             break;
         default:
             break;
+        }
+
+        if (type_id === BUNDLE) {
+            if (price_view === 'PRICE_RANGE' && dynamic_price) {
+                return (
+                    <div block="ProductCard" elem="PriceWrapper">
+                        { this.renderBundlePriceBadge('bottom') }
+                        <ProductPrice
+                          price={ price_range }
+                          mix={ { block: 'ProductCard', elem: 'Price' } }
+                        />
+                        { this.renderBundlePriceBadge('top') }
+                        { this.renderMaxBundlePrice() }
+                    </div>
+                );
+            }
+
+            if (price_view === 'AS_LOW_AS') {
+                return (
+                    <div block="ProductCard" elem="PriceWrapper">
+                        { this.renderBundlePriceBadge('bottom') }
+                        <ProductPrice
+                          price={ price_range }
+                          mix={ { block: 'ProductCard', elem: 'Price' } }
+                        />
+                    </div>
+                );
+            }
         }
 
         return (
@@ -236,13 +356,13 @@ export class ProductCard extends Component {
 
     renderImageVisualOption(label, value, i) {
         return (
-          <img
-            key={ i }
-            block="ProductCard"
-            elem="Image"
-            src={ `/media/attribute/swatch/swatch_thumb/110x90${value}` }
-            alt={ label }
-          />
+            <img
+              key={ i }
+              block="ProductCard"
+              elem="Image"
+              src={ `/media/attribute/swatch/swatch_thumb/110x90${value}` }
+              alt={ label }
+            />
         );
     }
 
@@ -485,7 +605,7 @@ export class ProductCard extends Component {
               onClick={ this.registerSharedElement }
               mix={ mix }
             >
-              { children }
+                { children }
             </Link>
         );
     }

@@ -212,13 +212,17 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        flex-grow: 1;
+        flex-grow: 0;
     }
 
     &-Price {
         width: 100%;
         @include after-mobile {
             font-size: 2rem;
+        }
+
+        &_hasDiscount {
+            color: var(--price-with-discount-color);
         }
     }
 
