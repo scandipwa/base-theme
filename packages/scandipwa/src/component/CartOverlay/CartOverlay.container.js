@@ -118,6 +118,7 @@ export class CartOverlayContainer extends PureComponent {
         if (guest_checkout || isSignedIn()) {
             hideActiveOverlay();
             history.push({ pathname: appendWithStoreCode(CHECKOUT_URL) });
+            window.scrollTo({ top: 0 });
             return;
         }
 
