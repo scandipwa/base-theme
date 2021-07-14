@@ -419,8 +419,13 @@ export class Header extends NavigationAbstract {
             onSignIn
         } = this.props;
 
+        // This is here to prevent the popup-suspense from rendering
+        if (!showMyAccountLogin) {
+            return null;
+        }
+
         return (
-            <Suspense fallback={ showMyAccountLogin ? this.renderAccountOverlayFallback() : null }>
+            <Suspense fallback={ this.renderAccountOverlayFallback() }>
                 <MyAccountOverlay
                   onSignIn={ onSignIn }
                   isCheckout={ isCheckout }
